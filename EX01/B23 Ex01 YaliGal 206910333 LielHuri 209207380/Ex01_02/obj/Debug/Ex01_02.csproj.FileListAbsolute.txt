@@ -1,0 +1,7 @@
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\B23 Ex01 Yali 206910333 Liel 209207380\Ex01_02\bin\Debug\Ex01_02.exe.config
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\B23 Ex01 Yali 206910333 Liel 209207380\Ex01_02\bin\Debug\Ex01_02.exe
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\B23 Ex01 Yali 206910333 Liel 209207380\Ex01_02\bin\Debug\Ex01_02.pdb
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\B23 Ex01 Yali 206910333 Liel 209207380\Ex01_02\obj\Debug\Ex01_02.csproj.AssemblyReference.cache
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\B23 Ex01 Yali 206910333 Liel 209207380\Ex01_02\obj\Debug\Ex01_02.csproj.CoreCompileInputs.cache
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\B23 Ex01 Yali 206910333 Liel 209207380\Ex01_02\obj\Debug\Ex01_02.exe
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\B23 Ex01 Yali 206910333 Liel 209207380\Ex01_02\obj\Debug\Ex01_02.pdb

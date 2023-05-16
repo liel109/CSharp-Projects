@@ -1,0 +1,16 @@
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\bin\Debug\net5.0\ConsoleApp1.exe
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\bin\Debug\net5.0\ConsoleApp1.deps.json
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\bin\Debug\net5.0\ConsoleApp1.runtimeconfig.json
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\bin\Debug\net5.0\ConsoleApp1.runtimeconfig.dev.json
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\bin\Debug\net5.0\ConsoleApp1.dll
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\bin\Debug\net5.0\ref\ConsoleApp1.dll
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\bin\Debug\net5.0\ConsoleApp1.pdb
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\obj\Debug\net5.0\ConsoleApp1.csproj.AssemblyReference.cache
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\obj\Debug\net5.0\ConsoleApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\obj\Debug\net5.0\ConsoleApp1.AssemblyInfoInputs.cache
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\obj\Debug\net5.0\ConsoleApp1.AssemblyInfo.cs
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\obj\Debug\net5.0\ConsoleApp1.csproj.CoreCompileInputs.cache
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\obj\Debug\net5.0\ConsoleApp1.dll
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\obj\Debug\net5.0\ref\ConsoleApp1.dll
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\obj\Debug\net5.0\ConsoleApp1.pdb
+C:\Users\liell\Documents\IDC\2nd Year\C#\EX01\grade\B23 Ex01 YaliGal 206910333 LielHuri 209207380\ConsoleApp1\obj\Debug\net5.0\ConsoleApp1.genruntimeconfig.cache
