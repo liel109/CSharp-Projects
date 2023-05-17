@@ -1,49 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex02
 {
     class View
     {
-        internal void initScreen()
+        static internal void initScreen()
         {
 
         }
 
-        internal void updateBoard(int[,] i_GameBoard)
+        static internal void updateBoard(int[,] i_GameBoard)
         {
 
         }
 
-        internal void RaiseInputInvalidError(string i_ErrorMessage)
+        static internal void RaiseInputInvalidError(string i_ErrorMessage)
         {
 
         }
 
-        internal void DeclareWinner(string[] i_Players)
+        static internal void DeclareWinner(string[] i_Players)
         {
 
         }
 
-        internal string getCoordinateFromUser()
-        {
-            return "";
-        }
-
-        internal string getBoardSizeFromUser()
+        static internal string getCoordinateFromUser()
         {
             return "";
         }
 
-        internal string getPlayerType()
+        static internal string getBoardSizeFromUser()
         {
             return "";
         }
 
-        internal string getUserNewGameInput()
+        static internal string getPlayerType()
+        {
+            return "";
+        }
+
+        static internal string getUserNewGameInput()
         {
             return "";
         }
