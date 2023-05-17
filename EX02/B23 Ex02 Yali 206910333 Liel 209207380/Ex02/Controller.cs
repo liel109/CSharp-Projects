@@ -49,9 +49,9 @@ namespace Ex02
             return 0;
         }
 
-        private static Players getPlayerTypeInputFromUser()
+        private static PlayerMarks getPlayerTypeInputFromUser()
         {
-            return Players.NONE;
+            return PlayerMarks.NONE;
         }
         
     }

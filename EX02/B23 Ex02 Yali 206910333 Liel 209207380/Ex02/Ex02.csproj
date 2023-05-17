@@ -42,8 +42,13 @@
     <Compile Include="Game.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="Players.cs" />
+    <Compile Include="PlayerMarks.cs" />
     <Compile Include="View.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Ex02.ConsoleUtils">
+      <HintPath>..\..\ConsoleUtils\Ex02.ConsoleUtils.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,19 +8,32 @@ namespace Ex02
 {
     class Board
     {
-        private Players[,] m_BoardMatrix;
+        private PlayerMarks[,] m_BoardMatrix;
 
         public Board(int i_BoardSize)
         {
-            m_BoardMatrix = new Players[i_BoardSize, i_BoardSize];
+            m_BoardMatrix = new PlayerMarks[i_BoardSize, i_BoardSize];
+            
+            for(int i = 0; i < m_BoardMatrix.GetLength(0); i++) 
+            {
+                for (int j = 0; j < m_BoardMatrix.GetLength(1); j++)
+                {
+                    m_BoardMatrix[i, j] = PlayerMarks.NONE;
+                }
+            }
         }
 
-        internal Players getPlayerAt((int, int) i_Coordinate)
+        internal PlayerMarks[,] getBoardClone()
+        {
+            return null;
+        }
+
+        internal PlayerMarks getPlayerAt((int, int) i_Coordinate)
         {
             return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2];
         }
 
-        internal void setPlayerAt((int,int) i_Coordinate, Players i_Player)
+        internal void setPlayerAt((int,int) i_Coordinate, PlayerMarks i_Player)
         {
             if (isCellEmpty(i_Coordinate))
             {
@@ -34,7 +47,7 @@ namespace Ex02
 
         private bool isCellEmpty((int,int) i_Coordinate)
         {
-            return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] == Players.NONE;
+            return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] == PlayerMarks.NONE;
         }
 
         /**
@@ -48,7 +61,7 @@ namespace Ex02
             {
                 for(int j=0; j<m_BoardMatrix.Length; j++)
                 {
-                    m_BoardMatrix[i, j] = Players.NONE;
+                    m_BoardMatrix[i, j] = PlayerMarks.NONE;
                 }
             }
         }

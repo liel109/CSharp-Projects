@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Ex02
 {
-    enum Players
+    enum PlayerMarks
     {
-        NONE,
+        NONE = ' ',
+        Player1 = 'X',
+        Player2 = 'O',
     }
 }

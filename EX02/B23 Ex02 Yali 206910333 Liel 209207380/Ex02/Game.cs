@@ -15,7 +15,7 @@ namespace Ex02
 
         }
 
-        internal bool UpdateBoard(Tuple<int, int> i_Coordinate, Players i_Player)
+        internal bool UpdateBoard(Tuple<int, int> i_Coordinate, PlayerMarks i_Player)
         {
             return false;
         }

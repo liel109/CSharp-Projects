@@ -1,5 +1,8 @@
+*.json
 *.zip
 *.docx
 *.exe
 *.pdf
+*.txt
+*.cache
 
