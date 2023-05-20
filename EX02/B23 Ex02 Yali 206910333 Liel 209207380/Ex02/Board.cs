@@ -25,7 +25,7 @@ namespace Ex02
 
         internal PlayerMarks[,] getBoardClone()
         {
-            return null;
+            return m_BoardMatrix;
         }
 
         internal PlayerMarks getPlayerAt((int, int) i_Coordinate)
@@ -35,19 +35,31 @@ namespace Ex02
 
         internal void setPlayerAt((int,int) i_Coordinate, PlayerMarks i_Player)
         {
-            if (isCellEmpty(i_Coordinate))
+            if (isIndexOutOfBounds(i_Coordinate))
             {
-                m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] = i_Player;
+                throw new IndexOutOfRangeException();
             }
             else
             {
-                throw new AccessViolationException();
+                if (isCellEmpty(i_Coordinate))
+                {
+                    m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] = i_Player;
+                }
+                else
+                {
+                    throw new AccessViolationException();
+                }
             }
         }
 
         private bool isCellEmpty((int,int) i_Coordinate)
         {
             return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] == PlayerMarks.NONE;
+        }
+
+        private bool isIndexOutOfBounds((int,int) i_Cordinate)
+        {
+            return (i_Cordinate.Item1 >= m_BoardMatrix.GetLength(0)) | (i_Cordinate.Item1 >= m_BoardMatrix.GetLength(0));
         }
 
         /**
@@ -57,13 +69,19 @@ namespace Ex02
          */
         internal void ResetMatrix()
         {
-            for(int i=0; i<m_BoardMatrix.Length; i++)
+            int boardSize = m_BoardMatrix.GetLength(0);
+            for(int i=0; i<boardSize; i++)
             {
-                for(int j=0; j<m_BoardMatrix.Length; j++)
+                for(int j=0; j<boardSize; j++)
                 {
                     m_BoardMatrix[i, j] = PlayerMarks.NONE;
                 }
             }
+        }
+
+        internal int GetSize()
+        {
+            return m_BoardMatrix.GetLength(0);
         }
     }
 }
