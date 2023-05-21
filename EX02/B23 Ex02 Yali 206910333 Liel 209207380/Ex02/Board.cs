@@ -1,39 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex02
 {
-    class Board
+    public class Board
     {
-        private PlayerMarks[,] m_BoardMatrix;
+        private ePlayerMarks[,] m_BoardMatrix;
 
         public Board(int i_BoardSize)
         {
-            m_BoardMatrix = new PlayerMarks[i_BoardSize, i_BoardSize];
+            m_BoardMatrix = new ePlayerMarks[i_BoardSize, i_BoardSize];
             
             for(int i = 0; i < m_BoardMatrix.GetLength(0); i++) 
             {
                 for (int j = 0; j < m_BoardMatrix.GetLength(1); j++)
                 {
-                    m_BoardMatrix[i, j] = PlayerMarks.NONE;
+                    m_BoardMatrix[i, j] = ePlayerMarks.NONE;
                 }
             }
         }
 
-        internal PlayerMarks[,] getBoardClone()
+        internal ePlayerMarks[,] getBoardClone()
         {
             return m_BoardMatrix;
         }
 
-        internal PlayerMarks getPlayerAt((int, int) i_Coordinate)
+        public ePlayerMarks GetPlayerAt((int, int) i_Coordinate)
         {
             return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2];
         }
 
-        internal void setPlayerAt((int,int) i_Coordinate, PlayerMarks i_Player)
+        internal void setPlayerAt((int,int) i_Coordinate, ePlayerMarks i_Player)
         {
             if (isIndexOutOfBounds(i_Coordinate))
             {
@@ -52,9 +48,9 @@ namespace Ex02
             }
         }
 
-        private bool isCellEmpty((int,int) i_Coordinate)
+        internal bool isCellEmpty((int,int) i_Coordinate)
         {
-            return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] == PlayerMarks.NONE;
+            return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] == ePlayerMarks.NONE;
         }
 
         private bool isIndexOutOfBounds((int,int) i_Cordinate)
@@ -74,12 +70,12 @@ namespace Ex02
             {
                 for(int j=0; j<boardSize; j++)
                 {
-                    m_BoardMatrix[i, j] = PlayerMarks.NONE;
+                    m_BoardMatrix[i, j] = ePlayerMarks.NONE;
                 }
             }
         }
 
-        internal int GetSize()
+        public int GetSize()
         {
             return m_BoardMatrix.GetLength(0);
         }

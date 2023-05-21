@@ -1,29 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex02
 {
-    class Game
+    public class Game
     {
+        private const int k_MaxBoardSize = 9;
+        private const int k_MinBoardSize = 3;
+
         private Board m_GameBoard;
+        private Player[] m_Players;
+
+        private ePlayerMarks m_LastUpdatedPlayerMark;
+        private (int, int) m_LastUpdatedCoordinate;
+
+        public Player[] Players
+        {
+            get 
+            {
+                return m_Players;
+            }
+        }
 
         public Game(int i_BoardSize)
         {
             m_GameBoard = new Board(i_BoardSize);
+            m_LastUpdatedPlayerMark = ePlayerMarks.NONE;
         }
 
-        internal bool UpdateBoard((int, int) i_Coordinate, PlayerMarks i_Player)
+        public bool DoNextTurn((int, int) i_Coordinate, out bool i_IsGameFinished)
+        {
+            i_IsGameFinished = true;
+            return true;
+        }
+
+        public Board getBoardState()
+        {
+            return m_GameBoard;
+        }
+
+        public void ResetBoard()
+        {
+            m_GameBoard.ResetMatrix();
+        }
+
+        public bool UpdateBoard((int, int) i_Coordinate, ePlayerMarks i_PlayerMark)
         {
             bool moveSucceded = true;
 
             try
             {
-                m_GameBoard.setPlayerAt(i_Coordinate, i_Player);
-
+                m_GameBoard.setPlayerAt(i_Coordinate, i_PlayerMark);
+                m_LastUpdatedCoordinate = i_Coordinate;
+                m_LastUpdatedPlayerMark = i_PlayerMark;
             }
             catch (AccessViolationException)
             {
@@ -37,37 +65,38 @@ namespace Ex02
             return moveSucceded;
         }
 
-        internal bool IsGameFinished((int, int) i_Coordinate, PlayerMarks i_player)
+        private bool IsGameFinished()
         {
-            int rowIndex = i_Coordinate.Item1;
-            int columnIndex = i_Coordinate.Item2;
-            bool checkPrimaryDiagonal = isOnPrimaryDiagonal(i_Coordinate);
-            bool checkSecondaryDiagonal = isOnSecondaryDiagonal(i_Coordinate);
             bool isGameOver = false;
 
-            if (checkPrimaryDiagonal)
+            if (m_LastUpdatedPlayerMark != ePlayerMarks.NONE)
             {
-                isGameOver = isPrimaryDiagonalFull(i_player);
+                int rowIndex = m_LastUpdatedCoordinate.Item1;
+                int columnIndex = m_LastUpdatedCoordinate.Item2;
+
+                if (isOnPrimaryDiagonal(m_LastUpdatedCoordinate))
+                {
+                    isGameOver = isPrimaryDiagonalFull(m_LastUpdatedPlayerMark);
+                }
+
+                if (isOnSecondaryDiagonal(m_LastUpdatedCoordinate))
+                {
+                    isGameOver = isGameOver | isSecondaryDiagonalFull(m_LastUpdatedPlayerMark);
+                }
+
+                isGameOver = isGameOver | isRowFull(rowIndex, m_LastUpdatedPlayerMark) | isColumnFull(columnIndex, m_LastUpdatedPlayerMark);
             }
-
-            if (checkSecondaryDiagonal)
-            {
-                isGameOver = isGameOver | isSecondaryDiagonalFull(i_player);
-            }
-
-            isGameOver = isGameOver | isRowFull(rowIndex, i_player) | isColumnFull(columnIndex, i_player);
-
             return isGameOver;
 
         }
 
-        private bool isPrimaryDiagonalFull(PlayerMarks i_player)
+        private bool isPrimaryDiagonalFull(ePlayerMarks i_player)
         {
             bool isGameOver = true;
 
             for (int index = 0; index < m_GameBoard.GetSize(); index++)
             {
-                if (!m_GameBoard.getPlayerAt((index, index)).Equals(i_player))
+                if (!m_GameBoard.GetPlayerAt((index, index)).Equals(i_player))
                 {
                     isGameOver = false;
                     break;
@@ -77,14 +106,14 @@ namespace Ex02
             return isGameOver;
         }
 
-        private bool isRowFull(int i_Row, PlayerMarks i_player)
+        private bool isRowFull(int i_Row, ePlayerMarks i_player)
         {
             bool isGameOver = true;
 
             for (int column = 0; column < m_GameBoard.GetSize(); column++)
             {
 
-                if (!m_GameBoard.getPlayerAt((i_Row, column)).Equals(i_player))
+                if (!m_GameBoard.GetPlayerAt((i_Row, column)).Equals(i_player))
                 {
                     isGameOver = false;
                     break;
@@ -95,32 +124,31 @@ namespace Ex02
             return isGameOver;
         }
 
-        private bool isColumnFull(int i_Column, PlayerMarks i_player)
+        private bool isColumnFull(int i_Column, ePlayerMarks i_player)
         {
             bool isGameOver = true;
 
             for (int row = 0; row < m_GameBoard.GetSize(); row++)
             {
-                if (!m_GameBoard.getPlayerAt((row, i_Column)).Equals(i_player))
+                if (!m_GameBoard.GetPlayerAt((row, i_Column)).Equals(i_player))
                 {
                     isGameOver = false;
                     break;
                 }
-
             }
 
             return isGameOver;
         }
 
-        private bool isSecondaryDiagonalFull(PlayerMarks i_player)
+        private bool isSecondaryDiagonalFull(ePlayerMarks i_player)
         {
             bool isGameOver = true;
-            int columnIndex = 0;
+            int columnIndex;
 
             for (int rowIndex = 0; rowIndex < m_GameBoard.GetSize(); rowIndex++)
             {
                 columnIndex = m_GameBoard.GetSize() - rowIndex - 1;
-                if (!m_GameBoard.getPlayerAt((rowIndex, columnIndex)).Equals(i_player))
+                if (!m_GameBoard.GetPlayerAt((rowIndex, columnIndex)).Equals(i_player))
                 {
                     isGameOver = false;
                     break;
@@ -144,20 +172,21 @@ namespace Ex02
             int columnIndex = i_Cordinate.Item2;
 
             return (rowIndex + columnIndex) == (m_GameBoard.GetSize() - 1);
-
         }
 
-
-
-        internal PlayerMarks[,] getBoardState()
+        private static bool isBoardSizeLegal(int i_BoardSize)
         {
-            return m_GameBoard.getBoardClone();
+            return (i_BoardSize >= k_MinBoardSize) && (i_BoardSize <= k_MaxBoardSize);
         }
 
-        internal void ResetBoard()
+        private bool isIndexLegal(int i_Index)
         {
-            m_GameBoard.ResetMatrix();
+            return i_Index <= m_GameBoard.GetSize() && i_Index >= 1;
         }
 
+        private bool isCoordinateLegal((int,int) i_Coordinate)
+        {
+            return m_GameBoard.isCellEmpty(i_Coordinate);
+        }
     }
 }

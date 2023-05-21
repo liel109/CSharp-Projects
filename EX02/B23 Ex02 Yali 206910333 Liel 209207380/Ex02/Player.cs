@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ex02
+﻿namespace Ex02
 {
-    class Player
+    public struct Player
     {
-        private PlayerMarks m_PlayerMark;
-        private int m_PlayerScore;
-        private string m_Name;
+        private ePlayerMarks m_Mark;
+        private ePlayerTypes m_Type;
+        private int m_Score;
 
-        public string Name
+        public ePlayerTypes Type
         {
-            get 
+            get
             {
-                return m_Name; 
+                return m_Type;
             }
         }
 
@@ -24,26 +18,28 @@ namespace Ex02
         {
             get
             {
-                return m_PlayerScore;
+                return m_Score;
             }
         }
 
-        public PlayerMarks Mark
+        public ePlayerMarks Mark
         {
             get
             {
-                return m_PlayerMark;
+                return m_Mark;
             }
         }
 
-        public Player(string i_PlayerName)
+        public Player(ePlayerTypes i_PlayerType, ePlayerMarks i_playerMark)
         {
-
+            m_Type = i_PlayerType;
+            m_Mark = i_playerMark;
+            m_Score = 0;
         }
 
-        internal void DoNextMove()
+        public void UpdateScore()
         {
-
+            m_Score++;
         }
     }
 }

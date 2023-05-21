@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{747BB328-AFFC-4966-AF9B-AA3926E29376}</ProjectGuid>
+    <ProjectGuid>{055B6E07-9AF2-4C68-B98E-82DB8C2E5370}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Ex02</RootNamespace>
-    <AssemblyName>Ex02</AssemblyName>
+    <RootNamespace>View</RootNamespace>
+    <AssemblyName>View</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,22 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AIPlayerLogic.cs" />
-    <Compile Include="Board.cs" />
-    <Compile Include="ePlayerTypes.cs" />
-    <Compile Include="Controller.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="Main.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="ePlayerMarks.cs" />
-    <Compile Include="View.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Ex02.ConsoleUtils">
-      <HintPath>..\..\ConsoleUtils\Ex02.ConsoleUtils.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
