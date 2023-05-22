@@ -29,23 +29,20 @@ namespace Ex02
             return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2];
         }
 
-        internal void setPlayerAt((int,int) i_Coordinate, ePlayerMarks i_Player)
+        internal bool setPlayerAt((int,int) i_Coordinate, ePlayerMarks i_Player)
         {
-            if (isIndexOutOfBounds(i_Coordinate))
+            bool moveSucceded;
+            if (isIndexOutOfBounds(i_Coordinate) || !isCellEmpty(i_Coordinate))
             {
-                throw new IndexOutOfRangeException();
+                moveSucceded= false;
             }
             else
             {
-                if (isCellEmpty(i_Coordinate))
-                {
-                    m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] = i_Player;
-                }
-                else
-                {
-                    throw new AccessViolationException();
-                }
+                m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] = i_Player;
+                moveSucceded = true;
             }
+
+            return moveSucceded;
         }
 
         internal bool isCellEmpty((int,int) i_Coordinate)
@@ -55,7 +52,7 @@ namespace Ex02
 
         private bool isIndexOutOfBounds((int,int) i_Cordinate)
         {
-            return (i_Cordinate.Item1 >= m_BoardMatrix.GetLength(0)) | (i_Cordinate.Item1 >= m_BoardMatrix.GetLength(0));
+            return (i_Cordinate.Item1 >= m_BoardMatrix.GetLength(0)) | (i_Cordinate.Item2 >= m_BoardMatrix.GetLength(0));
         }
 
         /**
