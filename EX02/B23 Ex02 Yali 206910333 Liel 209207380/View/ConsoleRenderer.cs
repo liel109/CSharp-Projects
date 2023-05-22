@@ -1,60 +1,18 @@
 ﻿using System;
 using System.Text;
 using Ex02.ConsoleUtils;
+using Ex02;
 
 namespace Ex02
 {
-    class View
+    class ConsoleRenderer
     {
-        public static void Main()
-        {
-            //Game game = new Game(5);
-            //int counter = 0;
-            //int row;
-            //int column;
-            //PlayerMarks player;
-            //while (true)
-            //{
-            //    if (counter % 2 == 0)
-            //    {
-            //        player = PlayerMarks.Player1;
-            //    }
-            //    else
-            //    {
-            //        player = PlayerMarks.Player2;
-            //    }
-
-            //    printBoard(game.getBoardState());
-            //    Console.WriteLine("enter row");
-            //    row = int.Parse(Console.ReadLine()) - 1;
-            //    Console.WriteLine("enter column");
-            //    column = int.Parse(Console.ReadLine()) - 1;
-            //    if (!game.UpdateBoard((row, column), player))
-            //    {
-            //        Console.WriteLine("error");
-            //        continue;
-            //    }
-            //    counter++;
-            //    if (game.IsGameFinished())
-            //    {
-            //        printBoard(game.getBoardState());
-            //        Console.WriteLine("game finished");
-            //        game.ResetBoard();
-            //        printBoard(game.getBoardState());
-            //        break;
-            //    }
-            //}
-            //DeclareWinner(new string[] { "Liel","10","Yali","4"});
-            //Console.WriteLine("Press Enter...");
-            //Console.ReadLine();
-        }
-
-        static internal void initScreen()
+        internal static void initScreen()
         {
             Console.WriteLine("Welcome to Reverse Tic-Tac-Toe!");
         }
 
-        static internal void printBoard(Board i_GameBoard)
+        internal static void printBoard(Board i_GameBoard)
         {
             int rowSeperationLength = i_GameBoard.GetSize() * 4 + 2;
 
@@ -139,40 +97,86 @@ Score Table:
 {2,8}{3,8}", i_Players[0], i_Players[1], i_Players[2], i_Players[3]));
         }
 
-        internal static (string, string) getCoordinateFromUser(Player player)
+        internal static (int, int) getCoordinateFromUser()
         {
-            Console.WriteLine($"{player.Type}, Please enter coordinates:");
             return (getRowFromUser(), getColumnFromUser());
         }
 
-        internal static string getRowFromUser()
+        internal static int getRowFromUser()
         {
-            Console.WriteLine("Enter Row: ");
-            return Console.ReadLine();
+            return AskUserForNumericInput("Enter Row: ", "Please Enter A Valid Row Number!");
         }
 
-        internal static string getColumnFromUser()
+        internal static int getColumnFromUser()
         {
-            Console.WriteLine("Enter Column: ");
-            return Console.ReadLine();
+            return AskUserForNumericInput("Enter Column: ", "Please Enter A Valid Column Number!");
+
         }
 
-        internal static string getBoardSizeFromUser()
+        internal static int AskUserForNumericInput(string i_MessageForUser, string i_InvalidInputMessage)
         {
-            Console.Write("Please Enter Board Size:");
-            return Console.ReadLine();
+            int userInput = 0;
+            bool isValid = false;
+            string userInputString;
+
+            Console.Write(i_MessageForUser);
+            while (!isValid)
+            {
+                userInputString = Console.ReadLine();
+                isValid = int.TryParse(userInputString, out userInput);
+
+                if (!isValid)
+                {
+                    Console.WriteLine(i_InvalidInputMessage);
+                }
+            }
+
+            return userInput;
         }
 
-        internal static string getPlayerType()
+        internal static ePlayerTypes getPlayerType(string i_MessageForUser, string i_InvalidInputMessage)
         {
-            Console.Write("Please Select Opponent (1-P2 , 2-CPU): ");
-            return Console.ReadLine();
+            bool isInputValid = false;
+            string userInput;
+            ePlayerTypes selectedPlayerType = ePlayerTypes.NONE;
+
+            Console.WriteLine(i_MessageForUser);
+            while (!isInputValid)
+            {
+                userInput = Console.ReadLine();
+
+                try
+                {
+                    selectedPlayerType = (ePlayerTypes)Enum.Parse(typeof(ePlayerTypes), userInput);
+                    isInputValid = true;
+                }
+                catch
+                {
+                    Console.WriteLine(i_InvalidInputMessage);
+                }
+            }
+
+            return selectedPlayerType;
         }
 
-        internal static string getUserNewGameInput()
+        internal static bool getUserNewGameInput()
         {
+            bool isInputValid = false;
+            string userInput = null;
+
             Console.Write("Do you wish to play again? (Y/N)");
-            return Console.ReadLine();
+            while (!isInputValid)
+            {
+                userInput = Console.ReadLine();
+                isInputValid = (userInput == "Y") || (userInput == "N");
+
+                if (!isInputValid)
+                {
+                    Console.WriteLine("Please Enter Y/N");
+                }
+            }
+
+            return userInput == "Y";
         }
     }
 }

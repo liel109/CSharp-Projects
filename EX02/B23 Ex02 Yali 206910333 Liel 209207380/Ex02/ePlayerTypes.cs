@@ -2,7 +2,8 @@
 {
     public enum ePlayerTypes
     {
-        USER,
-        CPU
+        NONE = 0,
+        USER = 1,
+        CPU = 2
     }
 }

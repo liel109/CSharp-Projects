@@ -22,38 +22,38 @@ namespace Ex02
             }
         }
 
-        public Game(int i_BoardSize, bool i_IsPlayerTwoCpu)
+        public Game(int i_BoardSize, ePlayerTypes i_SecondPlayerType)
         {
             m_GameBoard = new Board(i_BoardSize);
             m_NumberOfMovesCounter = 0;
             m_Players[0] = new Player(ePlayerTypes.USER, ePlayerMarks.Player1);
-            if (i_IsPlayerTwoCpu)
-            {
-                m_Players[1] = new Player(ePlayerTypes.CPU, ePlayerMarks.Player2);
-            }
-            else
-            {
-                m_Players[1] = new Player(ePlayerTypes.USER, ePlayerMarks.Player2);
-            }
+            m_Players[1] = new Player(i_SecondPlayerType, ePlayerMarks.Player2);
+            //if (i_IsPlayerTwoCpu)
+            //{
+            //    m_Players[1] = new Player(ePlayerTypes.CPU, ePlayerMarks.Player2);
+            //}
+            //else
+            //{
+            //    m_Players[1] = new Player(ePlayerTypes.USER, ePlayerMarks.Player2);
+            //}
         }
-
         
-        public bool DoNextGameMove((int, int) i_Coordinate, out bool i_IsGameFinished)
+        public bool DoNextGameMove((int, int) i_Coordinate, out bool o_IsGameFinished)
         {
             bool isLegalCoordinate = updateBoard(i_Coordinate, getCurrentPlayerMark());
 
             if (!isLegalCoordinate)
             {
-                i_IsGameFinished = false;
+                o_IsGameFinished = false;
             }
             else
             {
-                i_IsGameFinished = IsGameFinished();
+                o_IsGameFinished = IsGameFinished();
                 m_NumberOfMovesCounter++;
-                if (!i_IsGameFinished && getCurrentPlayerType() == ePlayerTypes.CPU)
+                if (!o_IsGameFinished && getCurrentPlayerType() == ePlayerTypes.CPU)
                 {
                     updateBoard(AIPlayerLogic.getCoordinate(m_GameBoard), getCurrentPlayerMark());
-                    i_IsGameFinished = IsGameFinished();
+                    o_IsGameFinished = IsGameFinished();
                     m_NumberOfMovesCounter++;
                 }
             }
