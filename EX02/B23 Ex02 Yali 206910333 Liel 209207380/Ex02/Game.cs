@@ -12,6 +12,7 @@ namespace Ex02
         private Player[] m_Players = new Player[k_NumberOfPlayers];
         private int m_NumberOfMovesCounter;
         private (int, int) m_LastUpdatedCoordinate;
+        private int m_NumberOfEmptySpace;
 
 
         public Player[] Players
@@ -26,6 +27,7 @@ namespace Ex02
         {
             m_GameBoard = new Board(i_BoardSize);
             m_NumberOfMovesCounter = 0;
+            m_NumberOfEmptySpace = m_GameBoard.GetSize()^2;
             m_Players[0] = new Player(ePlayerTypes.USER, ePlayerMarks.Player1);
             m_Players[1] = new Player(i_SecondPlayerType, ePlayerMarks.Player2);
             //if (i_IsPlayerTwoCpu)
@@ -78,6 +80,7 @@ namespace Ex02
             if (isCordinateLegal)
             {
                 m_LastUpdatedCoordinate = i_Coordinate;
+                m_NumberOfEmptySpace--;
             }
 
             return isCordinateLegal;
@@ -118,6 +121,7 @@ namespace Ex02
         private bool IsGameFinished()
         {
             bool isGameOver = false;
+            bool isBoardFull = checkIfBoardIsFull();
             ePlayerMarks lastPlayerMark = getCurrentPlayerMark();
 
             if (lastPlayerMark != ePlayerMarks.NONE)
@@ -135,7 +139,7 @@ namespace Ex02
                     isGameOver = isGameOver | isSecondaryDiagonalFull(lastPlayerMark);
                 }
 
-                isGameOver = isGameOver | isRowFull(rowIndex, lastPlayerMark) | isColumnFull(columnIndex, lastPlayerMark);
+                isGameOver = isGameOver | isBoardFull | isRowFull(rowIndex, lastPlayerMark) | isColumnFull(columnIndex, lastPlayerMark);
             }
 
             return isGameOver;
@@ -207,6 +211,11 @@ namespace Ex02
             }
 
             return isGameOver;
+        }
+
+        private bool checkIfBoardIsFull()
+        {
+            return m_NumberOfEmptySpace == 0;
         }
 
         private bool isOnPrimaryDiagonal((int, int) i_Cordinate)
