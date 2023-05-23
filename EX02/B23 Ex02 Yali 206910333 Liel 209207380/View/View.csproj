@@ -38,7 +38,6 @@
   <ItemGroup>
     <Compile Include="GameRunner.cs" />
     <Compile Include="ConsoleRenderer.cs" />
-    <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Ex02.ConsoleUtils">

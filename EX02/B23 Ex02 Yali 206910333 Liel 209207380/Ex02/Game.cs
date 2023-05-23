@@ -251,11 +251,6 @@ namespace Ex02
             return i_Index <= m_GameBoard.GetSize() && i_Index >= 1;
         }
 
-        private bool isCoordinateLegal((int,int) i_Coordinate)
-        {
-            return m_GameBoard.isCellEmpty(i_Coordinate);
-        }
-
         public ePlayerMarks GetWinner()
         {
             ePlayerMarks winnerMark;

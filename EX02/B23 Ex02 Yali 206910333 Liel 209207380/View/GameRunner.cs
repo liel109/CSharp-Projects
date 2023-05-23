@@ -52,7 +52,7 @@ namespace View
         {
             bool isAnotherGameWanted = false;
 
-            ConsoleRenderer.DeclareWinner(s_Game.Players);
+            ConsoleRenderer.DeclareWinner(s_Game.GetWinner(), s_Game.Players);
             if (ConsoleRenderer.getUserNewGameInput())
             {
                 s_Game.ResetGame();
@@ -100,16 +100,14 @@ namespace View
 
         private static int getNewGameInputFromUser()
         {
-            string userNewGameInput = ConsoleRenderer.AskUserForInput("P")
+            return 0;
         }
 
         private static bool isValidIndexNumber(string i_UserInput)
         {
             int userIndexInput;
-            bool isNumericInput = int.TryParse(i_UserInput, out userIndexInput);
-            bool isIndexInBound = isNumericInput && (userIndexInput >= 1 && userIndexInput <= s_Game.GetBoardSize());
 
-            return isIndexInBound;
+            return int.TryParse(i_UserInput, out userIndexInput);
         }
 
         private static bool isValidPlayerTypeInput(string i_UserInput)

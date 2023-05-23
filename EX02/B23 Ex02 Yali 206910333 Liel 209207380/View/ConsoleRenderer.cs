@@ -58,13 +58,13 @@ namespace Ex02
             Console.WriteLine(i_ErrorMessage);
         }
 
-        internal static void DeclareWinner(Player[] i_Players)
+        internal static void DeclareWinner(ePlayerMarks i_WinnerMark, Player[] i_Players)
         {
             Console.WriteLine(String.Format(@"{0} is The Winner!
 Score Table:
 
-{0,8}{1,8}
-{2,8}{3,8}", i_Players[0].Type, i_Players[0].Score, i_Players[1].Type, i_Players[1].Score));
+{1,8}{2,8}
+{3,8}{4,8}", i_WinnerMark, i_Players[0].Mark, i_Players[0].Score, i_Players[1].Mark, i_Players[1].Score));
         }
 
         internal static bool getUserNewGameInput()
