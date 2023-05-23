@@ -63,9 +63,9 @@ namespace Ex02
         internal void ResetMatrix()
         {
             int boardSize = m_BoardMatrix.GetLength(0);
-            for(int i=0; i<boardSize; i++)
+            for (int i = 0; i < boardSize; i++)
             {
-                for(int j=0; j<boardSize; j++)
+                for (int j = 0; j < boardSize; j++)
                 {
                     m_BoardMatrix[i, j] = ePlayerMarks.NONE;
                 }

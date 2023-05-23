@@ -14,6 +14,21 @@ namespace Ex02
         private (int, int) m_LastUpdatedCoordinate;
         private int m_NumberOfEmptySpace;
 
+        public static int MaxBoardSize
+        {
+            get
+            {
+                return k_MaxBoardSize;
+            }
+        }
+
+        public static int MinBoardSize
+        {
+            get
+            {
+                return k_MinBoardSize;
+            }
+        }
 
         public Player[] Players
         {
@@ -71,6 +86,11 @@ namespace Ex02
         public void ResetGame()
         {
             m_GameBoard.ResetMatrix();
+        }
+
+        public int GetBoardSize()
+        {
+            return m_GameBoard.GetSize();
         }
 
         private bool updateBoard((int, int) i_Coordinate, ePlayerMarks i_PlayerMark)

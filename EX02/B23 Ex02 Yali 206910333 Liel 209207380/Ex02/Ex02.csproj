@@ -42,12 +42,9 @@
     <Compile Include="AIPlayerLogic.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="ePlayerTypes.cs" />
-    <Compile Include="Controller.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Main.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="ePlayerMarks.cs" />
-    <Compile Include="View.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
