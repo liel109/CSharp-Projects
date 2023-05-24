@@ -14,6 +14,24 @@ namespace Ex02
         private (int, int) m_LastUpdatedCoordinate;
         private int m_NumberOfEmptySpace;
 
+        public Game(int i_BoardSize, ePlayerTypes i_SecondPlayerType)
+        {
+            m_GameBoard = new Board(i_BoardSize);
+            m_NumberOfMovesCounter = 0;
+            m_NumberOfEmptySpace = m_GameBoard.GetSize() * m_GameBoard.GetSize();
+            m_Players[0] = new Player(ePlayerTypes.USER, ePlayerMarks.Player1);
+            m_Players[1] = new Player(i_SecondPlayerType, ePlayerMarks.Player2);
+        }
+
+        public Game(Board i_GameBoard, int i_NumberOfMovesCounter, int i_NumberOfEmptySpace)
+        {
+            m_GameBoard = i_GameBoard;
+            m_NumberOfMovesCounter = i_NumberOfMovesCounter;
+            m_NumberOfEmptySpace = i_NumberOfEmptySpace;
+            m_Players[0] = new Player(ePlayerTypes.CPU, ePlayerMarks.Player1);
+            m_Players[1] = new Player(ePlayerTypes.CPU, ePlayerMarks.Player2);
+        }
+
         public static int MaxBoardSize
         {
             get
@@ -32,26 +50,25 @@ namespace Ex02
 
         public Player[] Players
         {
-            get 
+            get
             {
                 return m_Players;
             }
         }
 
-        public Game(int i_BoardSize, ePlayerTypes i_SecondPlayerType)
+        public Game CloneGame()
         {
-            m_GameBoard = new Board(i_BoardSize);
-            m_NumberOfMovesCounter = 0;
-            m_NumberOfEmptySpace = m_GameBoard.GetSize() * m_GameBoard.GetSize();
-            m_Players[0] = new Player(ePlayerTypes.USER, ePlayerMarks.Player1);
-            m_Players[1] = new Player(i_SecondPlayerType, ePlayerMarks.Player2);
+            Board boardClone = m_GameBoard.CloneBoard();
+            Game gameClone = new Game(boardClone, m_NumberOfMovesCounter, m_NumberOfEmptySpace);
+
+            return gameClone;
         }
-        
+
         public bool DoNextGameMove((int, int) i_Coordinate, out bool o_IsGameFinished)
         {
-            (int,int) convertedCoordinate = convertCoordinate(i_Coordinate);
+            (int, int) convertedCoordinate = convertCoordinate(i_Coordinate);
             Player currentPlayer = getCurrentPlayer();
-            bool isLegalCoordinate = updateBoard(convertedCoordinate, currentPlayer.Mark);
+            bool isLegalCoordinate = UpdateBoard(convertedCoordinate, currentPlayer.Mark);
 
             if (!isLegalCoordinate)
             {
@@ -63,20 +80,12 @@ namespace Ex02
                 currentPlayer = getCurrentPlayer();
                 if (!o_IsGameFinished && currentPlayer.Type == ePlayerTypes.CPU)
                 {
-                    updateBoard(AIPlayerLogic.getCoordinate(m_GameBoard), currentPlayer.Mark);
+                    UpdateBoard(AIPlayerLogic.GetBestMove(CloneGame()), currentPlayer.Mark);
                     o_IsGameFinished = IsGameFinished();
                 }
             }
 
             return isLegalCoordinate;
-        }
-
-        private (int,int) convertCoordinate((int,int) i_Coordinate)
-        {
-            int rowIndex = i_Coordinate.Item1 - 1;
-            int columnIndex = i_Coordinate.Item2 - 1;
-
-            return(rowIndex, columnIndex);
         }
 
         public Board GetBoardState()
@@ -87,6 +96,8 @@ namespace Ex02
         public void ResetGame()
         {
             m_GameBoard.ResetMatrix();
+            m_NumberOfEmptySpace = m_GameBoard.GetSize() * m_GameBoard.GetSize();
+            m_NumberOfMovesCounter = 0;
         }
 
         public int GetBoardSize()
@@ -94,9 +105,36 @@ namespace Ex02
             return m_GameBoard.GetSize();
         }
 
-        private bool updateBoard((int, int) i_Coordinate, ePlayerMarks i_PlayerMark)
-        {  
-            bool isCordinateLegal = m_GameBoard.setPlayerAt(i_Coordinate, i_PlayerMark);
+        public static bool IsBoardSizeLegal(int i_BoardSize)
+        {
+            return (i_BoardSize >= k_MinBoardSize) && (i_BoardSize <= k_MaxBoardSize);
+        }
+
+        public ePlayerMarks GetWinner()
+        {
+            ePlayerMarks winnerMark;
+
+            if (IsPlayerWon(getPreviousPlayer().Mark))
+            {
+                getCurrentPlayer().UpdateScore();
+                winnerMark = getCurrentPlayer().Mark;
+            }
+            else
+            {
+                winnerMark = ePlayerMarks.NONE;
+            }
+
+            return winnerMark;
+        }
+
+        internal int GetNumOfEmptySpaces()
+        {
+            return m_NumberOfEmptySpace;
+        }
+
+        internal bool UpdateBoard((int, int) i_Coordinate, ePlayerMarks i_PlayerMark)
+        {
+            bool isCordinateLegal = m_GameBoard.SetPlayerAt(i_Coordinate, i_PlayerMark);
 
             if (isCordinateLegal)
             {
@@ -108,22 +146,27 @@ namespace Ex02
             return isCordinateLegal;
         }
 
-        private Player getCurrentPlayer()
+        internal void UndoMove((int, int) i_Coordinate)
         {
-
-            return m_Players[m_NumberOfMovesCounter % 2];
+            m_GameBoard.RemovePlayerAt(i_Coordinate);
+            m_NumberOfEmptySpace++;
+            m_NumberOfMovesCounter--;
         }
 
-        private ref Player getPreviousPlayer()
+        internal bool CheckIfBoardIsFull()
         {
-
-            return ref m_Players[(m_NumberOfMovesCounter-1) % 2];
+            return m_NumberOfEmptySpace == 0;
         }
 
-        private bool isPlayerWon()
+        internal bool IsCoordinateEmpty((int, int) i_Coordinate)
+        {
+            return m_GameBoard.IsCellEmpty(i_Coordinate);
+        }
+
+        internal bool IsPlayerWon(ePlayerMarks i_PlayerMark)
         {
             bool isPlayerWon = false;
-            ePlayerMarks previousPlayerMark = getPreviousPlayer().Mark;
+            ePlayerMarks previousPlayerMark = i_PlayerMark;
 
             if (previousPlayerMark != ePlayerMarks.NONE)
             {
@@ -146,10 +189,9 @@ namespace Ex02
             return isPlayerWon;
         }
 
-        private bool IsGameFinished()
+        internal bool IsGameFinished()
         {
-
-            return checkIfBoardIsFull() | isPlayerWon();
+            return CheckIfBoardIsFull() | IsPlayerWon(getPreviousPlayer().Mark);
         }
 
         private bool isPrimaryDiagonalFull(ePlayerMarks i_player)
@@ -175,7 +217,7 @@ namespace Ex02
             for (int column = 0; column < m_GameBoard.GetSize(); column++)
             {
 
-                if (!m_GameBoard.GetPlayerAt((i_Row, column)).Equals(i_player))
+                if (m_GameBoard.GetPlayerAt((i_Row, column)) != i_player)
                 {
                     isGameOver = false;
                     break;
@@ -220,11 +262,6 @@ namespace Ex02
             return isGameOver;
         }
 
-        private bool checkIfBoardIsFull()
-        {
-            return m_NumberOfEmptySpace == 0;
-        }
-
         private bool isOnPrimaryDiagonal((int, int) i_Cordinate)
         {
             int rowIndex = i_Cordinate.Item1;
@@ -241,31 +278,29 @@ namespace Ex02
             return (rowIndex + columnIndex) == (m_GameBoard.GetSize() - 1);
         }
 
-        public static bool IsBoardSizeLegal(int i_BoardSize)
-        {
-            return (i_BoardSize >= k_MinBoardSize) && (i_BoardSize <= k_MaxBoardSize);
-        }
-
         private bool isIndexLegal(int i_Index)
         {
             return i_Index <= m_GameBoard.GetSize() && i_Index >= 1;
         }
 
-        public ePlayerMarks GetWinner()
+        private ref Player getCurrentPlayer()
         {
-            ePlayerMarks winnerMark;
 
-            if(isPlayerWon())
-            {
-                getPreviousPlayer().UpdateScore();
-                winnerMark = getPreviousPlayer().Mark;
-            }
-            else
-            {
-                winnerMark = ePlayerMarks.NONE;
-            }
+            return ref m_Players[m_NumberOfMovesCounter % 2];
+        }
 
-            return winnerMark;
+        private Player getPreviousPlayer()
+        {
+
+            return m_Players[(m_NumberOfMovesCounter - 1) % 2];
+        }
+
+        private (int, int) convertCoordinate((int, int) i_Coordinate)
+        {
+            int rowIndex = i_Coordinate.Item1 - 1;
+            int columnIndex = i_Coordinate.Item2 - 1;
+
+            return (rowIndex, columnIndex);
         }
     }
 }

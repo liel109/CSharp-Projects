@@ -1,16 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Ex02
 {
-    public class Board
+    internal class Board
     {
         private ePlayerMarks[,] m_BoardMatrix;
 
         public Board(int i_BoardSize)
         {
             m_BoardMatrix = new ePlayerMarks[i_BoardSize, i_BoardSize];
-            
-            for(int i = 0; i < m_BoardMatrix.GetLength(0); i++) 
+
+            for (int i = 0; i < m_BoardMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < m_BoardMatrix.GetLength(1); j++)
                 {
@@ -19,9 +22,9 @@ namespace Ex02
             }
         }
 
-        internal ePlayerMarks[,] getBoardClone()
+        public int GetSize()
         {
-            return m_BoardMatrix;
+            return m_BoardMatrix.GetLength(0);
         }
 
         public ePlayerMarks GetPlayerAt((int, int) i_Coordinate)
@@ -29,12 +32,45 @@ namespace Ex02
             return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2];
         }
 
-        internal bool setPlayerAt((int,int) i_Coordinate, ePlayerMarks i_Player)
+        public Board CloneBoard()
+        {
+            Board boardClone = new Board(GetSize());
+
+            for (int i = 0; i < m_BoardMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < m_BoardMatrix.GetLength(1); j++)
+                {
+                    boardClone.SetPlayerAt((i, j), m_BoardMatrix[i, j]);
+                }
+            }
+
+            return boardClone;
+        }
+
+        internal List<(int, int)> GetAvailableMoves()
+        {
+            List<(int, int)> availableMoves = new List<(int, int)>();
+
+            for (int i = 0; i < m_BoardMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < m_BoardMatrix.GetLength(1); j++)
+                {
+                    if (IsCellEmpty((i, j)))
+                    {
+                        availableMoves.Add((i, j));
+                    }
+                }
+            }
+
+            return availableMoves;
+        }
+
+        internal bool SetPlayerAt((int, int) i_Coordinate, ePlayerMarks i_Player)
         {
             bool moveSucceded;
-            if (isIndexOutOfBounds(i_Coordinate) || !isCellEmpty(i_Coordinate))
+            if (isIndexOutOfBounds(i_Coordinate) || !IsCellEmpty(i_Coordinate))
             {
-                moveSucceded= false;
+                moveSucceded = false;
             }
             else
             {
@@ -45,21 +81,16 @@ namespace Ex02
             return moveSucceded;
         }
 
-        internal bool isCellEmpty((int,int) i_Coordinate)
+        internal void RemovePlayerAt((int, int) i_Coordinate)
+        {
+            m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] = ePlayerMarks.NONE;
+        }
+
+        internal bool IsCellEmpty((int, int) i_Coordinate)
         {
             return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] == ePlayerMarks.NONE;
         }
 
-        private bool isIndexOutOfBounds((int,int) i_Cordinate)
-        {
-            return (i_Cordinate.Item1 >= m_BoardMatrix.GetLength(0)) | (i_Cordinate.Item2 >= m_BoardMatrix.GetLength(0));
-        }
-
-        /**
-         * Check indentation inside for loops
-         * Check for Matrix length attributes
-         * Check another method implementations
-         */
         internal void ResetMatrix()
         {
             int boardSize = m_BoardMatrix.GetLength(0);
@@ -72,9 +103,16 @@ namespace Ex02
             }
         }
 
-        public int GetSize()
+        private bool isIndexOutOfBounds((int, int) i_Cordinate)
         {
-            return m_BoardMatrix.GetLength(0);
+            return (i_Cordinate.Item1 >= m_BoardMatrix.GetLength(0)) | (i_Cordinate.Item2 >= m_BoardMatrix.GetLength(0));
         }
+
+        /**
+         * Check indentation inside for loops
+         * Check for Matrix length attributes
+         * Check another method implementations
+         */
+
     }
 }
