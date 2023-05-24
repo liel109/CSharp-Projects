@@ -12,16 +12,16 @@
         private (int, int) m_LastUpdatedCoordinate;
         private int m_NumberOfEmptySpace;
 
-        public Game(int i_BoardSize, ePlayerTypes i_SecondPlayerType)
+        public Game(int i_BoardSize, ePlayerTypes i_SecondPlayerType) : this(new Board(i_BoardSize), 0, 0)
         {
-            m_GameBoard = new Board(i_BoardSize);
-            m_NumberOfMovesCounter = 0;
-            m_NumberOfEmptySpace = m_GameBoard.GetSize() * m_GameBoard.GetSize();
-            m_Players[0] = new Player(ePlayerTypes.USER, ePlayerMarks.Player1);
-            m_Players[1] = new Player(i_SecondPlayerType, ePlayerMarks.Player2);
+            //m_GameBoard = new Board(i_BoardSize);
+            //m_NumberOfMovesCounter = 0;
+            //m_NumberOfEmptySpace = m_GameBoard.GetSize() * m_GameBoard.GetSize();
+            //m_Players[0] = new Player(ePlayerTypes.USER, ePlayerMarks.Player1);
+            //m_Players[1] = new Player(i_SecondPlayerType, ePlayerMarks.Player2);
         }
 
-        public Game(Board i_GameBoard, int i_NumberOfMovesCounter, int i_NumberOfEmptySpace)
+        internal Game(Board i_GameBoard, int i_NumberOfMovesCounter, int i_NumberOfEmptySpace)
         {
             m_GameBoard = i_GameBoard;
             m_NumberOfMovesCounter = i_NumberOfMovesCounter;
@@ -54,9 +54,9 @@
             }
         }
 
-        public Game CloneGame()
+        public Game Clone()
         {
-            Board boardClone = m_GameBoard.CloneBoard();
+            Board boardClone = m_GameBoard.Clone();
             Game gameClone = new Game(boardClone, m_NumberOfMovesCounter, m_NumberOfEmptySpace);
 
             return gameClone;
@@ -78,7 +78,7 @@
                 currentPlayer = getCurrentPlayer();
                 if (!o_IsGameFinished && currentPlayer.Type == ePlayerTypes.CPU)
                 {
-                    UpdateBoard(AIPlayerLogic.GetBestMove(CloneGame()), currentPlayer.Mark);
+                    UpdateBoard(AIPlayerLogic.GetBestMove(Clone()), currentPlayer.Mark);
                     o_IsGameFinished = IsGameFinished();
                 }
             }
@@ -108,11 +108,20 @@
             return (i_BoardSize >= k_MinBoardSize) && (i_BoardSize <= k_MaxBoardSize);
         }
 
+        public bool isIndexLegal(int i_Index)
+        {
+            return i_Index <= m_GameBoard.GetSize() && i_Index >= 1;
+        }
+
         public ePlayerMarks GetWinner()
         {
             ePlayerMarks winnerMark;
 
-            if (IsPlayerWon(getPreviousPlayer().Mark))
+            if(m_NumberOfMovesCounter == 0)
+            {
+                winnerMark = ePlayerMarks.NONE;
+            }
+            else if (IsPlayerWon(getPreviousPlayer().Mark))
             {
                 getCurrentPlayer().UpdateScore();
                 winnerMark = getCurrentPlayer().Mark;
@@ -250,6 +259,7 @@
             for (int rowIndex = 0; rowIndex < m_GameBoard.GetSize(); rowIndex++)
             {
                 columnIndex = m_GameBoard.GetSize() - rowIndex - 1;
+
                 if (!m_GameBoard.GetPlayerAt((rowIndex, columnIndex)).Equals(i_player))
                 {
                     isGameOver = false;
@@ -276,20 +286,13 @@
             return (rowIndex + columnIndex) == (m_GameBoard.GetSize() - 1);
         }
 
-        private bool isIndexLegal(int i_Index)
-        {
-            return i_Index <= m_GameBoard.GetSize() && i_Index >= 1;
-        }
-
         private ref Player getCurrentPlayer()
         {
-
             return ref m_Players[m_NumberOfMovesCounter % 2];
         }
 
         private Player getPreviousPlayer()
         {
-
             return m_Players[(m_NumberOfMovesCounter - 1) % 2];
         }
 

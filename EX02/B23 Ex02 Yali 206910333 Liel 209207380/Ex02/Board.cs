@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Ex02
 {
-    internal class Board
+    public class Board
     {
         private ePlayerMarks[,] m_BoardMatrix;
 
@@ -32,7 +32,7 @@ namespace Ex02
             return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2];
         }
 
-        public Board CloneBoard()
+        public Board Clone()
         {
             Board boardClone = new Board(GetSize());
 
@@ -68,6 +68,7 @@ namespace Ex02
         internal bool SetPlayerAt((int, int) i_Coordinate, ePlayerMarks i_Player)
         {
             bool moveSucceded;
+
             if (isIndexOutOfBounds(i_Coordinate) || !IsCellEmpty(i_Coordinate))
             {
                 moveSucceded = false;
@@ -94,6 +95,7 @@ namespace Ex02
         internal void ResetMatrix()
         {
             int boardSize = m_BoardMatrix.GetLength(0);
+
             for (int i = 0; i < boardSize; i++)
             {
                 for (int j = 0; j < boardSize; j++)
@@ -107,12 +109,5 @@ namespace Ex02
         {
             return (i_Cordinate.Item1 >= m_BoardMatrix.GetLength(0)) | (i_Cordinate.Item2 >= m_BoardMatrix.GetLength(0));
         }
-
-        /**
-         * Check indentation inside for loops
-         * Check for Matrix length attributes
-         * Check another method implementations
-         */
-
     }
 }

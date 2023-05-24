@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Text;
 using Ex02.ConsoleUtils;
-using Ex02;
 
 namespace Ex02
 {
-    class ConsoleRenderer
+    class GameUI
     {
-        private const string k_QuitGameKey = "q";
-
-        internal static void initScreen()
+        internal static void InitScreen()
         {
             Console.WriteLine("Welcome to Reverse Tic-Tac-Toe!");
         }
 
-        internal static void printBoard(Board i_GameBoard)
+        internal static void PrintBoard(Board i_GameBoard)
         {
             int rowSeperationLength = i_GameBoard.GetSize() * 4 + 2;
 
@@ -40,11 +37,16 @@ namespace Ex02
             bool isValid = false;
             string userInputString = null;
 
-            Console.Write(i_MessageForUser);
             while (!isValid)
             {
+                Console.Write(i_MessageForUser);
                 userInputString = Console.ReadLine();
-                isValid = i_Validate(userInputString) || userInputString == k_QuitGameKey;
+                isValid = i_Validate(userInputString);
+
+                if (userInputString == "Q" || userInputString == "q")
+                {
+                    throw new Exception();
+                }
 
                 if (!isValid)
                 {
@@ -62,31 +64,19 @@ namespace Ex02
 
         internal static void DeclareWinner(ePlayerMarks i_WinnerMark, Player[] i_Players)
         {
-            Console.WriteLine(String.Format(@"{0} is The Winner!
-Score Table:
+            if (i_WinnerMark == ePlayerMarks.NONE)
+            {
+                Console.WriteLine("It's A Tie!");
+            }
+            else
+            {
+                Console.WriteLine(String.Format("{0} Is The Winner!", i_WinnerMark));
+            }
+
+            Console.WriteLine(String.Format(@"Score Table:
 
 {1,8}{2,8}
 {3,8}{4,8}", i_WinnerMark, i_Players[0].Mark, i_Players[0].Score, i_Players[1].Mark, i_Players[1].Score));
-        }
-
-        internal static bool getUserNewGameInput()
-        {
-            bool isInputValid = false;
-            string userInput = null;
-
-            Console.Write("Do you wish to play again? (Y/N)");
-            while (!isInputValid)
-            {
-                userInput = Console.ReadLine();
-                isInputValid = (userInput == "Y") || (userInput == "N");
-
-                if (!isInputValid)
-                {
-                    Console.WriteLine("Please Enter Y/N");
-                }
-            }
-
-            return userInput == "Y";
         }
 
         private static void printBoardIndexBar(int i_MaxIndex)
@@ -96,6 +86,18 @@ Score Table:
                 Console.Write(String.Format("{0,4}", i));
             }
             Console.WriteLine();
+        }
+
+        private static void printRowSeperation(int i_SeperationLength)
+        {
+            StringBuilder seperationBuilder = new StringBuilder();
+
+            for (int i = 0; i < i_SeperationLength; i++)
+            {
+                seperationBuilder.Append("=");
+            }
+
+            Console.WriteLine(seperationBuilder.ToString());
         }
 
         private static char getCharMarkForPlayer(ePlayerMarks i_PlayerType)
@@ -118,16 +120,5 @@ Score Table:
             return i_PlayerUniqueChar;
         }
 
-        private static void printRowSeperation(int i_SeperationLength)
-        {
-            StringBuilder seperationBuilder = new StringBuilder();
-
-            for (int i = 0; i < i_SeperationLength; i++)
-            {
-                seperationBuilder.Append("=");
-            }
-
-            Console.WriteLine(seperationBuilder.ToString());
-        }
     }
 }

@@ -43,6 +43,7 @@ namespace Ex02
                     }
                 }
             }
+
             if (bestMoveScore == int.MaxValue || bestMoveScore == int.MinValue)
             {
                 bestMove = getRandomCoordinate(gameBoard.GetAvailableMoves());
@@ -61,25 +62,22 @@ namespace Ex02
             {
                 returnValue = recursionMaxDepth(i_isMaximizingPlayer);
             }
-
             else if (i_Game.IsPlayerWon(ePlayerMarks.Player1))
             {
                 returnValue = k_GameWonScore;
             }
-
             else if (i_Game.IsPlayerWon(ePlayerMarks.Player2))
             {
                 returnValue = k_GameLostScore;
             }
-
             else if (i_Game.CheckIfBoardIsFull())
             {
                 returnValue = k_GameTieScore;
             }
-
             else if (i_isMaximizingPlayer)
             {
                 bestScore = int.MinValue;
+
                 for (int row = 0; row < i_Game.GetBoardSize(); row++)
                 {
                     for (int column = 0; column < i_Game.GetBoardSize(); column++)
@@ -94,11 +92,13 @@ namespace Ex02
                         }
                     }
                 }
+
                 returnValue = bestScore;
             }
             else
             {
                 bestScore = int.MaxValue;
+
                 for (int row = 0; row < i_Game.GetBoardSize(); row++)
                 {
                     for (int column = 0; column < i_Game.GetBoardSize(); column++)
@@ -113,6 +113,7 @@ namespace Ex02
                         }
                     }
                 }
+
                 returnValue = bestScore;
             }
 
