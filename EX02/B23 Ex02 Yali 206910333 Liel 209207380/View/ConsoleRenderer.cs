@@ -7,6 +7,8 @@ namespace Ex02
 {
     class ConsoleRenderer
     {
+        private const string k_QuitGameKey = "q";
+
         internal static void initScreen()
         {
             Console.WriteLine("Welcome to Reverse Tic-Tac-Toe!");
@@ -42,7 +44,7 @@ namespace Ex02
             while (!isValid)
             {
                 userInputString = Console.ReadLine();
-                isValid = i_Validate(userInputString);
+                isValid = i_Validate(userInputString) || userInputString == k_QuitGameKey;
 
                 if (!isValid)
                 {

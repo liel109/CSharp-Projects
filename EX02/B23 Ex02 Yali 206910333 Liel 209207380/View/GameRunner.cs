@@ -6,6 +6,15 @@ namespace View
     class GameRunner
     {
         private static Game s_Game;
+        private static bool s_IsQuitKeyPressed = false;
+
+        internal bool IsQuitKeyPressed
+        {
+            set
+            {
+                s_IsQuitKeyPressed = value;
+            }
+        }
 
         public static void Main()
         {
@@ -53,7 +62,7 @@ namespace View
             bool isAnotherGameWanted = false;
 
             ConsoleRenderer.DeclareWinner(s_Game.GetWinner(), s_Game.Players);
-            if (ConsoleRenderer.getUserNewGameInput())
+            if (getUserNewGameInput())
             {
                 s_Game.ResetGame();
                 ConsoleRenderer.printBoard(s_Game.GetBoardState());
@@ -98,9 +107,11 @@ namespace View
             return int.Parse(userSizeInput);
         }
 
-        private static int getNewGameInputFromUser()
+        private static bool getUserNewGameInput()
         {
-            return 0;
+            string userSizeInput = ConsoleRenderer.AskUserForInput("Do you wish to play again? (Y/N) ", "Please Enter Y / N", isValidNewGameInput);
+
+            return (userSizeInput == "Y" || userSizeInput == "y");
         }
 
         private static bool isValidIndexNumber(string i_UserInput)
@@ -112,9 +123,7 @@ namespace View
 
         private static bool isValidPlayerTypeInput(string i_UserInput)
         {
-            ePlayerTypes selectedPlayerType;
-
-            return Enum.TryParse<ePlayerTypes>(i_UserInput, out selectedPlayerType);
+            return Enum.TryParse<ePlayerTypes>(i_UserInput, out _);
         }
 
         private static bool isValidBoardSize(string i_UserInput)
@@ -130,5 +139,6 @@ namespace View
         {
             return i_UserInput == "Y" || i_UserInput == "y" || i_UserInput == "N" || i_UserInput == "n";
         }
+
     }
 }
