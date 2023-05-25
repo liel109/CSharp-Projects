@@ -6,6 +6,5 @@
 *.txt
 *.cache
 *.pdb
-*.csproj*
 *.cache
 Ex02/*/Debug*

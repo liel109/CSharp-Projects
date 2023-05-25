@@ -2,7 +2,7 @@
 
 namespace Ex02
 {
-    class GameRunner
+    public class GameRunner
     {
         private static Game s_Game;
 

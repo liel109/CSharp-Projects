@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace Ex02
 {
-    internal class AIPlayerLogic
+    public class AIPlayerLogic
     {
         private const int k_GameWonScore = 1;
         private const int k_GameLostScore = -1;
         private const int k_GameTieScore = 0;
+        private const int k_MaxRecursionDepth = 10;
         private const bool k_MaximizePlayer = true;
         private const bool k_MinimizePlayer = false;
-        private const int k_MaxRecursionDepth = 10;
 
         private static Random s_random = new Random();
 
@@ -52,15 +52,15 @@ namespace Ex02
             return bestMove;
         }
 
-        private static int miniMax(Game i_Game, int i_recursionDepth, bool i_isMaximizingPlayer)
+        private static int miniMax(Game i_Game, int i_RecursionDepth, bool i_IsMaximizingPlayer)
         {
             int returnValue;
             int currentMoveScore;
             int bestScore;
 
-            if (i_recursionDepth > k_MaxRecursionDepth)
+            if (i_RecursionDepth > k_MaxRecursionDepth)
             {
-                returnValue = recursionMaxDepth(i_isMaximizingPlayer);
+                returnValue = recursionMaxDepth(i_IsMaximizingPlayer);
             }
             else if (i_Game.IsPlayerWon(ePlayerMarks.Player1))
             {
@@ -74,7 +74,7 @@ namespace Ex02
             {
                 returnValue = k_GameTieScore;
             }
-            else if (i_isMaximizingPlayer)
+            else if (i_IsMaximizingPlayer)
             {
                 bestScore = int.MinValue;
 
@@ -85,7 +85,7 @@ namespace Ex02
                         if (i_Game.IsCoordinateEmpty((row, column)))
                         {
                             i_Game.UpdateBoard((row, column), ePlayerMarks.Player2);
-                            currentMoveScore = miniMax(i_Game, i_recursionDepth + 1, k_MinimizePlayer);
+                            currentMoveScore = miniMax(i_Game, i_RecursionDepth + 1, k_MinimizePlayer);
                             i_Game.UndoMove((row, column));
 
                             bestScore = Math.Max(bestScore, currentMoveScore);
@@ -106,7 +106,7 @@ namespace Ex02
                         if (i_Game.IsCoordinateEmpty((row, column)))
                         {
                             i_Game.UpdateBoard((row, column), ePlayerMarks.Player1);
-                            currentMoveScore = miniMax(i_Game, i_recursionDepth + 1, k_MaximizePlayer);
+                            currentMoveScore = miniMax(i_Game, i_RecursionDepth + 1, k_MaximizePlayer);
                             i_Game.UndoMove((row, column));
 
                             bestScore = Math.Min(bestScore, currentMoveScore);
@@ -120,11 +120,11 @@ namespace Ex02
             return returnValue;
         }
 
-        private static int recursionMaxDepth(bool i_isMaximizingPlayer)
+        private static int recursionMaxDepth(bool i_IsMaximizingPlayer)
         {
             int minOrMaxInt;
 
-            if (i_isMaximizingPlayer)
+            if (i_IsMaximizingPlayer)
             {
                 minOrMaxInt = int.MaxValue;
             }

@@ -30,10 +30,10 @@
             }
         }
 
-        public Player(ePlayerTypes i_PlayerType, ePlayerMarks i_playerMark)
+        public Player(ePlayerTypes i_PlayerType, ePlayerMarks i_PlayerMark)
         {
             m_Type = i_PlayerType;
-            m_Mark = i_playerMark;
+            m_Mark = i_PlayerMark;
             m_Score = 0;
         }
 

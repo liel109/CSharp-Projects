@@ -12,7 +12,7 @@
         private (int, int) m_LastUpdatedCoordinate;
         private int m_NumberOfEmptySpace;
 
-        public Game(int i_BoardSize, ePlayerTypes i_SecondPlayerType) : this(new Board(i_BoardSize), 0, 0)
+        public Game(int i_BoardSize, ePlayerTypes i_SecondPlayerType) : this(new Board(i_BoardSize), i_SecondPlayerType, 0, i_BoardSize * i_BoardSize)
         {
             //m_GameBoard = new Board(i_BoardSize);
             //m_NumberOfMovesCounter = 0;
@@ -21,13 +21,13 @@
             //m_Players[1] = new Player(i_SecondPlayerType, ePlayerMarks.Player2);
         }
 
-        internal Game(Board i_GameBoard, int i_NumberOfMovesCounter, int i_NumberOfEmptySpace)
+        private Game(Board i_GameBoard, ePlayerTypes i_SecondPlayerType, int i_NumberOfMovesCounter, int i_NumberOfEmptySpace)
         {
             m_GameBoard = i_GameBoard;
             m_NumberOfMovesCounter = i_NumberOfMovesCounter;
             m_NumberOfEmptySpace = i_NumberOfEmptySpace;
-            m_Players[0] = new Player(ePlayerTypes.CPU, ePlayerMarks.Player1);
-            m_Players[1] = new Player(ePlayerTypes.CPU, ePlayerMarks.Player2);
+            m_Players[0] = new Player(ePlayerTypes.USER, ePlayerMarks.Player1);
+            m_Players[1] = new Player(i_SecondPlayerType, ePlayerMarks.Player2);
         }
 
         public static int MaxBoardSize
@@ -56,8 +56,9 @@
 
         public Game Clone()
         {
+            ePlayerTypes secondPlayerType = Players[1].Type;
             Board boardClone = m_GameBoard.Clone();
-            Game gameClone = new Game(boardClone, m_NumberOfMovesCounter, m_NumberOfEmptySpace);
+            Game gameClone = new Game(boardClone, secondPlayerType, m_NumberOfMovesCounter, m_NumberOfEmptySpace);
 
             return gameClone;
         }
