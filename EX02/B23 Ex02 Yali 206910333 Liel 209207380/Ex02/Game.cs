@@ -7,27 +7,28 @@
         private const int k_NumberOfPlayers = 2;
 
         private Board m_GameBoard;
-        private Player[] m_Players = new Player[k_NumberOfPlayers];
+        private Player[] m_Players;
         private int m_NumberOfMovesCounter;
-        private (int, int) m_LastUpdatedCoordinate;
         private int m_NumberOfEmptySpace;
+        private (int, int) m_LastUpdatedCoordinate;
 
-        public Game(int i_BoardSize, ePlayerTypes i_SecondPlayerType) : this(new Board(i_BoardSize), i_SecondPlayerType, 0, i_BoardSize * i_BoardSize)
+        public static bool IsBoardSizeLegal(int i_BoardSize)
         {
-            //m_GameBoard = new Board(i_BoardSize);
-            //m_NumberOfMovesCounter = 0;
-            //m_NumberOfEmptySpace = m_GameBoard.GetSize() * m_GameBoard.GetSize();
-            //m_Players[0] = new Player(ePlayerTypes.USER, ePlayerMarks.Player1);
-            //m_Players[1] = new Player(i_SecondPlayerType, ePlayerMarks.Player2);
+            return (i_BoardSize >= k_MinBoardSize) && (i_BoardSize <= k_MaxBoardSize);
         }
 
-        private Game(Board i_GameBoard, ePlayerTypes i_SecondPlayerType, int i_NumberOfMovesCounter, int i_NumberOfEmptySpace)
+        public Game(int i_BoardSize, ePlayerType i_SecondPlayerType) : this(new Board(i_BoardSize), i_SecondPlayerType, 0, i_BoardSize * i_BoardSize)
+        {
+        }
+
+        private Game(Board i_GameBoard, ePlayerType i_SecondPlayerType, int i_NumberOfMovesCounter, int i_NumberOfEmptySpace)
         {
             m_GameBoard = i_GameBoard;
             m_NumberOfMovesCounter = i_NumberOfMovesCounter;
             m_NumberOfEmptySpace = i_NumberOfEmptySpace;
-            m_Players[0] = new Player(ePlayerTypes.USER, ePlayerMarks.Player1);
-            m_Players[1] = new Player(i_SecondPlayerType, ePlayerMarks.Player2);
+            m_Players = new Player[k_NumberOfPlayers];
+            m_Players[0] = new Player(ePlayerType.User, ePlayerMark.Player1);
+            m_Players[1] = new Player(i_SecondPlayerType, ePlayerMark.Player2);
         }
 
         public static int MaxBoardSize
@@ -56,7 +57,7 @@
 
         public Game Clone()
         {
-            ePlayerTypes secondPlayerType = Players[1].Type;
+            ePlayerType secondPlayerType = Players[1].Type;
             Board boardClone = m_GameBoard.Clone();
             Game gameClone = new Game(boardClone, secondPlayerType, m_NumberOfMovesCounter, m_NumberOfEmptySpace);
 
@@ -77,7 +78,7 @@
             {
                 o_IsGameFinished = IsGameFinished();
                 currentPlayer = getCurrentPlayer();
-                if (!o_IsGameFinished && currentPlayer.Type == ePlayerTypes.CPU)
+                if (!o_IsGameFinished && currentPlayer.Type == ePlayerType.CPU)
                 {
                     UpdateBoard(AIPlayerLogic.GetBestMove(Clone()), currentPlayer.Mark);
                     o_IsGameFinished = IsGameFinished();
@@ -104,23 +105,18 @@
             return m_GameBoard.GetSize();
         }
 
-        public static bool IsBoardSizeLegal(int i_BoardSize)
-        {
-            return (i_BoardSize >= k_MinBoardSize) && (i_BoardSize <= k_MaxBoardSize);
-        }
-
         public bool isIndexLegal(int i_Index)
         {
             return i_Index <= m_GameBoard.GetSize() && i_Index >= 1;
         }
 
-        public ePlayerMarks GetWinner()
+        public ePlayerMark GetWinner()
         {
-            ePlayerMarks winnerMark;
+            ePlayerMark winnerMark;
 
-            if(m_NumberOfMovesCounter == 0)
+            if (m_NumberOfMovesCounter == 0)
             {
-                winnerMark = ePlayerMarks.NONE;
+                winnerMark = ePlayerMark.None;
             }
             else if (IsPlayerWon(getPreviousPlayer().Mark))
             {
@@ -129,7 +125,7 @@
             }
             else
             {
-                winnerMark = ePlayerMarks.NONE;
+                winnerMark = ePlayerMark.None;
             }
 
             return winnerMark;
@@ -140,7 +136,7 @@
             return m_NumberOfEmptySpace;
         }
 
-        internal bool UpdateBoard((int, int) i_Coordinate, ePlayerMarks i_PlayerMark)
+        internal bool UpdateBoard((int, int) i_Coordinate, ePlayerMark i_PlayerMark)
         {
             bool isCordinateLegal = m_GameBoard.SetPlayerAt(i_Coordinate, i_PlayerMark);
 
@@ -171,12 +167,12 @@
             return m_GameBoard.IsCellEmpty(i_Coordinate);
         }
 
-        internal bool IsPlayerWon(ePlayerMarks i_PlayerMark)
+        internal bool IsPlayerWon(ePlayerMark i_PlayerMark)
         {
             bool isPlayerWon = false;
-            ePlayerMarks previousPlayerMark = i_PlayerMark;
+            ePlayerMark previousPlayerMark = i_PlayerMark;
 
-            if (previousPlayerMark != ePlayerMarks.NONE)
+            if (previousPlayerMark != ePlayerMark.None)
             {
                 int rowIndex = m_LastUpdatedCoordinate.Item1;
                 int columnIndex = m_LastUpdatedCoordinate.Item2;
@@ -202,7 +198,7 @@
             return CheckIfBoardIsFull() | IsPlayerWon(getPreviousPlayer().Mark);
         }
 
-        private bool isPrimaryDiagonalFull(ePlayerMarks i_player)
+        private bool isPrimaryDiagonalFull(ePlayerMark i_player)
         {
             bool isGameOver = true;
 
@@ -218,25 +214,23 @@
             return isGameOver;
         }
 
-        private bool isRowFull(int i_Row, ePlayerMarks i_player)
+        private bool isRowFull(int i_Row, ePlayerMark i_player)
         {
             bool isGameOver = true;
 
             for (int column = 0; column < m_GameBoard.GetSize(); column++)
             {
-
                 if (m_GameBoard.GetPlayerAt((i_Row, column)) != i_player)
                 {
                     isGameOver = false;
                     break;
                 }
-
             }
 
             return isGameOver;
         }
 
-        private bool isColumnFull(int i_Column, ePlayerMarks i_player)
+        private bool isColumnFull(int i_Column, ePlayerMark i_player)
         {
             bool isGameOver = true;
 
@@ -252,7 +246,7 @@
             return isGameOver;
         }
 
-        private bool isSecondaryDiagonalFull(ePlayerMarks i_player)
+        private bool isSecondaryDiagonalFull(ePlayerMark i_player)
         {
             bool isGameOver = true;
             int columnIndex;

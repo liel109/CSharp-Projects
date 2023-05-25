@@ -4,17 +4,17 @@ namespace Ex02
 {
     public class Board
     {
-        private ePlayerMarks[,] m_BoardMatrix;
+        private ePlayerMark[,] m_BoardMatrix;
 
         public Board(int i_BoardSize)
         {
-            m_BoardMatrix = new ePlayerMarks[i_BoardSize, i_BoardSize];
+            m_BoardMatrix = new ePlayerMark[i_BoardSize, i_BoardSize];
 
             for (int i = 0; i < m_BoardMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < m_BoardMatrix.GetLength(1); j++)
                 {
-                    m_BoardMatrix[i, j] = ePlayerMarks.NONE;
+                    m_BoardMatrix[i, j] = ePlayerMark.None;
                 }
             }
         }
@@ -24,7 +24,7 @@ namespace Ex02
             return m_BoardMatrix.GetLength(0);
         }
 
-        public ePlayerMarks GetPlayerAt((int, int) i_Coordinate)
+        public ePlayerMark GetPlayerAt((int, int) i_Coordinate)
         {
             return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2];
         }
@@ -62,7 +62,7 @@ namespace Ex02
             return availableMoves;
         }
 
-        internal bool SetPlayerAt((int, int) i_Coordinate, ePlayerMarks i_Player)
+        internal bool SetPlayerAt((int, int) i_Coordinate, ePlayerMark i_Player)
         {
             bool moveSucceded;
 
@@ -81,12 +81,12 @@ namespace Ex02
 
         internal void RemovePlayerAt((int, int) i_Coordinate)
         {
-            m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] = ePlayerMarks.NONE;
+            m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] = ePlayerMark.None;
         }
 
         internal bool IsCellEmpty((int, int) i_Coordinate)
         {
-            return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] == ePlayerMarks.NONE;
+            return m_BoardMatrix[i_Coordinate.Item1, i_Coordinate.Item2] == ePlayerMark.None;
         }
 
         internal void ResetMatrix()
@@ -97,7 +97,7 @@ namespace Ex02
             {
                 for (int j = 0; j < boardSize; j++)
                 {
-                    m_BoardMatrix[i, j] = ePlayerMarks.NONE;
+                    m_BoardMatrix[i, j] = ePlayerMark.None;
                 }
             }
         }

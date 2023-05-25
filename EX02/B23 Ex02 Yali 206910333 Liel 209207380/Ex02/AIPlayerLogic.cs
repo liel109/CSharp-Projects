@@ -8,9 +8,8 @@ namespace Ex02
         private const int k_GameWonScore = 1;
         private const int k_GameLostScore = -1;
         private const int k_GameTieScore = 0;
-        private const int k_MaxRecursionDepth = 10;
-        private const bool k_MaximizePlayer = true;
-        private const bool k_MinimizePlayer = false;
+        private const int k_MaxRecursionDepth = 8;
+        private const bool v_MaximizePlayer = true;
 
         private static Random s_random = new Random();
 
@@ -29,8 +28,8 @@ namespace Ex02
                     {
                         if (i_Game.IsCoordinateEmpty((row, column)))
                         {
-                            i_Game.UpdateBoard((row, column), ePlayerMarks.Player2);
-                            currentMoveScore = miniMax(i_Game, 0, k_MinimizePlayer);
+                            i_Game.UpdateBoard((row, column), ePlayerMark.Player2);
+                            currentMoveScore = miniMax(i_Game, 0, !v_MaximizePlayer);
                             i_Game.UndoMove((row, column));
 
                             if (currentMoveScore > bestMoveScore)
@@ -39,7 +38,6 @@ namespace Ex02
                                 bestMove = (row, column);
                             }
                         }
-
                     }
                 }
             }
@@ -58,15 +56,15 @@ namespace Ex02
             int currentMoveScore;
             int bestScore;
 
-            if (i_RecursionDepth > k_MaxRecursionDepth)
+            if (i_RecursionDepth > 8)
             {
                 returnValue = recursionMaxDepth(i_IsMaximizingPlayer);
             }
-            else if (i_Game.IsPlayerWon(ePlayerMarks.Player1))
+            else if (i_Game.IsPlayerWon(ePlayerMark.Player1))
             {
                 returnValue = k_GameWonScore;
             }
-            else if (i_Game.IsPlayerWon(ePlayerMarks.Player2))
+            else if (i_Game.IsPlayerWon(ePlayerMark.Player2))
             {
                 returnValue = k_GameLostScore;
             }
@@ -84,8 +82,8 @@ namespace Ex02
                     {
                         if (i_Game.IsCoordinateEmpty((row, column)))
                         {
-                            i_Game.UpdateBoard((row, column), ePlayerMarks.Player2);
-                            currentMoveScore = miniMax(i_Game, i_RecursionDepth + 1, k_MinimizePlayer);
+                            i_Game.UpdateBoard((row, column), ePlayerMark.Player2);
+                            currentMoveScore = miniMax(i_Game, i_RecursionDepth + 1, !v_MaximizePlayer);
                             i_Game.UndoMove((row, column));
 
                             bestScore = Math.Max(bestScore, currentMoveScore);
@@ -105,8 +103,8 @@ namespace Ex02
                     {
                         if (i_Game.IsCoordinateEmpty((row, column)))
                         {
-                            i_Game.UpdateBoard((row, column), ePlayerMarks.Player1);
-                            currentMoveScore = miniMax(i_Game, i_RecursionDepth + 1, k_MaximizePlayer);
+                            i_Game.UpdateBoard((row, column), ePlayerMark.Player1);
+                            currentMoveScore = miniMax(i_Game, i_RecursionDepth + 1, v_MaximizePlayer);
                             i_Game.UndoMove((row, column));
 
                             bestScore = Math.Min(bestScore, currentMoveScore);

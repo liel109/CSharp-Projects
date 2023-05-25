@@ -2,11 +2,18 @@
 {
     public struct Player
     {
-        private ePlayerMarks m_Mark;
-        private ePlayerTypes m_Type;
+        private ePlayerMark m_Mark;
+        private ePlayerType m_Type;
         private int m_Score;
 
-        public ePlayerTypes Type
+        public Player(ePlayerType i_PlayerType, ePlayerMark i_PlayerMark)
+        {
+            m_Type = i_PlayerType;
+            m_Mark = i_PlayerMark;
+            m_Score = 0;
+        }
+
+        public ePlayerType Type
         {
             get
             {
@@ -22,19 +29,12 @@
             }
         }
 
-        public ePlayerMarks Mark
+        public ePlayerMark Mark
         {
             get
             {
                 return m_Mark;
             }
-        }
-
-        public Player(ePlayerTypes i_PlayerType, ePlayerMarks i_PlayerMark)
-        {
-            m_Type = i_PlayerType;
-            m_Mark = i_PlayerMark;
-            m_Score = 0;
         }
 
         public void UpdateScore()

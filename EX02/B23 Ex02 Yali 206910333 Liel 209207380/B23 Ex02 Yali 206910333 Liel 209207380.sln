@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31829.152
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeGame", "Ex02\TicTacToeGame.csproj", "{747BB328-AFFC-4966-AF9B-AA3926E29376}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversedTicTacToe", "Ex02\ReversedTicTacToe.csproj", "{747BB328-AFFC-4966-AF9B-AA3926E29376}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversedTicTacToe", "View\ReversedTicTacToe.csproj", "{055B6E07-9AF2-4C68-B98E-82DB8C2E5370}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversedTicTacToeConsole", "View\ReversedTicTacToeConsole.csproj", "{055B6E07-9AF2-4C68-B98E-82DB8C2E5370}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

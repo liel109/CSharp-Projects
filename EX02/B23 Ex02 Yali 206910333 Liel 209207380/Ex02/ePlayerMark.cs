@@ -1,8 +1,8 @@
 ﻿namespace Ex02
 {
-    public enum ePlayerMarks
+    public enum ePlayerMark
     {
-        NONE,
+        None,
         Player1,
         Player2,
     }

@@ -44,13 +44,12 @@ namespace Ex02
         private static void initGame()
         {
             int selectedBoardSize;
-            ePlayerTypes selectedPlayerType;
+            ePlayerType selectedPlayerType;
 
             GameUI.InitScreen();
             selectedBoardSize = getBoardSizeFromUser();
             selectedPlayerType = getPlayerTypeFromUser();
             s_Game = new Game(selectedBoardSize, selectedPlayerType);
-            
         }
 
         private static void runMiniGame()
@@ -72,7 +71,7 @@ namespace Ex02
                         GameUI.RaiseInputInvalidError("Cell is taken!");
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     break;
                 }
@@ -112,12 +111,11 @@ namespace Ex02
             return int.Parse(userColumnInput);
         }
 
-        private static ePlayerTypes getPlayerTypeFromUser()
+        private static ePlayerType getPlayerTypeFromUser()
         {
-            string userTypeInput = GameUI.AskUserForInput("Please Enter Opponent Type (1-P2 2-CPU): ", "Please Enter 1 For P2 Or 2 For CPU",
-                isValidPlayerTypeInput);
+            string userTypeInput = GameUI.AskUserForInput("Please Enter Opponent Type (1-P2 2-CPU): ", "Please Enter 1 For P2 Or 2 For CPU", isValidPlayerTypeInput);
 
-            return (ePlayerTypes)Enum.Parse(typeof(ePlayerTypes), userTypeInput);
+            return (ePlayerType)Enum.Parse(typeof(ePlayerType), userTypeInput);
         }
 
         private static int getBoardSizeFromUser()
@@ -131,7 +129,7 @@ namespace Ex02
         {
             string userSizeInput = GameUI.AskUserForInput("Do you wish to play again? (Y/N) ", "Please Enter Y / N", isValidNewGameInput);
 
-            return (userSizeInput == "Y" || userSizeInput == "y");
+            return (userSizeInput == "Y") || (userSizeInput == "y");
         }
 
         private static bool isValidIndexNumber(string i_UserInput)
@@ -145,7 +143,7 @@ namespace Ex02
         {
             int userInputInt;
 
-            return int.TryParse(i_UserInput, out userInputInt) && Enum.IsDefined(typeof(ePlayerTypes), userInputInt);
+            return int.TryParse(i_UserInput, out userInputInt) && Enum.IsDefined(typeof(ePlayerType), userInputInt);
         }
 
         private static bool isValidBoardSize(string i_UserInput)
