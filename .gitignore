@@ -5,6 +5,3 @@
 *.pdf
 *.txt
 *.cache
-*.pdb
-*.cache
-Ex02/*/Debug*
