@@ -7,8 +7,5 @@ namespace Ex03.GarageLogic
         InProgress,
         Repaired,
         Payed
-        
-
-
     }
 }

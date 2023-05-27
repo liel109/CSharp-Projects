@@ -4,15 +4,15 @@ namespace Ex03.GarageLogic
 {
     public abstract class PetrolVehicle : Vehicle
     {
-        private eFuelType m_FuelType;
-        private float m_FuelAmount;
-        private float m_MaxFuelCapacity;
+        protected eFuelType m_FuelType;
+        protected float m_FuelAmount;
+        protected float m_MaxFuelCapacity;
 
         public void Fuel(float i_FuelAmountToAdd, eFuelType i_FuelType)
         {
             if(i_FuelType != m_FuelType)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Fuel Type Missmatch");
             }
             else if(m_FuelAmount < 0 || (m_FuelAmount + i_FuelAmountToAdd) > m_MaxFuelCapacity)
             {

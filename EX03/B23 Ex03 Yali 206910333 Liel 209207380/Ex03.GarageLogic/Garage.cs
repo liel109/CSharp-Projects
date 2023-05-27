@@ -23,7 +23,7 @@ namespace Ex03.GarageLogic
 
         public List<string> GetJobs(eVehicleStatus i_FilterByStatus)
         {
-            return null;
+            return m_Jobs.Where(member => member.Value.VehicleStatus == i_FilterByStatus).Select(member => member.Key).ToList();
         }
 
         public List<string> GetJobs()
@@ -38,29 +38,25 @@ namespace Ex03.GarageLogic
 
         public void Fuel(string i_LicensePlate, eFuelType i_FuelType, float i_AmountToAdd)
         {
-            PetrolVehicle vehicle = m_Jobs[i_LicensePlate].Vehicle as PetrolVehicle;
-
-            if(vehicle != null)
+            if (m_Jobs[i_LicensePlate].Vehicle is PetrolVehicle vehicle)
             {
                 vehicle.Fuel(i_AmountToAdd, i_FuelType);
             }
             else
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Can't Fuel Electric Vehicle");
             }
         }
 
         public void Charge(string i_LicensePlate, float i_NumberOfMinutesToAdd)
         {
-            ElectricVehicle vehicle = m_Jobs[i_LicensePlate].Vehicle as ElectricVehicle;
-
-            if (vehicle != null)
+            if (m_Jobs[i_LicensePlate].Vehicle is ElectricVehicle vehicle)
             {
                 vehicle.Charge(i_NumberOfMinutesToAdd);
             }
             else
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Can't Charge Petrol Car");
             }
 
         }

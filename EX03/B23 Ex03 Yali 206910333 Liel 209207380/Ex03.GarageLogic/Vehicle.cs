@@ -33,6 +33,13 @@ namespace Ex03.GarageLogic
             private float m_AirPressure;
             private float m_MaxAirPressure;
 
+            public Wheel(string manufacturer, float airPressure, float maxAirPressure)
+            {
+                m_Manufacturer = manufacturer;
+                m_AirPressure = airPressure;
+                m_MaxAirPressure = maxAirPressure;
+            }
+
             public void Inflate(float i_AirPressureToAdd)
             {
 
