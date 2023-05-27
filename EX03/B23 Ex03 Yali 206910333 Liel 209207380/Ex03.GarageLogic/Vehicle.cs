@@ -4,10 +4,10 @@ namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-        private string m_Model;
-        private string m_LicensePlate;
-        private float m_RemainingEnergyPercentage;
-        private Wheel[] m_Wheels;
+        protected string m_Model;
+        protected string m_LicensePlate;
+        protected float m_RemainingEnergyPercentage;
+        protected Wheel[] m_Wheels;
 
         public override int GetHashCode()
         {
@@ -17,6 +17,14 @@ namespace Ex03.GarageLogic
         public void InflateWheelsToMax()
         {
 
+        }
+
+        public string LicensePlate
+        {
+            get
+            {
+                return m_LicensePlate;
+            }
         }
 
         public class Wheel

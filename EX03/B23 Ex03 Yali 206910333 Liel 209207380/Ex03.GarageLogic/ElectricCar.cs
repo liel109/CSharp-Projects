@@ -5,5 +5,10 @@ namespace Ex03.GarageLogic
     {
         private eDoorsNumber m_DoorsNumber;
         private eColor m_Color;
+
+        public ElectricCar()
+        {
+            
+        }
     }
 }
