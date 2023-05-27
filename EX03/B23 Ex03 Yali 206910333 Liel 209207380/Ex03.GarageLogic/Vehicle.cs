@@ -11,12 +11,15 @@ namespace Ex03.GarageLogic
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return m_LicensePlate.GetHashCode();
         }
 
         public void InflateWheelsToMax()
         {
-
+            foreach(Wheel wheel in m_Wheels)
+            {
+                wheel.InflateToMax();
+            }
         }
 
         public string LicensePlate
@@ -29,9 +32,9 @@ namespace Ex03.GarageLogic
 
         public class Wheel
         {
-            private string m_Manufacturer;
+            private readonly string m_Manufacturer;
             private float m_AirPressure;
-            private float m_MaxAirPressure;
+            private readonly float m_MaxAirPressure;
 
             public Wheel(string manufacturer, float airPressure, float maxAirPressure)
             {
@@ -42,8 +45,20 @@ namespace Ex03.GarageLogic
 
             public void Inflate(float i_AirPressureToAdd)
             {
-
+                if(i_AirPressureToAdd < 0 || (m_AirPressure + i_AirPressureToAdd > m_MaxAirPressure))
+                {
+                    throw new ValueOutOfRangeException(0, m_MaxAirPressure);
+                }
+                else
+                {
+                    m_AirPressure += i_AirPressureToAdd;
+                }
             }
+
+            public void InflateToMax()
+            {
+                Inflate(m_AirPressure - m_AirPressure);
+            } 
         }
     }
 }
