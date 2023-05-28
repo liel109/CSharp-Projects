@@ -44,7 +44,7 @@ namespace Ex03.GarageLogic
 
         private float calculateEnergyPrecentage(float i_FuelAmount)
         {
-            return i_FuelAmount / m_MaxFuelCapacity;
+            return (i_FuelAmount / m_MaxFuelCapacity) * 100;
         }
     }
 }

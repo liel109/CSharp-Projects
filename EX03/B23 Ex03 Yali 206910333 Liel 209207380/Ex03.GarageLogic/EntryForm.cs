@@ -4,9 +4,9 @@ namespace Ex03.GarageLogic
 {
     public class EntryForm
     {
-        private string m_OwnerName;
-        private string m_OwnerPhoneNumber;
-        private Vehicle m_Vehicle;
+        private readonly string m_OwnerName;
+        private readonly string m_OwnerPhoneNumber;
+        private readonly Vehicle m_Vehicle;
         private eVehicleStatus m_VehicleStatus;
 
 

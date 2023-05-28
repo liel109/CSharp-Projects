@@ -7,7 +7,7 @@ namespace Ex03.GarageLogic
 {
     public class Garage
     {
-        private Dictionary<string, EntryForm> m_Jobs;
+        private readonly Dictionary<string, EntryForm> m_Jobs;
 
         public Garage()
         {
@@ -38,9 +38,9 @@ namespace Ex03.GarageLogic
 
         public void Fuel(string i_LicensePlate, eFuelType i_FuelType, float i_AmountToAdd)
         {
-            if (m_Jobs[i_LicensePlate].Vehicle is PetrolVehicle vehicle)
+            if (m_Jobs[i_LicensePlate].Vehicle is PetrolVehicle fuelVehicle)
             {
-                vehicle.Fuel(i_AmountToAdd, i_FuelType);
+                fuelVehicle.Fuel(i_AmountToAdd, i_FuelType);
             }
             else
             {
@@ -50,9 +50,9 @@ namespace Ex03.GarageLogic
 
         public void Charge(string i_LicensePlate, float i_NumberOfMinutesToAdd)
         {
-            if (m_Jobs[i_LicensePlate].Vehicle is ElectricVehicle vehicle)
+            if (m_Jobs[i_LicensePlate].Vehicle is ElectricVehicle electricVehicle)
             {
-                vehicle.Charge(i_NumberOfMinutesToAdd);
+                electricVehicle.Charge(i_NumberOfMinutesToAdd);
             }
             else
             {

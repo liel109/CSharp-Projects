@@ -16,11 +16,36 @@ namespace Ex03.GarageLogic
             }
             else if(m_FuelAmount < 0 || (m_FuelAmount + i_FuelAmountToAdd) > m_MaxFuelCapacity)
             {
-                throw new ValueOutOfRangeException(0, m_MaxFuelCapacity);
+                throw new ValueOutOfRangeException(0, m_MaxFuelCapacity - m_FuelAmount);
             }
             else
             {
                 m_FuelAmount += i_FuelAmountToAdd;
+                m_RemainingEnergyPercentage = (m_FuelAmount / m_MaxFuelCapacity) * 100;
+            }
+        }
+
+        public eFuelType FuelType
+        {
+            get
+            {
+                return m_FuelType;
+            }
+        }
+
+        public float FuelAmount
+        {
+            get
+            {
+                return m_FuelAmount;
+            }
+        }
+
+        public float MaxFuelCapacity
+        {
+            get
+            {
+                return m_MaxFuelCapacity;
             }
         }
     }

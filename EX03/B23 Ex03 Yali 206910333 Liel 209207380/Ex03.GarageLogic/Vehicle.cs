@@ -30,6 +30,22 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public string Model
+        {
+            get
+            {
+                return m_Model;
+            }
+        }
+
+        public float RemainingEnergy
+        {
+            get
+            {
+                return m_RemainingEnergyPercentage;
+            }
+        }
+
         public class Wheel
         {
             private readonly string m_Manufacturer;
