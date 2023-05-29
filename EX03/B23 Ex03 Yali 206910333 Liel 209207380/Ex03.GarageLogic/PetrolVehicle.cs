@@ -1,40 +1,26 @@
-﻿using System;
-
-namespace Ex03.GarageLogic
+﻿namespace Ex03.GarageLogic
 {
     public abstract class PetrolVehicle : Vehicle
     {
         protected PetrolEngine m_Engine;
 
-        //public PetrolVehicle(string i_Model, string i_LicensePlate, Wheel[] i_Wheels, Engine i_Engine)
-        //{
-        //    m_FuelType = i_FuelType;
-        //    m_FuelAmount = i_FuelAmount;
-        //    m_MaxFuelCapacity = i_MaxFuelCapacity;
-        //}
+        public PetrolVehicle(string i_LicensePlate, PetrolEngine i_Engine, Wheel[] i_Wheels)
+        {
+            m_LicensePlate = i_LicensePlate;
+            m_Engine = i_Engine;
+            m_Wheels = i_Wheels;
+        }
 
         public void Fuel(float i_FuelAmountToAdd, eFuelType i_FuelType)
         {
-            if(i_FuelType != m_FuelType)
-            {
-                throw new ArgumentException("Fuel Type Missmatch");
-            }
-            else if(m_FuelAmount < 0 || (m_FuelAmount + i_FuelAmountToAdd) > m_MaxFuelCapacity)
-            {
-                throw new ValueOutOfRangeException(0, m_MaxFuelCapacity - m_FuelAmount);
-            }
-            else
-            {
-                m_FuelAmount += i_FuelAmountToAdd;
-                m_RemainingEnergyPercentage = (m_FuelAmount / m_MaxFuelCapacity) * 100;
-            }
+            m_Engine.Fuel(i_FuelAmountToAdd, i_FuelType);
         }
 
         public eFuelType FuelType
         {
             get
             {
-                return m_FuelType;
+                return m_Engine.FuelType;
             }
         }
 
@@ -42,7 +28,7 @@ namespace Ex03.GarageLogic
         {
             get
             {
-                return m_FuelAmount;
+                return m_Engine.FuelAmount;
             }
         }
 
@@ -50,7 +36,7 @@ namespace Ex03.GarageLogic
         {
             get
             {
-                return m_MaxFuelCapacity;
+                return m_Engine.FuelCapacity;
             }
         }
     }

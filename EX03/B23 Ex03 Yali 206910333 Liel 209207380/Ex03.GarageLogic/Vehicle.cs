@@ -1,6 +1,4 @@
-﻿
-
-namespace Ex03.GarageLogic
+﻿namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
@@ -9,36 +7,18 @@ namespace Ex03.GarageLogic
         protected float m_RemainingEnergyPercentage;
         protected Wheel[] m_Wheels;
 
-        public override int GetHashCode()
+        public string Model
         {
-            return m_LicensePlate.GetHashCode();
-        }
-
-        public void InflateWheelsToMax()
-        {
-            foreach(Wheel wheel in m_Wheels)
-            {
-                wheel.InflateToMax();
-            }
+            get { return m_Model; }
+            set { m_Model = value; }
         }
 
         public string LicensePlate
         {
-            get
-            {
-                return m_LicensePlate;
-            }
+            get { return m_LicensePlate; }
         }
 
-        public string Model
-        {
-            get
-            {
-                return m_Model;
-            }
-        }
-
-        public float RemainingEnergy
+        public float RemainingEnergyPercentage
         {
             get
             {
@@ -46,45 +26,72 @@ namespace Ex03.GarageLogic
             }
         }
 
-        protected void SetWheels(int i_NumOfWheels, string i_WheelManufacturer, float[] i_AirPressures, float i_MaxWheelAirPressure)
+        public override int GetHashCode()
         {
-            m_Wheels = new Wheel[i_NumOfWheels];
+            return m_LicensePlate.GetHashCode();
+        }
 
-            for (int i = 0; i < i_NumOfWheels; i++)
+        public void SetWheelManufacturer(int i_WheelIndex, string i_Manufacturer)
+        {
+            m_Wheels[i_WheelIndex].Manufacturer = i_Manufacturer;
+        }
+
+        public void InflateWheel(int i_WheelIndex, float i_NewAirPressureAmount)
+        {
+            m_Wheels[i_WheelIndex].Inflate(i_NewAirPressureAmount);
+        }
+
+        public void InflateWheelsToMax()
+        {
+            foreach (Wheel wheel in m_Wheels)
             {
-                m_Wheels[i] = new Wheel(i_WheelManufacturer, i_AirPressures[i], i_MaxWheelAirPressure);
+                wheel.InflateToMax();
             }
         }
 
         public class Wheel
         {
-            private readonly string m_Manufacturer;
+            private string m_Manufacturer;
             private float m_AirPressure;
             private readonly float m_MaxAirPressure;
 
-            public Wheel(string manufacturer, float airPressure, float maxAirPressure)
+            public Wheel(float maxAirPressure)
             {
-                m_Manufacturer = manufacturer;
-                m_AirPressure = airPressure;
                 m_MaxAirPressure = maxAirPressure;
             }
 
-            public void Inflate(float i_AirPressureToAdd)
+            public string Manufacturer
             {
-                if(i_AirPressureToAdd < 0 || (m_AirPressure + i_AirPressureToAdd > m_MaxAirPressure))
+                get { return m_Manufacturer; }
+                set { m_Manufacturer = value; }
+            }
+
+            public float MaxAirPressure
+            {
+                get { return m_MaxAirPressure; }
+            }
+
+            public void Inflate(float i_NewAirPressureAmount)
+            {
+                if(isValidAirPressureAmount(i_NewAirPressureAmount))
                 {
-                    throw new ValueOutOfRangeException(0, m_MaxAirPressure);
+                    m_AirPressure = i_NewAirPressureAmount;
                 }
                 else
                 {
-                    m_AirPressure += i_AirPressureToAdd;
+                    throw new ValueOutOfRangeException(0, m_MaxAirPressure);
                 }
             }
 
             public void InflateToMax()
             {
-                Inflate(m_AirPressure - m_AirPressure);
+                Inflate(m_MaxAirPressure);
             } 
+
+            private bool isValidAirPressureAmount(float i_AirPressureAmount)
+            {
+                return i_AirPressureAmount >= 0 && i_AirPressureAmount <= m_MaxAirPressure;
+            }
         }
     }
 }

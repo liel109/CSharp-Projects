@@ -1,7 +1,7 @@
-# *.json
-# *.zip
-# *.docx
-# *.exe
-# *.pdf
-# *.txt
-# *.cache
+*.json#
+*.zip#
+*.docx#
+*.exe#
+*.pdf#
+*.txt#
+*.cache#
