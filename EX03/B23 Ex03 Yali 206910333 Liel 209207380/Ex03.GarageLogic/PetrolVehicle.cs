@@ -4,9 +4,14 @@ namespace Ex03.GarageLogic
 {
     public abstract class PetrolVehicle : Vehicle
     {
-        protected eFuelType m_FuelType;
-        protected float m_FuelAmount;
-        protected float m_MaxFuelCapacity;
+        protected PetrolEngine m_Engine;
+
+        //public PetrolVehicle(string i_Model, string i_LicensePlate, Wheel[] i_Wheels, Engine i_Engine)
+        //{
+        //    m_FuelType = i_FuelType;
+        //    m_FuelAmount = i_FuelAmount;
+        //    m_MaxFuelCapacity = i_MaxFuelCapacity;
+        //}
 
         public void Fuel(float i_FuelAmountToAdd, eFuelType i_FuelType)
         {

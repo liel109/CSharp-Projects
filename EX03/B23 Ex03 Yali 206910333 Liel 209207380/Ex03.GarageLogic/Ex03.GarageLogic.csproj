@@ -39,6 +39,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ElectricEngine.cs" />
     <Compile Include="eColor.cs" />
     <Compile Include="eDoorsNumber.cs" />
     <Compile Include="eFuelType.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="eVehicleStatus.cs" />
     <Compile Include="Garage.cs" />
     <Compile Include="PetrolCar.cs" />
+    <Compile Include="PetrolEngine.cs" />
     <Compile Include="PetrolMotorcycle.cs" />
     <Compile Include="PetrolVehicle.cs" />
     <Compile Include="Truck.cs" />

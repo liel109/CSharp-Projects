@@ -46,6 +46,16 @@ namespace Ex03.GarageLogic
             }
         }
 
+        protected void SetWheels(int i_NumOfWheels, string i_WheelManufacturer, float[] i_AirPressures, float i_MaxWheelAirPressure)
+        {
+            m_Wheels = new Wheel[i_NumOfWheels];
+
+            for (int i = 0; i < i_NumOfWheels; i++)
+            {
+                m_Wheels[i] = new Wheel(i_WheelManufacturer, i_AirPressures[i], i_MaxWheelAirPressure);
+            }
+        }
+
         public class Wheel
         {
             private readonly string m_Manufacturer;
