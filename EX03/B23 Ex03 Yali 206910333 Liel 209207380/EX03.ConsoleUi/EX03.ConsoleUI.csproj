@@ -36,7 +36,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GarageManagmentApp.cs" />
+    <Compile Include="ConsoleRenderer.cs" />
+    <Compile Include="eMainMenuAction.cs" />
+    <Compile Include="GarageManagementApp.cs" />
+    <Compile Include="GarageManagmentAppBeta.cs" />
+    <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ex03.GarageLogic\Ex03.GarageLogic.csproj">

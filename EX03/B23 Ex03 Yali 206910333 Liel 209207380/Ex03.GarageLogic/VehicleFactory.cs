@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-
 namespace Ex03.GarageLogic
 {
     public class VehicleFactory
@@ -9,7 +7,7 @@ namespace Ex03.GarageLogic
         {
             { eVehicleType.ElectricCar, 4},
             { eVehicleType.PetrolCar, 4},
-            { eVehicleType.ElectricMotorcyle, 2},
+            { eVehicleType.ElectricMotorcycle, 2},
             { eVehicleType.PetrolMotorcycle, 2},
             { eVehicleType.Truck, 12}
         };
@@ -18,7 +16,7 @@ namespace Ex03.GarageLogic
         {
             { eVehicleType.ElectricCar, 31},
             { eVehicleType.PetrolCar, 31},
-            { eVehicleType.ElectricMotorcyle, 33},
+            { eVehicleType.ElectricMotorcycle, 33},
             { eVehicleType.PetrolMotorcycle, 33},
             { eVehicleType.Truck, 26}
         };
@@ -34,7 +32,7 @@ namespace Ex03.GarageLogic
         {
             { eVehicleType.ElectricCar, 5.2f},
             { eVehicleType.PetrolCar, 46f},
-            { eVehicleType.ElectricMotorcyle, 2.6f},
+            { eVehicleType.ElectricMotorcycle, 2.6f},
             { eVehicleType.PetrolMotorcycle, 6.4f},
             { eVehicleType.Truck, 135f}
         };
@@ -43,28 +41,28 @@ namespace Ex03.GarageLogic
         {
             Vehicle vehicle;
             Engine engine = createEngine(i_VehicleType);
-            Vehicle.Wheel[] wheels = createWheels(i_VehicleType);
+            Vehicle.Tire[] tires = createTires(i_VehicleType);
 
             switch (i_VehicleType)
             {
                 case eVehicleType.ElectricCar:
-                    vehicle = new ElectricCar(i_LicensePlate, engine as ElectricEngine, wheels);
+                    vehicle = new Car(i_LicensePlate, engine as ElectricEngine, tires);
                     break;
 
                 case eVehicleType.PetrolCar:
-                    vehicle = new PetrolCar(i_LicensePlate, engine as PetrolEngine, wheels);
+                    vehicle = new Car(i_LicensePlate, engine as PetrolEngine, tires);
                     break;
 
-                case eVehicleType.ElectricMotorcyle:
-                    vehicle = new ElecticMotorcycle(i_LicensePlate, engine as ElectricEngine, wheels);
+                case eVehicleType.ElectricMotorcycle:
+                    vehicle = new Motorcycle(i_LicensePlate, engine as ElectricEngine, tires);
                     break;
 
                 case eVehicleType.PetrolMotorcycle:
-                    vehicle = new PetrolMotorcycle(i_LicensePlate, engine as PetrolEngine, wheels);
+                    vehicle = new Motorcycle(i_LicensePlate, engine as PetrolEngine, tires);
                     break;
 
                 case eVehicleType.Truck:
-                    vehicle = new Truck(i_LicensePlate, engine as PetrolEngine, wheels);
+                    vehicle = new Truck(i_LicensePlate, engine as PetrolEngine, tires);
                     break;
 
                 default:
@@ -77,11 +75,11 @@ namespace Ex03.GarageLogic
 
         public enum eVehicleType 
         { 
-            ElectricCar = 1,
-            PetrolCar,
-            ElectricMotorcyle,
-            PetrolMotorcycle,
-            Truck
+            ElectricCar = 1,            
+            PetrolCar = 2,
+            ElectricMotorcycle = 3,
+            PetrolMotorcycle = 4,
+            Truck = 5
         }
 
         private static Engine createEngine(eVehicleType i_VehicleType)
@@ -92,7 +90,7 @@ namespace Ex03.GarageLogic
             {
                 engine = new PetrolEngine(sr_FuelTypeDict[i_VehicleType], sr_MaxEngineCapacity[i_VehicleType]);
             }
-            else if(i_VehicleType == eVehicleType.ElectricCar || i_VehicleType == eVehicleType.ElectricMotorcyle)
+            else if(i_VehicleType == eVehicleType.ElectricCar || i_VehicleType == eVehicleType.ElectricMotorcycle)
             {
                 engine = new ElectricEngine(sr_MaxEngineCapacity[i_VehicleType]);
             }
@@ -100,18 +98,16 @@ namespace Ex03.GarageLogic
             return engine;
         }
 
-        private static Vehicle.Wheel[] createWheels(eVehicleType i_VehicleType)
+        private static Vehicle.Tire[] createTires(eVehicleType i_VehicleType)
         {
-            Vehicle.Wheel[] wheels = new Vehicle.Wheel[sr_NumOfWheelsDict[i_VehicleType]];
+            Vehicle.Tire[] wheels = new Vehicle.Tire[sr_NumOfWheelsDict[i_VehicleType]];
             
             for(int i=0; i<wheels.Length; i++)
             {
-                wheels[i] = new Vehicle.Wheel(sr_MaxWheelAirPressureDict[i_VehicleType]);
+                wheels[i] = new Vehicle.Tire(sr_MaxWheelAirPressureDict[i_VehicleType]);
             }
 
             return wheels;
         } 
-
-
     }
 }

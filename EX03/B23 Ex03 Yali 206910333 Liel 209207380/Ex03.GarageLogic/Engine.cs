@@ -17,11 +17,6 @@
             m_EnergyAmount = i_EnergyAmount;
         }
 
-        public float GetEnergyPercentage()
-        {
-            return m_EnergyAmount / m_MaxCapacity;
-        }
-
         //protected abstract void FillEnergy(eFuelType i_Type, float i_AmountToAdd);
 
     }

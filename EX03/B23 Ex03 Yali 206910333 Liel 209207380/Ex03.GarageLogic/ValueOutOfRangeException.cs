@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 
 namespace Ex03.GarageLogic
 {
@@ -13,6 +11,16 @@ namespace Ex03.GarageLogic
         {
             m_MaxValue= i_MaxValue;
             m_MinValue= i_MinValue;
+        }
+
+        public float MinValue
+        {
+            get { return m_MinValue; }
+        }
+
+        public float MaxValue
+        {
+            get { return m_MaxValue; }
         }
     }
 }

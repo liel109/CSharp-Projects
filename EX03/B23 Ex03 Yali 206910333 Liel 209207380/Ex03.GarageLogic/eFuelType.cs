@@ -2,7 +2,6 @@
 {
     public enum eFuelType
     {
-        Electricity,
         Octan95,
         Octan96,
         Octan98,

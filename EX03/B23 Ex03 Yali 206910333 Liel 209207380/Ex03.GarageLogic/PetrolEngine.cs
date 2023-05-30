@@ -1,4 +1,6 @@
-﻿namespace Ex03.GarageLogic
+﻿using System;
+
+namespace Ex03.GarageLogic
 {
     public class PetrolEngine : Engine
     {
@@ -26,34 +28,26 @@
 
         public float FuelAmount
         {
-            get { return m_EnergyAmount; }
-        }
-
-        internal void Fuel(float i_AmountToAdd, eFuelType i_FuelTypeToAdd)
-        {
-            if(isValidFuelAmount(i_AmountToAdd) && isValidFuelType(i_FuelTypeToAdd))
+            get
             {
-                m_EnergyAmount += i_AmountToAdd;
+                return m_EnergyAmount;
             }
-
-            else
+            set
             {
-                float maxAmountToAdd = m_MaxCapacity - m_EnergyAmount;
-
-                throw new ValueOutOfRangeException(0, maxAmountToAdd);
+                if (isValidFuelAmount(value))
+                {
+                    m_EnergyAmount = value;
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException(0, m_MaxCapacity);
+                }
             }
         }
 
-        private bool isValidFuelAmount(float i_AmountToAdd)
+        private bool isValidFuelAmount(float i_FuelAmount)
         {
-            float expectedAmount = i_AmountToAdd + m_EnergyAmount;
-
-            return expectedAmount >= 0 && expectedAmount <= m_MaxCapacity;
-        }
-
-        private bool isValidFuelType(eFuelType i_FuelTypeToAdd)
-        {
-            return i_FuelTypeToAdd == r_FuelType;
+            return i_FuelAmount >= m_MaxCapacity;
         }
     }
 }

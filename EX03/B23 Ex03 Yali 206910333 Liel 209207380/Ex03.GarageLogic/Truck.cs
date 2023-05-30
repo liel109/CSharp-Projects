@@ -1,11 +1,16 @@
-﻿namespace Ex03.GarageLogic
-{
-    public class Truck : PetrolVehicle
-    {
-        private readonly bool r_IsCarryingHazardousMaterial;
-        private readonly float r_CargoVolume;
+﻿using System.Collections.Generic;
 
-        public Truck(string i_LicensePlate, PetrolEngine i_Engine, Wheel[] i_Wheels) : base(i_LicensePlate, i_Engine, i_Wheels)
+namespace Ex03.GarageLogic
+{
+    public class Truck : Vehicle
+    {
+        private const float k_MaxTireAirPressure = 31f;
+        private const int k_NumberOfTires = 2;
+
+        private bool r_IsCarryingHazardousMaterial;
+        private float r_CargoVolume;
+
+        public Truck(string i_LicensePlate, PetrolEngine i_Engine, Tire[] i_Tires) : base(i_LicensePlate, i_Engine, i_Tires)
         {
         }
 
@@ -17,6 +22,11 @@
         public float CargoVolume
         {
             get { return r_CargoVolume; }
+        }
+
+        public override Dictionary<string, string[]> GetProperties()
+        {
+            return null;
         }
     }
 }

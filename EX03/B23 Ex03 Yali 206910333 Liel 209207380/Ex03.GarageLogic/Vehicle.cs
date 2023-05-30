@@ -1,11 +1,21 @@
-﻿namespace Ex03.GarageLogic
+﻿using System.Collections.Generic;
+
+namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
         protected string m_Model;
         protected string m_LicensePlate;
         protected float m_RemainingEnergyPercentage;
-        protected Wheel[] m_Wheels;
+        protected Engine m_Engine;
+        protected Tire[] m_Tires;
+
+        public Vehicle(string i_LicensePlate, Engine i_Engine, Tire[] i_Tires)
+        {
+            m_LicensePlate = i_LicensePlate;
+            m_Engine = i_Engine;
+            m_Tires = i_Tires;
+        }
 
         public string Model
         {
@@ -26,6 +36,11 @@
             }
         }
 
+        public Engine Engine
+        {
+            get { return m_Engine; }
+        }
+
         public override int GetHashCode()
         {
             return m_LicensePlate.GetHashCode();
@@ -33,29 +48,31 @@
 
         public void SetWheelManufacturer(int i_WheelIndex, string i_Manufacturer)
         {
-            m_Wheels[i_WheelIndex].Manufacturer = i_Manufacturer;
+            m_Tires[i_WheelIndex].Manufacturer = i_Manufacturer;
         }
 
         public void InflateWheel(int i_WheelIndex, float i_NewAirPressureAmount)
         {
-            m_Wheels[i_WheelIndex].Inflate(i_NewAirPressureAmount);
+            m_Tires[i_WheelIndex].Inflate(i_NewAirPressureAmount);
         }
 
         public void InflateWheelsToMax()
         {
-            foreach (Wheel wheel in m_Wheels)
+            foreach (Tire wheel in m_Tires)
             {
                 wheel.InflateToMax();
             }
         }
 
-        public class Wheel
+        public abstract Dictionary<string, string[]> GetProperties();
+
+        public class Tire
         {
             private string m_Manufacturer;
             private float m_AirPressure;
             private readonly float m_MaxAirPressure;
 
-            public Wheel(float maxAirPressure)
+            public Tire(float maxAirPressure)
             {
                 m_MaxAirPressure = maxAirPressure;
             }

@@ -17,32 +17,26 @@
 
         public float RemainingBatteryHours
         {
-            get { return m_EnergyAmount; }
+            get 
+            {
+                return m_EnergyAmount; 
+            }
+            set
+            {
+                if (isValidAmountToCharge(value))
+                {
+                    m_EnergyAmount = value;
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException(0, m_MaxCapacity);
+                }
+            }
         }
 
-        internal void Charge(float i_MinutesToAdd)
+        private bool isValidAmountToCharge(float i_RemainingHours)
         {
-            float hoursToAdd = i_MinutesToAdd / 60;
-
-            if (isValidAmountToCharge(hoursToAdd))
-            {
-                m_EnergyAmount += hoursToAdd;
-            }
-            else
-            {
-                float maxMinutesToAdd = (m_MaxCapacity - m_EnergyAmount) * 60;
-
-                throw new ValueOutOfRangeException(0, maxMinutesToAdd);
-            }
-
-            //FillEnergy(m_Type, i_AmountToAdd);
-        }
-
-        private bool isValidAmountToCharge(float i_HoursToAdd)
-        {
-            float expectedAmount = m_EnergyAmount + i_HoursToAdd;
-
-            return expectedAmount >= 0 && expectedAmount <= m_MaxCapacity;
+            return i_RemainingHours >= 0 && i_RemainingHours <= m_MaxCapacity;
         }
 
         //protected override void FillEnergy(eFuelType i_Type, float i_AmountToAdd)

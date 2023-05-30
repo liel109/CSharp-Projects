@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
 {
     public class Garage
     {
-        private readonly Dictionary<string, EntryForm> m_Jobs;
+        public readonly Dictionary<string, EntryForm> m_Jobs;
 
         public Garage()
         {
@@ -37,9 +37,27 @@ namespace Ex03.GarageLogic
 
         public void Fuel(string i_LicensePlate, eFuelType i_FuelType, float i_AmountToAdd)
         {
-            if (m_Jobs[i_LicensePlate].Vehicle is PetrolVehicle fuelVehicle)
+            Engine vehicleEngine = m_Jobs[i_LicensePlate].Vehicle.Engine;
+
+            if (vehicleEngine is PetrolEngine petrolEngine)
             {
-                fuelVehicle.Fuel(i_AmountToAdd, i_FuelType);
+                if (i_FuelType == petrolEngine.FuelType)
+                {
+                    try
+                    {
+                        petrolEngine.FuelAmount += i_AmountToAdd;
+                    }
+                    catch (ValueOutOfRangeException e)
+                    {
+                        float maxPossibleAmountToAdd = petrolEngine.FuelCapacity - petrolEngine.FuelAmount;
+
+                        throw new ValueOutOfRangeException(0, maxPossibleAmountToAdd);
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid Fuel Type");
+                }
             }
             else
             {
@@ -49,9 +67,22 @@ namespace Ex03.GarageLogic
 
         public void Charge(string i_LicensePlate, float i_NumberOfMinutesToAdd)
         {
-            if (m_Jobs[i_LicensePlate].Vehicle is ElectricVehicle electricVehicle)
+            Engine vehicleEngine = m_Jobs[i_LicensePlate].Vehicle.Engine;
+
+            if (vehicleEngine is ElectricEngine electricEngine)
             {
-                electricVehicle.Charge(i_NumberOfMinutesToAdd);
+                try
+                {
+                    float numberOfHoursToAdd = i_NumberOfMinutesToAdd / 60;
+
+                    electricEngine.RemainingBatteryHours += numberOfHoursToAdd;
+                }
+                catch(ValueOutOfRangeException e)
+                {
+                    float maxPossibleBatteryHoursToAdd = electricEngine.MaxBatteryCapacity - electricEngine.RemainingBatteryHours;
+
+                    throw new ValueOutOfRangeException(0, maxPossibleBatteryHoursToAdd);
+                }
             }
             else
             {
@@ -73,6 +104,13 @@ namespace Ex03.GarageLogic
         public void RemoveJob(string i_LiscensePlate) 
         {
             m_Jobs.Remove(i_LiscensePlate);
+        }
+
+        public enum eVehicleStatus
+        {
+            InProgress,
+            Repaired,
+            Payed
         }
     }
 }
