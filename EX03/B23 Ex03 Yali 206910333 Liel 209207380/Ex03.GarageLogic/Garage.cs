@@ -25,6 +25,28 @@ namespace Ex03.GarageLogic
             return m_Jobs.Where(member => member.Value.VehicleStatus == i_FilterByStatus).Select(member => member.Key).ToList();
         }
 
+        public List<string> GetJobs(string i_FilterByStatus)
+        {
+            int status;
+            bool isFormatValid = int.TryParse(i_FilterByStatus, out status);
+            List<string> jobs = null;
+            
+            if(!isFormatValid)
+            {
+                throw new FormatException("Incorrect Format");
+            }
+            else if(!Enum.IsDefined(typeof(eVehicleStatus), status))
+            {
+                throw new ArgumentException("Incorrect Argument");
+            }
+            else
+            {
+                jobs = GetJobs((eVehicleStatus)status);
+            }
+
+            return jobs;
+        }
+
         public List<string> GetJobs()
         {
             return m_Jobs.Keys.ToList<string>();
@@ -80,8 +102,9 @@ namespace Ex03.GarageLogic
                 catch(ValueOutOfRangeException e)
                 {
                     float maxPossibleBatteryHoursToAdd = electricEngine.MaxBatteryCapacity - electricEngine.RemainingBatteryHours;
+                    float maxPossibleBatteryMinutesToAdd = maxPossibleBatteryHoursToAdd * 60;
 
-                    throw new ValueOutOfRangeException(0, maxPossibleBatteryHoursToAdd);
+                    throw new ValueOutOfRangeException(0, maxPossibleBatteryMinutesToAdd);
                 }
             }
             else
@@ -106,11 +129,16 @@ namespace Ex03.GarageLogic
             m_Jobs.Remove(i_LiscensePlate);
         }
 
+        public void ChangeStatus(string i_LicensePlate, eVehicleStatus i_NewStatus)
+        {
+            m_Jobs[i_LicensePlate].VehicleStatus = i_NewStatus;
+        }
+
         public enum eVehicleStatus
         {
-            InProgress,
-            Repaired,
-            Payed
+            InProgress = 1,
+            Repaired = 2,
+            Payed = 3
         }
     }
 }

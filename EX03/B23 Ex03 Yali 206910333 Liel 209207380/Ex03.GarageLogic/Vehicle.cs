@@ -66,6 +66,8 @@ namespace Ex03.GarageLogic
 
         public abstract Dictionary<string, string[]> GetProperties();
 
+        public abstract void SetProperties(Dictionary<string, string> i_Properties);
+
         public class Tire
         {
             private string m_Manufacturer;

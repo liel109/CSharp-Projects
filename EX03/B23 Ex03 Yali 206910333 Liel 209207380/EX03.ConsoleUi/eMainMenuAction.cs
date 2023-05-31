@@ -3,7 +3,12 @@
     public enum eMainMenuAction
     {
         AddAJob = 1,
-        EditAJob = 2,
-        ShowAllJobs =3 
+        ShowAllJobs = 2,
+        ChangeAJobStatus = 3,
+        InflateTiresToMax = 4,
+        FuelVehicle = 5,
+        ChargeVehicle = 6,
+        ShowVehicleInfo = 7,
+        Exit = 8
     }
 }

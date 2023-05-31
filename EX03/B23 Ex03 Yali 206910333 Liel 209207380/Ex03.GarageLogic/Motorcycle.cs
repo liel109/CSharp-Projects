@@ -29,6 +29,11 @@ namespace Ex03.GarageLogic
             return null;
         }
 
+        public override void SetProperties(Dictionary<string, string> i_Properties)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public enum eLicenseType
         {
             A1,

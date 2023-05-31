@@ -41,17 +41,12 @@
   <ItemGroup>
     <Compile Include="ElectricEngine.cs" />
     <Compile Include="eFuelType.cs" />
-    <Compile Include="ElecticMotorcycle.cs" />
-    <Compile Include="ElectricCar.cs" />
-    <Compile Include="ElectricVehicle.cs" />
-    <Compile Include="eLicenseType.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="EntryForm.cs" />
     <Compile Include="Garage.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="PetrolEngine.cs" />
     <Compile Include="Motorcycle.cs" />
-    <Compile Include="PetrolVehicle.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Vehicle.cs" />

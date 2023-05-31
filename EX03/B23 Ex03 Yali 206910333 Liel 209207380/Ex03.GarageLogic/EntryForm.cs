@@ -7,7 +7,6 @@
         private readonly Vehicle m_Vehicle;
         private Garage.eVehicleStatus m_VehicleStatus;
 
-
         public EntryForm(string i_OwnerName, string i_OwnerPhoneNumber, Vehicle i_Vehicle)
         {
             m_OwnerName= i_OwnerName;

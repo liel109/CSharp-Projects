@@ -7,15 +7,6 @@ namespace EX03.ConsoleUi
     public class GarageManagmentAppBeta
     {
         private static Garage s_Garage = new Garage();
-        
-        public static void Main()
-        {
-            foreach(string name in Enum.GetNames(typeof(Car.eColor)))
-                {
-                Console.WriteLine(name);
-            }
-            Console.ReadLine();
-        }
 
         private static void RunGarageApp()
         {
@@ -126,7 +117,7 @@ namespace EX03.ConsoleUi
             string userInput = null;
             int userInputInt;
 
-            ConsoleRenderer.printCarColorsList();
+            ConsoleRenderer.PrintCarColorsList();
             while (!isValidInput)
             {
                 userInput = Console.ReadLine();
@@ -135,7 +126,7 @@ namespace EX03.ConsoleUi
                 if (!isValidInput)
                 {
                     Console.Clear();
-                    ConsoleRenderer.printCarColorsList();
+                    ConsoleRenderer.PrintCarColorsList();
                     Console.WriteLine("Please Choose A Valid Color!");
                 }
             }
@@ -143,6 +134,31 @@ namespace EX03.ConsoleUi
             userInputInt = int.Parse(userInput);
 
             return (Car.eColor)userInputInt;
+        }
+
+        private static T getColorTypeFromUser<T>()
+        {
+            bool isValidInput = false;
+            string userInput = null;
+            int userInputInt;
+
+            ConsoleRenderer.PrintCarColorsList();
+            while (!isValidInput)
+            {
+                userInput = Console.ReadLine();
+
+                isValidInput = Validator.IsValidEnumInput(typeof(T),userInput);
+                if (!isValidInput)
+                {
+                    Console.Clear();
+                    ConsoleRenderer.PrintCarColorsList();
+                    Console.WriteLine("Please Choose A Valid Color!");
+                }
+            }
+
+            userInputInt = int.Parse(userInput);
+
+            return (T)Convert.ChangeType(userInputInt, typeof(T));
         }
 
         private static Car.eDoorsNumber getDoorsNumberFromUser()

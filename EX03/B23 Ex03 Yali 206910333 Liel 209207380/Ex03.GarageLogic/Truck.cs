@@ -24,6 +24,11 @@ namespace Ex03.GarageLogic
             get { return r_CargoVolume; }
         }
 
+        public override void SetProperties(Dictionary<string, string> i_Properties)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override Dictionary<string, string[]> GetProperties()
         {
             return null;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Ex03.GarageLogic;
 
 namespace EX03.ConsoleUi
@@ -23,7 +24,7 @@ namespace EX03.ConsoleUi
 5 - Truck");
         }
 
-        public static void printCarColorsList()
+        public static void PrintCarColorsList()
         {
             Console.WriteLine(@"What Color Is The Car?
 1 - Red
@@ -32,5 +33,22 @@ namespace EX03.ConsoleUi
 4 - Black");
         }
 
+        public static void PrintSelectionMenu(string i_Attribute, string[] i_OptionsList)
+        {
+            Console.WriteLine(string.Format("Select {0}:", i_Attribute));
+            for(int i = 0; i < i_OptionsList.Length; i++) 
+            {
+                Console.WriteLine(string.Format("{0,3} - {1}", i + 1, i_OptionsList[i]));
+            }
+        }
+
+        public static void PrintAllJobs(List<string> i_LicensePlatesList)
+        {
+            Console.WriteLine("List Of Cars License Plate In Garage:");
+            foreach(string licensePlate in i_LicensePlatesList)
+            {
+                Console.WriteLine(string.Format("{0,3}", licensePlate));
+            }
+        }
     }
 }

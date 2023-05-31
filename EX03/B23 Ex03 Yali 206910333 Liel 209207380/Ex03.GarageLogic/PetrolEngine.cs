@@ -47,7 +47,7 @@ namespace Ex03.GarageLogic
 
         private bool isValidFuelAmount(float i_FuelAmount)
         {
-            return i_FuelAmount >= m_MaxCapacity;
+            return i_FuelAmount <= m_MaxCapacity;
         }
     }
 }
