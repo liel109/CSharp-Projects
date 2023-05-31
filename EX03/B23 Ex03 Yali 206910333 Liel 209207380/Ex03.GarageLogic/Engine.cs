@@ -1,8 +1,9 @@
-﻿namespace Ex03.GarageLogic
+﻿using System.Collections.Generic;
+
+namespace Ex03.GarageLogic
 {
     public abstract class Engine
     {
-        //protected eFuelType m_Type;
         protected readonly float m_MaxCapacity;
         protected float m_EnergyAmount;
 
@@ -17,7 +18,8 @@
             m_EnergyAmount = i_EnergyAmount;
         }
 
-        //protected abstract void FillEnergy(eFuelType i_Type, float i_AmountToAdd);
+        
+        public abstract void SetProperties(Dictionary<string, string> i_properties);
 
     }
 }
