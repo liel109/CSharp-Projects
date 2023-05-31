@@ -39,7 +39,6 @@
     <Compile Include="ConsoleRenderer.cs" />
     <Compile Include="eMainMenuAction.cs" />
     <Compile Include="GarageManagementApp.cs" />
-    <Compile Include="GarageManagmentAppBeta.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup>

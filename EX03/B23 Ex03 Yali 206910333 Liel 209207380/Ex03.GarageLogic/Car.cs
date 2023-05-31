@@ -58,8 +58,6 @@ namespace Ex03.GarageLogic
 
         public override void SetProperties(Dictionary<string, string> i_properties)
         {
-
-
             string userInputColorString = i_properties["Color"];
             string userInputDoorsString = i_properties["Doors Number"];
             int userInputColorInt;
@@ -68,7 +66,6 @@ namespace Ex03.GarageLogic
             m_Engine.SetProperties(i_properties);
             base.SetProperties(i_properties);
             m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_properties);
-
             if (!isValidEnumInput(typeof(eColor), userInputColorString, out userInputColorInt))
             {
                 if (!int.TryParse(userInputColorString, out _))
@@ -98,7 +95,6 @@ namespace Ex03.GarageLogic
 
         private static bool isValidEnumInput(Type i_EnumType, string i_UserInput, out int o_userInputInt)
         {
-
             return int.TryParse(i_UserInput, out o_userInputInt) && Enum.IsDefined(i_EnumType, o_userInputInt);
         }
 
@@ -119,11 +115,6 @@ namespace Ex03.GarageLogic
 Vehicle number of doors: {1}",m_Color.ToString(), m_DoorsNumber.ToString()));
 
             return stringBuilder.ToString();
-        }
-
-        public override void SetProperties(Dictionary<string, string> i_Properties)
-        {
-            throw new System.NotImplementedException();
         }
 
         public enum eColor

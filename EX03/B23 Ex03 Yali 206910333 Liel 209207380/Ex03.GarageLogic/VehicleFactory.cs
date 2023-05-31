@@ -40,26 +40,26 @@ namespace Ex03.GarageLogic
             { eVehicleType.Truck, 135f}
         };
 
-        public static Vehicle CreateNewVehicle(string i_LicensePlate, string i_VehicleType)
+        public static Vehicle CreateNewVehicle(string i_LicensePlate, eVehicleType i_VehicleType)
         {
-            int vehicleTypeInt;
-            if (!isValidEnumInput(typeof(eVehicleType), i_VehicleType, out vehicleTypeInt))
-            {
-                if (!int.TryParse(i_VehicleType, out _))
-                {
-                    throw new FormatException();
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
-            }
-            eVehicleType vehicleType = (eVehicleType)vehicleTypeInt;
+            //int vehicleTypeInt;
+            //if (!isValidEnumInput(typeof(eVehicleType), i_VehicleType, out vehicleTypeInt))
+            //{
+            //    if (!int.TryParse(i_VehicleType, out _))
+            //    {
+            //        throw new FormatException();
+            //    }
+            //    else
+            //    {
+            //        throw new ArgumentException();
+            //    }
+            //}
+            //eVehicleType i_VehicleType = (eVehicleType)vehicleTypeInt;
             Vehicle vehicle;
-            Engine engine = createEngine(vehicleType);
-            Vehicle.Tire[] tires = createTires(vehicleType);
+            Engine engine = createEngine(i_VehicleType);
+            Vehicle.Tire[] tires = createTires(i_VehicleType);
 
-            switch (vehicleType)
+            switch (i_VehicleType)
             {
                 case eVehicleType.ElectricCar:
                     vehicle = new Car(i_LicensePlate, engine as ElectricEngine, tires);

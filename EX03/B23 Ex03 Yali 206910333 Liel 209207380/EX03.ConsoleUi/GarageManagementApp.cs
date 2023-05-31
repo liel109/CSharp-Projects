@@ -10,8 +10,6 @@ namespace EX03.ConsoleUi
 
         static void Main(string[] args)
         {
-            s_Garage.AddJob("Liel", "1234", VehicleFactory.CreateNewVehicle("12345", VehicleFactory.eVehicleType.ElectricCar));
-            s_Garage.AddJob("Yali", "5678", VehicleFactory.CreateNewVehicle("18092", VehicleFactory.eVehicleType.PetrolCar));
             mainMenu();
             Console.ReadLine();
         }
@@ -27,6 +25,7 @@ namespace EX03.ConsoleUi
 
             while (!pressedExit)
             {
+                Console.Clear();
                 eMainMenuAction userAction = getUserEnumInput<eMainMenuAction>("Action");
                 switch (userAction)
                 {
@@ -55,6 +54,7 @@ namespace EX03.ConsoleUi
                         break;
 
                     case eMainMenuAction.ShowVehicleInfo:
+                        getFullInfoMenuAction();
                         break;
 
                     case eMainMenuAction.Exit:
@@ -79,6 +79,8 @@ namespace EX03.ConsoleUi
 
                 addNewJob(newVehicle);
             }
+
+            ConsoleRenderer.PrintContinueMessage();
         }
 
         private static void showAllVehiclesMenuAction()
@@ -110,6 +112,8 @@ namespace EX03.ConsoleUi
                     Console.WriteLine("Please Enter A Valid Input");
                 }
             }
+
+            ConsoleRenderer.PrintContinueMessage();
         }
 
         private static void modifyStatusMenuAction()
@@ -121,6 +125,8 @@ namespace EX03.ConsoleUi
                 Garage.eVehicleStatus selectedStatus = getUserEnumInput<Garage.eVehicleStatus>("Status");
                 s_Garage.ChangeStatus(selectedLicensePlate, selectedStatus);
             }
+
+            ConsoleRenderer.PrintContinueMessage();
         }
 
         private static void inflateTiresToMaxMenuAction()
@@ -133,10 +139,9 @@ namespace EX03.ConsoleUi
             }
             catch(Exception e)
             {
-                Console.WriteLine(@"License Plate Doesn't Exist!
-Press Enter To Continue...");
-                Console.ReadLine();
+               ConsoleRenderer.PrintContinueMessage("License Plate Doesn't Exist!");
             }
+
         }
 
         private static void fuelVehicleMenuAction()
@@ -157,6 +162,12 @@ Press Enter To Continue...");
             {
                 Console.WriteLine(string.Format("Can Only Add Between {0} - {1}", valueOutOfRangeException.MinValue, valueOutOfRangeException.MaxValue));
             }
+            catch (KeyNotFoundException keyNotFoundException)
+            {
+                Console.WriteLine("License Plate Doesn't Exist!");
+            }
+
+            ConsoleRenderer.PrintContinueMessage();
         }
 
         private static void chargeVehicleMenuAction()
@@ -176,6 +187,28 @@ Press Enter To Continue...");
             {
                 Console.WriteLine(string.Format("Can Only Add Between {0} - {1}", valueOutOfRangeException.MinValue, valueOutOfRangeException.MaxValue));
             }
+            catch (KeyNotFoundException keyNotFoundException)
+            {
+                Console.WriteLine("License Plate Doesn't Exist!");
+            }
+
+            ConsoleRenderer.PrintContinueMessage();
+        }
+
+        public static void getFullInfoMenuAction()
+        {
+            string selectedLicensePlate = getUserLicensePlateInput();
+            
+            try
+            {
+                ConsoleRenderer.PrintJobFullInfo(s_Garage.GetJob(selectedLicensePlate));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("License Plate Doesn't Exist!");
+            }
+
+            ConsoleRenderer.PrintContinueMessage();
         }
 
         private static void setNewVehicleProperties(Vehicle i_NewVehicle)
@@ -192,9 +225,10 @@ Press Enter To Continue...");
                     i_NewVehicle.SetProperties(propertiesAndInputs);
                     isValidPropertiesSet = true;
                 }
-                catch (Exception) 
+                catch (Exception e) 
                 {
-                    Console.WriteLine("One Or More Of The Inputs Is Invalid!");
+                    Console.WriteLine(e.StackTrace);
+                    //Console.WriteLine("One Or More Of The Inputs Is Invalid!");
                 }
             }
         }
@@ -202,8 +236,8 @@ Press Enter To Continue...");
         private static void addNewJob(Vehicle i_NewVehicle)
         {
             setNewVehicleProperties(i_NewVehicle);
-            string selectedOwnerName = getUserInput("Please Enter Owner's Name");
-            string selectedOwnerPhoneNumber = getUserInput("Please Enter Owner's Phone Number");
+            string selectedOwnerName = getUserInput("Please Enter Owner's Name: ");
+            string selectedOwnerPhoneNumber = getUserInput("Please Enter Owner's Phone Number: ");
             s_Garage.AddJob(selectedOwnerName, selectedOwnerPhoneNumber, i_NewVehicle);
             Console.WriteLine(@"Vehicle Added!
 Press ENTER to return to main menu...");
@@ -273,10 +307,15 @@ Press ENTER to return to main menu...");
 
             foreach (KeyValuePair<string, string[]> property in i_PropertiesAndOptionsDictionary)
             {
+                Console.Clear();
                 if (property.Value != null)
                 {
                     ConsoleRenderer.PrintSelectionMenu(property.Key, property.Value);
                     propertiesAndInputs[property.Key] = Console.ReadLine();
+                }
+                else
+                {
+                    propertiesAndInputs[property.Key] = getUserInput(string.Format("Please Enter {0}: ", property.Key));
                 }
             }
 

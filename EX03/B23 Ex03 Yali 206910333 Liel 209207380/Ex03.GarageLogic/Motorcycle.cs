@@ -91,11 +91,6 @@ namespace Ex03.GarageLogic
             return int.TryParse(i_UserInput, out o_userInputInt) && Enum.IsDefined(i_EnumType, o_userInputInt);
         }
 
-        public override void SetProperties(Dictionary<string, string> i_Properties)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public enum eLicenseType
         {
             A1 = 1,

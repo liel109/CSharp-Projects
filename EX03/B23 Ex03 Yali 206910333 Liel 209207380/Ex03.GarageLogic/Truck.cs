@@ -10,8 +10,8 @@ namespace Ex03.GarageLogic
     {
         private static readonly Dictionary<string, string[]> sr_TruckPropertiesDictionary = new Dictionary<string, string[]>()
         {
-            {"Is Carrying Hazardous Material",null},
-            {"Cargo Volume",null }
+            { "Is Carrying Hazardous Material", new string[]{ "Yes", "No" } },
+            { "Cargo Volume", null }
         };
 
 
@@ -33,11 +33,6 @@ namespace Ex03.GarageLogic
         public float CargoVolume
         {
             get { return m_CargoVolume; }
-        }
-
-        public override void SetProperties(Dictionary<string, string> i_Properties)
-        {
-            throw new System.NotImplementedException();
         }
 
         public override Dictionary<string, string[]> GetProperties()
