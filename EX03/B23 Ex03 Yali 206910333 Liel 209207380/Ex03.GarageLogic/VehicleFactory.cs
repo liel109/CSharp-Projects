@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using static Ex03.GarageLogic.Motorcycle;
+
 namespace Ex03.GarageLogic
 {
     public class VehicleFactory
@@ -37,13 +40,26 @@ namespace Ex03.GarageLogic
             { eVehicleType.Truck, 135f}
         };
 
-        public static Vehicle CreateNewVehicle(string i_LicensePlate, eVehicleType i_VehicleType)
+        public static Vehicle CreateNewVehicle(string i_LicensePlate, string i_VehicleType)
         {
+            int vehicleTypeInt;
+            if (!isValidEnumInput(typeof(eVehicleType), i_VehicleType, out vehicleTypeInt))
+            {
+                if (!int.TryParse(i_VehicleType, out _))
+                {
+                    throw new FormatException();
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+            eVehicleType vehicleType = (eVehicleType)vehicleTypeInt;
             Vehicle vehicle;
-            Engine engine = createEngine(i_VehicleType);
-            Vehicle.Tire[] tires = createTires(i_VehicleType);
+            Engine engine = createEngine(vehicleType);
+            Vehicle.Tire[] tires = createTires(vehicleType);
 
-            switch (i_VehicleType)
+            switch (vehicleType)
             {
                 case eVehicleType.ElectricCar:
                     vehicle = new Car(i_LicensePlate, engine as ElectricEngine, tires);
@@ -108,6 +124,12 @@ namespace Ex03.GarageLogic
             }
 
             return wheels;
-        } 
+        }
+
+        private static bool isValidEnumInput(Type i_EnumType, string i_UserInput, out int o_userInputInt)
+        {
+
+            return int.TryParse(i_UserInput, out o_userInputInt) && Enum.IsDefined(i_EnumType, o_userInputInt);
+        }
     }
 }

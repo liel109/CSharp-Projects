@@ -60,6 +60,7 @@ namespace Ex03.GarageLogic
         public void Fuel(string i_LicensePlate, eFuelType i_FuelType, float i_AmountToAdd)
         {
             Engine vehicleEngine = m_Jobs[i_LicensePlate].Vehicle.Engine;
+            Vehicle vehicle = m_Jobs[i_LicensePlate].Vehicle; 
 
             if (vehicleEngine is PetrolEngine petrolEngine)
             {
@@ -68,6 +69,7 @@ namespace Ex03.GarageLogic
                     try
                     {
                         petrolEngine.FuelAmount += i_AmountToAdd;
+                        vehicle.RemainingEnergyPercentage = petrolEngine.FuelAmount / petrolEngine.FuelCapacity;
                     }
                     catch (ValueOutOfRangeException e)
                     {
@@ -90,6 +92,7 @@ namespace Ex03.GarageLogic
         public void Charge(string i_LicensePlate, float i_NumberOfMinutesToAdd)
         {
             Engine vehicleEngine = m_Jobs[i_LicensePlate].Vehicle.Engine;
+            Vehicle vehicle = m_Jobs[i_LicensePlate].Vehicle;
 
             if (vehicleEngine is ElectricEngine electricEngine)
             {
@@ -98,6 +101,7 @@ namespace Ex03.GarageLogic
                     float numberOfHoursToAdd = i_NumberOfMinutesToAdd / 60;
 
                     electricEngine.RemainingBatteryHours += numberOfHoursToAdd;
+                    vehicle.RemainingEnergyPercentage = electricEngine.RemainingBatteryHours / electricEngine.MaxBatteryCapacity;
                 }
                 catch(ValueOutOfRangeException e)
                 {
