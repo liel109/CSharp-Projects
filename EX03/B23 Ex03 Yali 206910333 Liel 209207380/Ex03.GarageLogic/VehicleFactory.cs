@@ -24,11 +24,11 @@ namespace Ex03.GarageLogic
             { eVehicleType.Truck, 26}
         };
 
-        private static readonly Dictionary<eVehicleType, eFuelType> sr_FuelTypeDict = new Dictionary<eVehicleType, eFuelType>()
+        private static readonly Dictionary<eVehicleType, PetrolEngine.eFuelType> sr_FuelTypeDict = new Dictionary<eVehicleType, PetrolEngine.eFuelType>()
         {
-            { eVehicleType.PetrolCar, eFuelType.Octan95},
-            { eVehicleType.PetrolMotorcycle, eFuelType.Octan98},
-            { eVehicleType.Truck, eFuelType.Soler}
+            { eVehicleType.PetrolCar, PetrolEngine.eFuelType.Octan95},
+            { eVehicleType.PetrolMotorcycle, PetrolEngine.eFuelType.Octan98},
+            { eVehicleType.Truck, PetrolEngine.eFuelType.Soler}
         };
 
         private static readonly Dictionary<eVehicleType, float> sr_MaxEngineCapacity = new Dictionary<eVehicleType, float>()
@@ -87,6 +87,11 @@ namespace Ex03.GarageLogic
             }
 
             return vehicle;
+        }
+
+        public static string[] GetVehicleTypes()
+        {
+            return Enum.GetNames(typeof(eVehicleType));
         }
 
         public enum eVehicleType 

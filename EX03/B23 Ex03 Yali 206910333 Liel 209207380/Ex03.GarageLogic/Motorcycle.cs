@@ -50,16 +50,16 @@ namespace Ex03.GarageLogic
             return fullDictionary;
         }
 
-        public override void SetProperties(Dictionary<string, string> i_properties)
+        public override void SetProperties(Dictionary<string, string> i_Properties)
         {
-            string userInputLicenseTypeString = i_properties["License Type"];
-            string userInputEngineVolumeString = i_properties["Engine Volume"];
+            string userInputLicenseTypeString = i_Properties["License Type"];
+            string userInputEngineVolumeString = i_Properties["Engine Volume"];
             int userInputLicenseTypeInt;
             int userInputEngineVolumeInt;
 
-            base.SetProperties(i_properties);
-            m_Engine.SetProperties(i_properties);
-            m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_properties);
+            base.SetProperties(i_Properties);
+            m_Engine.SetProperties(i_Properties);
+            m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);
 
             if (!isValidEnumInput(typeof(eLicenseType), userInputLicenseTypeString, out userInputLicenseTypeInt))
             {

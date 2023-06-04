@@ -57,7 +57,7 @@ namespace Ex03.GarageLogic
             m_Jobs[i_LicensePlate].Vehicle.InflateWheelsToMax();
         }
 
-        public void Fuel(string i_LicensePlate, eFuelType i_FuelType, float i_AmountToAdd)
+        public void Fuel(string i_LicensePlate, PetrolEngine.eFuelType i_FuelType, float i_AmountToAdd)
         {
             Engine vehicleEngine = m_Jobs[i_LicensePlate].Vehicle.Engine;
             Vehicle vehicle = m_Jobs[i_LicensePlate].Vehicle; 
@@ -136,6 +136,16 @@ namespace Ex03.GarageLogic
         public void ChangeStatus(string i_LicensePlate, eVehicleStatus i_NewStatus)
         {
             m_Jobs[i_LicensePlate].VehicleStatus = i_NewStatus;
+        }
+
+        public string[] GetStatusOptions()
+        {
+            return Enum.GetNames(typeof(eVehicleStatus));
+        }
+
+        public string[] GetFuelTypes()
+        {
+            return Enum.GetNames(typeof(PetrolEngine.eFuelType));
         }
 
         public enum eVehicleStatus

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static Ex03.GarageLogic.Car;
-using static Ex03.GarageLogic.VehicleFactory;
 
 namespace Ex03.GarageLogic
 {
@@ -10,7 +8,7 @@ namespace Ex03.GarageLogic
     {
         private static readonly Dictionary<string, string[]> sr_TruckPropertiesDictionary = new Dictionary<string, string[]>()
         {
-            { "Is Carrying Hazardous Material", new string[]{ "Yes", "No" } },
+            { "Is Carrying Hazardous Material", new string[2]{ "True" , "False" } },
             { "Cargo Volume", null }
         };
 
@@ -51,16 +49,16 @@ namespace Ex03.GarageLogic
             return fullDictionary;
         }
 
-        public override void SetProperties(Dictionary<string, string> i_properties)
+        public override void SetProperties(Dictionary<string, string> i_Properties)
         {
-            string userInputMatrialTypeString = i_properties["Is Carrying Hazardous Material"];
-            string userInputCargoVolumeString = i_properties["Cargo Volume"];
+            string userInputMatrialTypeString = i_Properties["Is Carrying Hazardous Material"];
+            string userInputCargoVolumeString = i_Properties["Cargo Volume"];
             bool userInputMatrialTypeBool;
             float userInputCargoVolumeFloat;
 
-            m_Engine.SetProperties(i_properties);
-            base.SetProperties(i_properties);
-            m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_properties);
+            m_Engine.SetProperties(i_Properties);
+            base.SetProperties(i_Properties);
+            m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);
 
             if (!bool.TryParse(userInputMatrialTypeString, out userInputMatrialTypeBool))
             {

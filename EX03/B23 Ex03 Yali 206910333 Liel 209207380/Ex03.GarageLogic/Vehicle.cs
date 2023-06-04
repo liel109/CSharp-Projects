@@ -95,11 +95,11 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public virtual void SetProperties(Dictionary<string, string> i_properties)
+        public virtual void SetProperties(Dictionary<string, string> i_Properties)
         {
-            string userInputModelTypeString = i_properties["Model"];
-            string userInputTiresManufacturerString = i_properties["Tires Manufacturer"];
-            string userInputTiresAirPressureString = i_properties["Tires Air Pressure"];
+            string userInputModelTypeString = i_Properties["Model"];
+            string userInputTiresManufacturerString = i_Properties["Tires Manufacturer"];
+            string userInputTiresAirPressureString = i_Properties["Tires Air Pressure"];
             float userInputTiresAirPressureFloat;
 
             if (!float.TryParse(userInputTiresAirPressureString, out userInputTiresAirPressureFloat))

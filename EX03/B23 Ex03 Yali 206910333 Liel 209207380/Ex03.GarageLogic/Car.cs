@@ -9,8 +9,8 @@ namespace Ex03.GarageLogic
     {
         private static readonly Dictionary<string, string[]> sr_CarPropertiesDictionary = new Dictionary<string, string[]>()
         {
-            {"Color", Enum.GetNames(typeof(eColor))},
-            {"Doors Number", Enum.GetNames(typeof(eDoorsNumber))}
+            { "Color", Enum.GetNames(typeof(eColor)) },
+            { "Doors Number", Enum.GetNames(typeof(eDoorsNumber)) }
         };
 
         protected eDoorsNumber m_DoorsNumber;
@@ -56,17 +56,17 @@ namespace Ex03.GarageLogic
             return fullDictionary;
         }
 
-        public override void SetProperties(Dictionary<string, string> i_properties)
+        public override void SetProperties(Dictionary<string, string> i_Properties)
         {
-            string userInputColorString = i_properties["Color"];
-            string userInputDoorsString = i_properties["Doors Number"];
+            string userInputColorString = i_Properties["Color"];
+            string userInputDoorsString = i_Properties["Doors Number"];
             int userInputColorInt;
             int userInputDoorsInt;
 
-            m_Engine.SetProperties(i_properties);
-            base.SetProperties(i_properties);
-            m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_properties);
-            if (!isValidEnumInput(typeof(eColor), userInputColorString, out userInputColorInt))
+            m_Engine.SetProperties(i_Properties);
+            base.SetProperties(i_Properties);
+            m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);
+            if (!isValidEnumInput(typeof(eColor), userInputColorString, out userInputColorInt))            
             {
                 if (!int.TryParse(userInputColorString, out _))
                 {

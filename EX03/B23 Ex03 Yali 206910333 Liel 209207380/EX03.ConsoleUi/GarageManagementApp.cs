@@ -75,6 +75,9 @@ namespace EX03.ConsoleUi
             else
             {
                 VehicleFactory.eVehicleType selectedType = getUserEnumInput<VehicleFactory.eVehicleType>("Vehicle Type");
+                //ConsoleRenderer.PrintSelectionMenu("Vehicle Types", VehicleFactory.GetVehicleTypes());
+                //string selectedType = getUserInput();
+
                 Vehicle newVehicle = VehicleFactory.CreateNewVehicle(selectedLicensePlate, selectedType);
 
                 addNewJob(newVehicle);
@@ -147,7 +150,7 @@ namespace EX03.ConsoleUi
         private static void fuelVehicleMenuAction()
         {
             string selectedLicensePlate = getUserLicensePlateInput();
-            eFuelType selectedFuelType = getUserEnumInput<eFuelType>("Fuel Type");
+            PetrolEngine.eFuelType selectedFuelType = getUserEnumInput<PetrolEngine.eFuelType>("Fuel Type");
             float selectedAmountToAdd = getUserFloatInput("How Much Fuel Would You Like To Add: ");
             
             try
@@ -271,7 +274,7 @@ Press ENTER to return to main menu...");
             return (TEnum)Enum.Parse(typeof(TEnum), userInput);
         }
         
-        private static string getUserInput(string i_MessageForUser)
+        private static string getUserInput(string i_MessageForUser = "")
         {
             Console.Write(i_MessageForUser);
 
