@@ -7,6 +7,7 @@ namespace Ex03.GarageLogic
 {
     public class Car : Vehicle
     {
+        private const bool v_PetrolEngine = true;
         private static readonly Dictionary<string, string[]> sr_CarPropertiesDictionary = new Dictionary<string, string[]>()
         {
             { "Color", Enum.GetNames(typeof(eColor)) },
@@ -22,22 +23,14 @@ namespace Ex03.GarageLogic
 
         public eDoorsNumber DoorsNumber
         {
-            get { 
-                return m_DoorsNumber;
-            }
-            set {
-                m_DoorsNumber = value;
-            }
+            get { return m_DoorsNumber; }
+            set { m_DoorsNumber = value; }
         }
 
         public eColor Color
         {
-            get {
-                return m_Color;
-            }
-            set {
-                m_Color = value;
-            }
+            get { return m_Color; }
+            set { m_Color = value; }
         }
 
         public override Dictionary<string, string[]> GetProperties()
@@ -46,56 +39,69 @@ namespace Ex03.GarageLogic
 
             if (m_Engine is PetrolEngine)
             {
-                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_CarPropertiesDictionary, true);
+                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_CarPropertiesDictionary, v_PetrolEngine);
             }
             else
             {
-                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_CarPropertiesDictionary, false);
+                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_CarPropertiesDictionary, !v_PetrolEngine);
             }
 
             return fullDictionary;
         }
 
+        //public override void SetProperties(Dictionary<string, string> i_Properties)
+        //{
+        //    string userInputColorString = i_Properties["Color"];
+        //    string userInputDoorsString = i_Properties["Doors Number"];
+        //    int userInputColorInt;
+        //    int userInputDoorsInt;
+
+        //    m_Engine.SetProperties(i_Properties);
+        //    base.SetProperties(i_Properties);
+        //    m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);
+        //    if (!isValidEnumInput(typeof(eColor), userInputColorString, out userInputColorInt))            
+        //    {
+        //        if (!int.TryParse(userInputColorString, out _))
+        //        {
+        //            throw new FormatException();
+        //        }
+        //        else
+        //        {
+        //            throw new ArgumentException();
+        //        }
+        //    }
+        //    else if (!isValidEnumInput(typeof(eDoorsNumber), userInputDoorsString, out userInputDoorsInt))
+        //    {
+        //        if (!int.TryParse(userInputDoorsString, out _))
+        //        {
+        //            throw new FormatException();
+        //        }
+        //        else
+        //        {
+        //            throw new ArgumentException();
+        //        }
+        //    }
+
+        //    m_Color = (eColor)userInputColorInt;
+        //    m_DoorsNumber = (eDoorsNumber)userInputDoorsInt;
+        //}
+
         public override void SetProperties(Dictionary<string, string> i_Properties)
         {
             string userInputColorString = i_Properties["Color"];
             string userInputDoorsString = i_Properties["Doors Number"];
-            int userInputColorInt;
-            int userInputDoorsInt;
+            eColor color;
+            eDoorsNumber numberOfDoors;
 
+            Validator.ValidateEnum(typeof(eColor), userInputColorString);
+            Validator.ValidateEnum(typeof(eDoorsNumber), userInputDoorsString);
+            color = (eColor)Enum.Parse(typeof(eColor), userInputColorString);
+            numberOfDoors = (eDoorsNumber)Enum.Parse(typeof(eDoorsNumber), userInputDoorsString);
             m_Engine.SetProperties(i_Properties);
             base.SetProperties(i_Properties);
             m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);
-            if (!isValidEnumInput(typeof(eColor), userInputColorString, out userInputColorInt))            
-            {
-                if (!int.TryParse(userInputColorString, out _))
-                {
-                    throw new FormatException();
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
-            }
-            else if (!isValidEnumInput(typeof(eDoorsNumber), userInputDoorsString, out userInputDoorsInt))
-            {
-                if (!int.TryParse(userInputDoorsString, out _))
-                {
-                    throw new FormatException();
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
-            }
-
-            m_Color = (eColor)userInputColorInt;
-            m_DoorsNumber = (eDoorsNumber)userInputDoorsInt;
-        }
-
-        private static bool isValidEnumInput(Type i_EnumType, string i_UserInput, out int o_userInputInt)
-        {
-            return int.TryParse(i_UserInput, out o_userInputInt) && Enum.IsDefined(i_EnumType, o_userInputInt);
+            m_Color = color;
+            m_DoorsNumber = numberOfDoors;
         }
 
         public override string ToString()

@@ -14,6 +14,24 @@ namespace EX03.ConsoleUi
             Console.ReadLine();
         }
 
+        public static void ValidateBool(string i_UserInputString, out bool o_UserInputBool)
+        {
+            int userInputInt;
+
+            if (!int.TryParse(i_UserInputString, out userInputInt) || (userInputInt < 1 || userInputInt > 2))
+            {
+                throw new ArgumentException("Invalid Argument (1 or 2 is needed)");
+            }
+            if (userInputInt == 1)
+            {
+                o_UserInputBool = true;
+            }
+            else
+            {
+                o_UserInputBool = false;
+            }
+        }
+
         private static void runApp() 
         {
             mainMenu();

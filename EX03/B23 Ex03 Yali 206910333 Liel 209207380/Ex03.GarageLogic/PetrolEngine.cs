@@ -10,36 +10,24 @@ namespace Ex03.GarageLogic
 
         private readonly eFuelType r_FuelType;
 
-        public PetrolEngine(eFuelType i_FuelType, float i_FuelCapacity) : this(i_FuelType, i_FuelCapacity, 0)
-        {
-
-        }
-
-        public PetrolEngine(eFuelType i_FuelType, float i_FuelCapacity, float i_FuelAmount) : base(i_FuelCapacity, i_FuelAmount)
+        public PetrolEngine(eFuelType i_FuelType, float i_FuelCapacity) : base(i_FuelCapacity)
         {
             r_FuelType = i_FuelType;
         }
 
         public eFuelType FuelType
         {
-            get { 
-                return r_FuelType;
-            }
+            get { return r_FuelType; }
         }
 
         public float FuelCapacity
         {
-            get { 
-                return m_MaxCapacity;
-            }
+            get { return r_MaxCapacity; }
         }
 
         public float FuelAmount
         {
-            get
-            {
-                return m_EnergyAmount;
-            }
+            get { return m_EnergyAmount; }
             set
             {
                 if (isValidFuelAmount(value))
@@ -48,14 +36,14 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException(0, m_MaxCapacity);
+                    throw new ValueOutOfRangeException(0, r_MaxCapacity);
                 }
             }
         }
 
         private bool isValidFuelAmount(float i_FuelAmount)
         {
-            return i_FuelAmount >= 0 && i_FuelAmount <= m_MaxCapacity;
+            return i_FuelAmount >= 0 && i_FuelAmount <= r_MaxCapacity;
         }
 
         public override void SetProperties(Dictionary<string, string> i_properties)
@@ -69,7 +57,7 @@ namespace Ex03.GarageLogic
             }
             else if (!isValidFuelAmount(userInputFuelAmountFloat))
             {
-                throw new ValueOutOfRangeException(0, m_MaxCapacity);
+                throw new ValueOutOfRangeException(0, r_MaxCapacity);
             }
 
             m_EnergyAmount = userInputFuelAmountFloat;
@@ -79,7 +67,7 @@ namespace Ex03.GarageLogic
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.AppendLine(string.Format(@"Max Fuel Capacity: {0}
-Current Fuel Amount: {1}", m_MaxCapacity, m_EnergyAmount));
+Current Fuel Amount: {1}", r_MaxCapacity, m_EnergyAmount));
 
             return stringBuilder.ToString();
         }
