@@ -48,6 +48,7 @@
     <Compile Include="PetrolEngine.cs" />
     <Compile Include="Motorcycle.cs" />
     <Compile Include="Truck.cs" />
+    <Compile Include="Validator.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="VehicleFactory.cs" />

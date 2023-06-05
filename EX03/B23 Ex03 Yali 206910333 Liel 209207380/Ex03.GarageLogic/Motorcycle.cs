@@ -7,6 +7,7 @@ namespace Ex03.GarageLogic
 {
     public class Motorcycle : Vehicle
     {
+        private const bool v_PetrolEngine = true;
         private static readonly Dictionary<string, string[]> sr_MotorcyclePropertiesDictionary = new Dictionary<string, string[]>()
         {
             {"License Type", Enum.GetNames(typeof(eLicenseType))},
@@ -22,16 +23,12 @@ namespace Ex03.GarageLogic
 
         public eLicenseType LicenseType
         {
-            get { 
-                return m_LicenseType;
-            }
+            get { return m_LicenseType; }
         }
 
         public int EngineVolume
         {
-            get {
-                return m_EngineVolume;
-            }
+            get { return m_EngineVolume; }
         }
 
         public override Dictionary<string, string[]> GetProperties()
@@ -40,55 +37,66 @@ namespace Ex03.GarageLogic
 
             if (m_Engine is PetrolEngine)
             {
-                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_MotorcyclePropertiesDictionary, true);
+                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_MotorcyclePropertiesDictionary, v_PetrolEngine);
             }
             else
             {
-                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_MotorcyclePropertiesDictionary, false);
+                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_MotorcyclePropertiesDictionary, !v_PetrolEngine);
             }
 
             return fullDictionary;
         }
 
+        //public override void SetProperties(Dictionary<string, string> i_Properties)
+        //{
+        //    string userInputLicenseTypeString = i_Properties["License Type"];
+        //    string userInputEngineVolumeString = i_Properties["Engine Volume"];
+        //    int userInputLicenseTypeInt;
+        //    int userInputEngineVolumeInt;
+
+        //    base.SetProperties(i_Properties);
+        //    m_Engine.SetProperties(i_Properties);
+        //    m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);
+
+        //    if (!isValidEnumInput(typeof(eLicenseType), userInputLicenseTypeString, out userInputLicenseTypeInt))
+        //    {
+        //        if (!int.TryParse(userInputLicenseTypeString, out _))
+        //        {
+        //            throw new FormatException();
+        //        }
+        //        else
+        //        {
+        //            throw new ArgumentException();
+        //        }
+        //    }
+        //    else if (!int.TryParse(userInputEngineVolumeString, out userInputEngineVolumeInt))
+        //    {
+        //        throw new FormatException("Engine Volume Problem");
+        //    }
+        //    else if (userInputEngineVolumeInt < 0)
+        //    {
+        //        throw new ArgumentException("Engine Volume Is Smaller Than 0");
+        //    }
+
+        //    m_LicenseType = (eLicenseType)userInputLicenseTypeInt;
+        //    m_EngineVolume = userInputEngineVolumeInt;
+        //}
+
         public override void SetProperties(Dictionary<string, string> i_Properties)
         {
             string userInputLicenseTypeString = i_Properties["License Type"];
             string userInputEngineVolumeString = i_Properties["Engine Volume"];
-            int userInputLicenseTypeInt;
             int userInputEngineVolumeInt;
+            eLicenseType licenseType;
 
+            Validator.ValidatePossitiveInt(userInputEngineVolumeString, out userInputEngineVolumeInt);
+            Validator.ValidateEnum(typeof(eLicenseType), userInputLicenseTypeString);
+            licenseType = (eLicenseType)Enum.Parse(typeof(eLicenseType), userInputLicenseTypeString);
             base.SetProperties(i_Properties);
             m_Engine.SetProperties(i_Properties);
             m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);
-
-            if (!isValidEnumInput(typeof(eLicenseType), userInputLicenseTypeString, out userInputLicenseTypeInt))
-            {
-                if (!int.TryParse(userInputLicenseTypeString, out _))
-                {
-                    throw new FormatException();
-                }
-                else
-                {
-                    throw new ArgumentException();
-                }
-            }
-            else if (!int.TryParse(userInputEngineVolumeString, out userInputEngineVolumeInt))
-            {
-                throw new FormatException("Engine Volume Problem");
-            }
-            else if (userInputEngineVolumeInt < 0)
-            {
-                throw new ArgumentException("Engine Volume Is Smaller Than 0");
-            }
-
-            m_LicenseType = (eLicenseType)userInputLicenseTypeInt;
+            m_LicenseType = licenseType;
             m_EngineVolume = userInputEngineVolumeInt;
-        }
-
-        private static bool isValidEnumInput(Type i_EnumType, string i_UserInput, out int o_userInputInt)
-        {
-
-            return int.TryParse(i_UserInput, out o_userInputInt) && Enum.IsDefined(i_EnumType, o_userInputInt);
         }
 
         public enum eLicenseType

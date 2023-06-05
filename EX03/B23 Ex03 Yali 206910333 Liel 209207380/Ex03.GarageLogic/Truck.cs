@@ -6,15 +6,12 @@ namespace Ex03.GarageLogic
 {
     public class Truck : Vehicle
     {
+        private const bool v_PetrolEngine = true;
         private static readonly Dictionary<string, string[]> sr_TruckPropertiesDictionary = new Dictionary<string, string[]>()
         {
             { "Is Carrying Hazardous Material", new string[2]{ "True" , "False" } },
             { "Cargo Volume", null }
         };
-
-
-        private const float k_MaxTireAirPressure = 31f;
-        private const int k_NumberOfTires = 2;
 
         private bool m_IsCarryingHazardousMaterial;
         private float m_CargoVolume;
@@ -39,11 +36,11 @@ namespace Ex03.GarageLogic
 
             if (m_Engine is PetrolEngine)
             {
-                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_TruckPropertiesDictionary, true);
+                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_TruckPropertiesDictionary, v_PetrolEngine);
             }
             else
             {
-                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_TruckPropertiesDictionary, false);
+                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_TruckPropertiesDictionary, !v_PetrolEngine);
             }
 
             return fullDictionary;
@@ -56,23 +53,11 @@ namespace Ex03.GarageLogic
             bool userInputMatrialTypeBool;
             float userInputCargoVolumeFloat;
 
+            Validator.ValidateHazardousMaterialInput(userInputMatrialTypeString, out userInputMatrialTypeBool);
+            Validator.ValidatePossitiveFloat(userInputCargoVolumeString, out userInputCargoVolumeFloat);
             m_Engine.SetProperties(i_Properties);
             base.SetProperties(i_Properties);
             m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);
-
-            if (!bool.TryParse(userInputMatrialTypeString, out userInputMatrialTypeBool))
-            {
-                throw new FormatException();
-            }
-            else if(!float.TryParse(userInputCargoVolumeString, out userInputCargoVolumeFloat))
-            {
-                throw new FormatException();
-            }
-            else if(userInputCargoVolumeFloat < 0)
-            {
-                throw new ArgumentException();
-            }
-
             m_IsCarryingHazardousMaterial= userInputMatrialTypeBool;
             m_CargoVolume= userInputCargoVolumeFloat;
         }
