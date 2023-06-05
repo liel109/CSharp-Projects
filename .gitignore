@@ -5,3 +5,5 @@
 *.pdf#
 *.txt#
 *.cache#
+*/bin/*
+*/obj/*

@@ -41,7 +41,6 @@
   <ItemGroup>
     <Compile Include="DictionaryUtilities.cs" />
     <Compile Include="ElectricEngine.cs" />
-    <Compile Include="eFuelType.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="EntryForm.cs" />
     <Compile Include="Garage.cs" />

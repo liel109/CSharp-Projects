@@ -34,7 +34,7 @@ namespace EX03.ConsoleUi
                         break;
 
                     case eMainMenuAction.ShowAllJobs:
-                        showAllVehiclesMenuAction();
+                        showAllVehiclesAction();
                         break;
 
                     case eMainMenuAction.ChangeAJobStatus:
@@ -81,6 +81,29 @@ namespace EX03.ConsoleUi
                 Vehicle newVehicle = VehicleFactory.CreateNewVehicle(selectedLicensePlate, selectedType);
 
                 addNewJob(newVehicle);
+            }
+
+            ConsoleRenderer.PrintContinueMessage();
+        }
+
+        private static void showAllVehiclesAction()
+        {
+            ConsoleRenderer.PrintSelectionMenu("Status To Filter By (Emply For All Jobs)", s_Garage.GetStatusOptions());
+            bool isInputValid = false;
+
+            while (!isInputValid)
+            {
+                string userInput = Console.ReadLine();
+
+                try
+                {
+                    s_Garage.GetJobs(userInput);
+                    isInputValid = true;
+                }
+                catch (ArgumentException argumentException)
+                {
+                    Console.WriteLine("Please Enter A Valid Status");
+                }
             }
 
             ConsoleRenderer.PrintContinueMessage();
