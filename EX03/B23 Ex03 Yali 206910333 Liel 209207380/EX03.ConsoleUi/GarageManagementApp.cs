@@ -31,7 +31,7 @@ namespace EX03.ConsoleUi
                 eMainMenuAction userAction = getUserEnumInput<eMainMenuAction>("Action");
                 switch (userAction)
                 {
-                    case eMainMenuAction.AddAJob:
+                    case eMainMenuAction.AddJob:
                         addMenuAction();
                         break;
 
@@ -39,7 +39,7 @@ namespace EX03.ConsoleUi
                         showAllVehiclesMenuAction();
                         break;
 
-                    case eMainMenuAction.ChangeAJobStatus:
+                    case eMainMenuAction.ChangeJobStatus:
                         modifyStatusMenuAction();
                         break;
 
@@ -107,8 +107,8 @@ namespace EX03.ConsoleUi
 
             while (!isInputValid)
             {
-                int userInput = getUserSelectionMenuInputInt("Status To Filter By (Emply For All Jobs)", getShowVehiclesFilterOptions());
-                
+                int userInput = getUserSelectionMenuInputInt("Status To Filter By", getShowVehiclesFilterOptions());
+
                 try
                 {
                     ConsoleRenderer.PrintAllJobs(s_Garage.GetJobs(userInput));
@@ -273,7 +273,7 @@ namespace EX03.ConsoleUi
 
         private static string getUserLicensePlateInput()
         {
-            return getUserInput("Please Enter License Plate: ");
+            return getUserNonEmptyInput("Please Enter License Plate: ");
         }
 
         private static TEnum getUserEnumInput<TEnum>(string i_AttributeName) where TEnum : Enum
@@ -303,6 +303,25 @@ namespace EX03.ConsoleUi
             Console.Write(i_MessageForUser);
 
             return Console.ReadLine();
+        }
+
+        private static string getUserNonEmptyInput(string i_MessageForUser = "")
+        {
+            bool isUserInputEmpty = true;
+            string userInput = null;
+
+            while (isUserInputEmpty)
+            {
+                Console.Write(i_MessageForUser);
+                userInput = Console.ReadLine();
+                isUserInputEmpty = (userInput == "");
+                if (isUserInputEmpty)
+                {
+                    Console.WriteLine(string.Format("Input Cannot Be Empty"));
+                }
+            }
+
+            return userInput;
         }
 
         private static float getUserFloatInput(string i_MessageForUser)
@@ -336,24 +355,29 @@ namespace EX03.ConsoleUi
 
         private static int getUserSelectionMenuInputInt(string i_AttributeToSelect, string[] i_SelectOptions)
         {
-            bool isNumericInput = false;
+            bool isInputValid = false;
             int userInputInt = 0;
-            int maxOptionValue = i_SelectOptions.Length;
-            int minOptionValue = 1;
 
-            while (!isNumericInput)
+            while (!isInputValid)
             {
                 ConsoleRenderer.PrintSelectionMenu(i_AttributeToSelect, i_SelectOptions);
                 string userInput = Console.ReadLine();
-                isNumericInput = int.TryParse(userInput, out userInputInt) && (userInputInt >= minOptionValue && userInputInt <= maxOptionValue);
-
-                if (!isNumericInput)
+                isInputValid = isStringNumberInRange(userInput, i_SelectOptions.Length, 0);
+                if (!isInputValid)
                 {
                     Console.WriteLine("Please Enter A Valid Input");
                 }
             }
 
             return userInputInt;
+        }
+
+        private static bool isStringNumberInRange(string i_String, int i_MaxValue, int i_MinValue)
+        {
+            int numericValueOfString;
+            bool isNumeric = int.TryParse(i_String, out numericValueOfString);
+
+            return isNumeric && (numericValueOfString >= i_MinValue && numericValueOfString <= i_MaxValue);
         }
 
         private static Dictionary<string, string> getUserInputsSet(Dictionary<string, string[]> i_PropertiesAndOptionsDictionary)
@@ -365,12 +389,15 @@ namespace EX03.ConsoleUi
                 Console.Clear();
                 if (property.Value != null)
                 {
-                    ConsoleRenderer.PrintSelectionMenu(property.Key, property.Value);
-                    propertiesAndInputs[property.Key] = Console.ReadLine();
+                    propertiesAndInputs[property.Key] = getUserSelectionMenuInputInt(property.Key, property.Value).ToString();
+                }
+                else if(property.Value.Length == 1)
+                {
+                    propertiesAndInputs[property.Key] = getUserNonEmptyInput(string.Format("Please Enter {0} ({1}): ", property.Key, property.Value[0]));
                 }
                 else
                 {
-                    propertiesAndInputs[property.Key] = getUserInput(string.Format("Please Enter {0}: ", property.Key));
+                    propertiesAndInputs[property.Key] = getUserNonEmptyInput(string.Format("Please Enter {0}: ", property.Key));
                 }
             }
 
