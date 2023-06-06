@@ -89,9 +89,8 @@ namespace Ex03.GarageLogic
             int userInputEngineVolumeInt;
             eLicenseType licenseType;
 
-            Validator.ValidatePossitiveInt(userInputEngineVolumeString, out userInputEngineVolumeInt);
-            Validator.ValidateEnum(typeof(eLicenseType), userInputLicenseTypeString);
-            licenseType = (eLicenseType)Enum.Parse(typeof(eLicenseType), userInputLicenseTypeString);
+            Validator.ValidatePositiveInt(userInputEngineVolumeString, out userInputEngineVolumeInt);
+            licenseType = Validator.ValidateEnum<eLicenseType>(userInputLicenseTypeString);
             base.SetProperties(i_Properties);
             m_Engine.SetProperties(i_Properties);
             m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);

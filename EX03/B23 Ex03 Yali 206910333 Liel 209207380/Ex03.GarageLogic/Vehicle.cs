@@ -73,7 +73,7 @@ namespace Ex03.GarageLogic
             m_Tires[i_WheelIndex].Inflate(i_NewAirPressureAmount);
         }
 
-        public void InflateWheelsToMax()
+        public void InflateTiresToMax()
         {
             foreach (Tire wheel in m_Tires)
             {
@@ -88,7 +88,7 @@ namespace Ex03.GarageLogic
             string userInputTiresAirPressureString = i_Properties["Tires Air Pressure"];
             float userInputTiresAirPressureFloat;
 
-            Validator.ValidatePossitiveFloat(userInputTiresAirPressureString, out userInputTiresAirPressureFloat);
+            Validator.ValidatePositiveFloat(userInputTiresAirPressureString, out userInputTiresAirPressureFloat);
             m_Model = userInputModelTypeString;
             setTiresInfo(userInputTiresManufacturerString, userInputTiresAirPressureFloat);
         }

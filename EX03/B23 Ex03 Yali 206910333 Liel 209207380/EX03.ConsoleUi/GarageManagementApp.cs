@@ -10,26 +10,10 @@ namespace EX03.ConsoleUi
 
         static void Main(string[] args)
         {
+            s_Garage.AddJob("Liel", "123456", VehicleFactory.CreateNewVehicle("12345", "1"));
+            s_Garage.AddJob("Moshe", "123456", VehicleFactory.CreateNewVehicle("1231", "2"));
             mainMenu();
             Console.ReadLine();
-        }
-
-        public static void ValidateBool(string i_UserInputString, out bool o_UserInputBool)
-        {
-            int userInputInt;
-
-            if (!int.TryParse(i_UserInputString, out userInputInt) || (userInputInt < 1 || userInputInt > 2))
-            {
-                throw new ArgumentException("Invalid Argument (1 or 2 is needed)");
-            }
-            if (userInputInt == 1)
-            {
-                o_UserInputBool = true;
-            }
-            else
-            {
-                o_UserInputBool = false;
-            }
         }
 
         private static void runApp() 
@@ -52,7 +36,7 @@ namespace EX03.ConsoleUi
                         break;
 
                     case eMainMenuAction.ShowAllJobs:
-                        showAllVehiclesAction();
+                        showAllVehiclesMenuAction();
                         break;
 
                     case eMainMenuAction.ChangeAJobStatus:
@@ -77,6 +61,7 @@ namespace EX03.ConsoleUi
 
                     case eMainMenuAction.Exit:
                         pressedExit = true;
+                        Console.WriteLine("Goodbye!");
                         break;
                 }
             }
@@ -84,44 +69,33 @@ namespace EX03.ConsoleUi
 
         private static void addMenuAction()
         {
+            Console.Clear();
             string selectedLicensePlate = getUserLicensePlateInput();
-
             if (s_Garage.Contains(selectedLicensePlate))
             {
-                s_Garage.ChangeStatus(selectedLicensePlate, Garage.eVehicleStatus.InProgress);
+                s_Garage.ChangeStatus(selectedLicensePlate, "1");
+                Console.WriteLine("Vehicle Exists, Switched to In-Progress");
             }
             else
             {
-                VehicleFactory.eVehicleType selectedType = getUserEnumInput<VehicleFactory.eVehicleType>("Vehicle Type");
-                //ConsoleRenderer.PrintSelectionMenu("Vehicle Types", VehicleFactory.GetVehicleTypes());
-                //string selectedType = getUserInput();
+                bool isValidInput = false;
 
-                Vehicle newVehicle = VehicleFactory.CreateNewVehicle(selectedLicensePlate, selectedType);
-
-                addNewJob(newVehicle);
-            }
-
-            ConsoleRenderer.PrintContinueMessage();
-        }
-
-        private static void showAllVehiclesAction()
-        {
-            ConsoleRenderer.PrintSelectionMenu("Status To Filter By (Emply For All Jobs)", s_Garage.GetStatusOptions());
-            bool isInputValid = false;
-
-            while (!isInputValid)
-            {
-                string userInput = Console.ReadLine();
-
-                try
+                while (!isValidInput)
                 {
-                    s_Garage.GetJobs(userInput);
-                    isInputValid = true;
-                }
-                catch (ArgumentException argumentException)
-                {
-                    Console.WriteLine("Please Enter A Valid Status");
-                }
+                    try
+                    {
+                        int userInput = getUserSelectionMenuInputInt("Vehicle Type", VehicleFactory.GetVehicleTypes());
+
+                        Vehicle newVehicle = VehicleFactory.CreateNewVehicle(selectedLicensePlate, userInput);
+                        addNewJob(newVehicle);
+                        isValidInput = true;
+                    }
+                    catch (Exception)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Please Enter A Valid Vehicle Type");
+                    }
+                }               
             }
 
             ConsoleRenderer.PrintContinueMessage();
@@ -129,31 +103,23 @@ namespace EX03.ConsoleUi
 
         private static void showAllVehiclesMenuAction()
         {
-            bool isValidInput = false;
-            string userFilterInput;
+            bool isInputValid = false;
 
-            ConsoleRenderer.PrintSelectionMenu("Status To Filter By (Empty For All Jobs):", Enum.GetNames(typeof(Garage.eVehicleStatus)));
-            while (!isValidInput)
+            while (!isInputValid)
             {
-                userFilterInput = Console.ReadLine();
-
+                int userInput = getUserSelectionMenuInputInt("Status To Filter By (Emply For All Jobs)", getShowVehiclesFilterOptions());
+                
                 try
                 {
-                    if (userFilterInput == "")
-                    {
-                        ConsoleRenderer.PrintAllJobs(s_Garage.GetJobs());
-                    }
-                    else
-                    {
-                        ConsoleRenderer.PrintAllJobs(s_Garage.GetJobs(userFilterInput));
-                    }
-                    isValidInput = true;
+                    ConsoleRenderer.PrintAllJobs(s_Garage.GetJobs(userInput));
+                    isInputValid = true;
                 }
-                catch (Exception e)
+                catch (ArgumentException argumentException)
                 {
                     Console.Clear();
-                    ConsoleRenderer.PrintSelectionMenu("Status To Filter By (Empty For All Jobs):", Enum.GetNames(typeof(Garage.eVehicleStatus)));
-                    Console.WriteLine("Please Enter A Valid Input");
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("Please Enter A Valid Status");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
 
@@ -166,8 +132,27 @@ namespace EX03.ConsoleUi
 
             if (s_Garage.Contains(selectedLicensePlate))
             {
-                Garage.eVehicleStatus selectedStatus = getUserEnumInput<Garage.eVehicleStatus>("Status");
-                s_Garage.ChangeStatus(selectedLicensePlate, selectedStatus);
+                bool isValidInput = false;
+
+                while (!isValidInput)
+                {
+                    try
+                    {
+                        ConsoleRenderer.PrintSelectionMenu("New Vehicle Status", s_Garage.GetStatusOptions());
+                        string userInput = Console.ReadLine();
+                        s_Garage.ChangeStatus(selectedLicensePlate, userInput);
+                        isValidInput = true;
+                    }
+                    catch(ArgumentException argumentException)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Please Select A Valid Status");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Vehicle Does Not Exist");
             }
 
             ConsoleRenderer.PrintContinueMessage();
@@ -183,7 +168,7 @@ namespace EX03.ConsoleUi
             }
             catch(Exception e)
             {
-               ConsoleRenderer.PrintContinueMessage("License Plate Doesn't Exist!");
+               ConsoleRenderer.PrintContinueMessage("Vehicle Does Not Exist");
             }
 
         }
@@ -191,8 +176,10 @@ namespace EX03.ConsoleUi
         private static void fuelVehicleMenuAction()
         {
             string selectedLicensePlate = getUserLicensePlateInput();
-            PetrolEngine.eFuelType selectedFuelType = getUserEnumInput<PetrolEngine.eFuelType>("Fuel Type");
-            float selectedAmountToAdd = getUserFloatInput("How Much Fuel Would You Like To Add: ");
+            //PetrolEngine.eFuelType selectedFuelType = getUserEnumInput<PetrolEngine.eFuelType>("Fuel Type");
+            //float selectedAmountToAdd = getUserFloatInput("How Much Fuel Would You Like To Add: ");
+            int selectedFuelType = getUserSelectionMenuInputInt("Fuel Type", s_Garage.GetFuelTypes());
+            string selectedAmountToAdd = getUserInput("Please Enter Amount Of Fuel To Add: ");
             
             try
             {
@@ -210,6 +197,10 @@ namespace EX03.ConsoleUi
             {
                 Console.WriteLine("License Plate Doesn't Exist!");
             }
+            catch(FormatException formatException)
+            {
+                Console.WriteLine("Please Enter a Valid Fuel Amount");
+            }
 
             ConsoleRenderer.PrintContinueMessage();
         }
@@ -217,7 +208,8 @@ namespace EX03.ConsoleUi
         private static void chargeVehicleMenuAction()
         {
             string selectedLicensePlate = getUserLicensePlateInput();
-            float selectedAmountToAdd = getUserFloatInput("How Much Battery Hours Would You Like To Charge: ");
+            //float selectedAmountToAdd = getUserFloatInput("How Much Battery Hours Would You Like To Charge: ");
+            string selectedAmountToAdd = getUserInput("Please Enter Amount Of Battery Hours To Add:");
             
             try
             {
@@ -255,37 +247,28 @@ namespace EX03.ConsoleUi
             ConsoleRenderer.PrintContinueMessage();
         }
 
-        private static void setNewVehicleProperties(Vehicle i_NewVehicle)
+        private static void addNewJob(Vehicle i_NewVehicle)
         {
-            Dictionary<string, string[]> propertiesAndOptions = i_NewVehicle.GetProperties();
-            bool isValidPropertiesSet = false;
-
-            while (!isValidPropertiesSet)
+            try
             {
-                Dictionary<string, string> propertiesAndInputs = getUserInputsSet(propertiesAndOptions);
-
-                try
-                {
-                    i_NewVehicle.SetProperties(propertiesAndInputs);
-                    isValidPropertiesSet = true;
-                }
-                catch (Exception e) 
-                {
-                    Console.WriteLine(e.StackTrace);
-                    //Console.WriteLine("One Or More Of The Inputs Is Invalid!");
-                }
+                setNewVehicleProperties(i_NewVehicle);
+                string selectedOwnerName = getUserInput("Please Enter Owner's Name: ");
+                string selectedOwnerPhoneNumber = getUserInput("Please Enter Owner's Phone Number: ");
+                s_Garage.AddJob(selectedOwnerName, selectedOwnerPhoneNumber, i_NewVehicle);
+                Console.WriteLine("Vehicle Added");
+            }
+            catch
+            {
+                Console.WriteLine("One Or More Of The Inputs is Incorrect");
             }
         }
 
-        private static void addNewJob(Vehicle i_NewVehicle)
+        private static void setNewVehicleProperties(Vehicle i_NewVehicle)
         {
-            setNewVehicleProperties(i_NewVehicle);
-            string selectedOwnerName = getUserInput("Please Enter Owner's Name: ");
-            string selectedOwnerPhoneNumber = getUserInput("Please Enter Owner's Phone Number: ");
-            s_Garage.AddJob(selectedOwnerName, selectedOwnerPhoneNumber, i_NewVehicle);
-            Console.WriteLine(@"Vehicle Added!
-Press ENTER to return to main menu...");
-            Console.ReadLine();
+            Dictionary<string, string[]> propertiesAndOptions = i_NewVehicle.GetProperties();
+            Dictionary<string, string> propertiesAndInputs = getUserInputsSet(propertiesAndOptions);
+
+            i_NewVehicle.SetProperties(propertiesAndInputs);
         }
 
         private static string getUserLicensePlateInput()
@@ -345,6 +328,34 @@ Press ENTER to return to main menu...");
             return userInputFloat;
         }
 
+        private static string getUserSelectionMenuInput(string i_AttributeToSelect, string[] i_SelectOptions)
+        {
+            ConsoleRenderer.PrintSelectionMenu(i_AttributeToSelect, i_SelectOptions);
+            return Console.ReadLine();
+        }
+
+        private static int getUserSelectionMenuInputInt(string i_AttributeToSelect, string[] i_SelectOptions)
+        {
+            bool isNumericInput = false;
+            int userInputInt = 0;
+            int maxOptionValue = i_SelectOptions.Length;
+            int minOptionValue = 1;
+
+            while (!isNumericInput)
+            {
+                ConsoleRenderer.PrintSelectionMenu(i_AttributeToSelect, i_SelectOptions);
+                string userInput = Console.ReadLine();
+                isNumericInput = int.TryParse(userInput, out userInputInt) && (userInputInt >= minOptionValue && userInputInt <= maxOptionValue);
+
+                if (!isNumericInput)
+                {
+                    Console.WriteLine("Please Enter A Valid Input");
+                }
+            }
+
+            return userInputInt;
+        }
+
         private static Dictionary<string, string> getUserInputsSet(Dictionary<string, string[]> i_PropertiesAndOptionsDictionary)
         {
             Dictionary<string, string> propertiesAndInputs = new Dictionary<string, string>();
@@ -364,6 +375,17 @@ Press ENTER to return to main menu...");
             }
 
             return propertiesAndInputs;
+        }
+
+        private static string[] getShowVehiclesFilterOptions()
+        {
+            string[] statusList = s_Garage.GetStatusOptions();
+            string[] filterOptions = new string[statusList.Length + 1];
+
+            filterOptions[0] = "All Jobs";
+            statusList.CopyTo(filterOptions, 1);
+
+            return filterOptions;
         }
     }
 }

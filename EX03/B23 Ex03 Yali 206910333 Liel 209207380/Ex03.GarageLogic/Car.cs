@@ -49,54 +49,13 @@ namespace Ex03.GarageLogic
             return fullDictionary;
         }
 
-        //public override void SetProperties(Dictionary<string, string> i_Properties)
-        //{
-        //    string userInputColorString = i_Properties["Color"];
-        //    string userInputDoorsString = i_Properties["Doors Number"];
-        //    int userInputColorInt;
-        //    int userInputDoorsInt;
-
-        //    m_Engine.SetProperties(i_Properties);
-        //    base.SetProperties(i_Properties);
-        //    m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);
-        //    if (!isValidEnumInput(typeof(eColor), userInputColorString, out userInputColorInt))            
-        //    {
-        //        if (!int.TryParse(userInputColorString, out _))
-        //        {
-        //            throw new FormatException();
-        //        }
-        //        else
-        //        {
-        //            throw new ArgumentException();
-        //        }
-        //    }
-        //    else if (!isValidEnumInput(typeof(eDoorsNumber), userInputDoorsString, out userInputDoorsInt))
-        //    {
-        //        if (!int.TryParse(userInputDoorsString, out _))
-        //        {
-        //            throw new FormatException();
-        //        }
-        //        else
-        //        {
-        //            throw new ArgumentException();
-        //        }
-        //    }
-
-        //    m_Color = (eColor)userInputColorInt;
-        //    m_DoorsNumber = (eDoorsNumber)userInputDoorsInt;
-        //}
-
         public override void SetProperties(Dictionary<string, string> i_Properties)
         {
             string userInputColorString = i_Properties["Color"];
             string userInputDoorsString = i_Properties["Doors Number"];
-            eColor color;
-            eDoorsNumber numberOfDoors;
+            eColor color = Validator.ValidateEnum<eColor>(userInputColorString);
+            eDoorsNumber numberOfDoors = Validator.ValidateEnum<eDoorsNumber>(userInputDoorsString);
 
-            Validator.ValidateEnum(typeof(eColor), userInputColorString);
-            Validator.ValidateEnum(typeof(eDoorsNumber), userInputDoorsString);
-            color = (eColor)Enum.Parse(typeof(eColor), userInputColorString);
-            numberOfDoors = (eDoorsNumber)Enum.Parse(typeof(eDoorsNumber), userInputDoorsString);
             m_Engine.SetProperties(i_Properties);
             base.SetProperties(i_Properties);
             m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);

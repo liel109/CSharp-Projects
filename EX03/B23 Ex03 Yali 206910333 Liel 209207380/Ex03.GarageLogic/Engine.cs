@@ -14,6 +14,5 @@ namespace Ex03.GarageLogic
         }
 
         public abstract void SetProperties(Dictionary<string, string> i_properties);
-
     }
 }

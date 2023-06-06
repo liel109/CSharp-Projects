@@ -4,18 +4,19 @@ namespace Ex03.GarageLogic
 {
     public class Validator
     {
-
-        public static void ValidateEnum(Type i_EnumType, string i_UserInput)
+        public static TEnum ValidateEnum<TEnum>(string i_UserInput) where TEnum : Enum
         {
             int userInputInt;
 
-            if (!int.TryParse(i_UserInput, out userInputInt) && Enum.IsDefined(i_EnumType, userInputInt))
+            if (!int.TryParse(i_UserInput, out userInputInt) || !Enum.IsDefined(typeof(TEnum), userInputInt))
             {
                 throw new ArgumentException("Invalid Enum!");
             }
+
+            return (TEnum)Enum.Parse(typeof(TEnum), i_UserInput);
         }
 
-        public static void ValidatePossitiveFloat(string i_UserInputString, out float o_UserInputFloat)
+        public static void ValidatePositiveFloat(string i_UserInputString, out float o_UserInputFloat)
         {
             if (!float.TryParse(i_UserInputString, out o_UserInputFloat))
             {
@@ -27,7 +28,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public static void ValidatePossitiveInt(string i_UserInputString, out int o_UserInputFloat)
+        public static void ValidatePositiveInt(string i_UserInputString, out int o_UserInputFloat)
         {
             if (!int.TryParse(i_UserInputString, out o_UserInputFloat))
             {

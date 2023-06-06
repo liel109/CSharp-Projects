@@ -1,5 +1,5 @@
 ﻿namespace EX03.ConsoleUi
-{
+{   
     public enum eMainMenuAction
     {
         AddAJob = 1,

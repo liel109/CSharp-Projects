@@ -43,17 +43,50 @@ namespace Ex03.GarageLogic
         //    return jobs;
         //}
 
-        private List<string> GetJobs(string i_FilterByStatus)
+        public List<string> GetJobs(string i_FilterByStatus)
         {
-            Validator.ValidateEnum(typeof(eVehicleStatus), i_FilterByStatus);
-            eVehicleStatus vehicleStatus = (eVehicleStatus)Enum.Parse(typeof(eVehicleStatus), i_FilterByStatus);
-            List<string> filteredList = new List<string>();
+            List<string> filteredList;
 
-            foreach (string licenseNumber in m_Jobs.Keys)
+            if (i_FilterByStatus == "")
             {
-                if (m_Jobs[licenseNumber].VehicleStatus == vehicleStatus)
+                filteredList = GetJobs();
+            }
+            else
+            {
+                eVehicleStatus vehicleStatus = Validator.ValidateEnum<eVehicleStatus>(i_FilterByStatus);
+
+                filteredList = new List<string>();
+                foreach (string licenseNumber in m_Jobs.Keys)
                 {
-                    filteredList.Add(licenseNumber);
+                    if (m_Jobs[licenseNumber].VehicleStatus == vehicleStatus)
+                    {
+                        filteredList.Add(licenseNumber);
+                    }
+                }
+            }
+
+            return filteredList;
+        }
+
+        public List<string> GetJobs(int i_FilterByStatus)
+        {
+            List<string> filteredList;
+                
+            if (i_FilterByStatus == 0)
+            {
+                filteredList = GetJobs();
+            }
+            else
+            {
+                eVehicleStatus vehicleStatus = (eVehicleStatus)i_FilterByStatus;
+
+                filteredList = new List<string>();
+                foreach (string licenseNumber in m_Jobs.Keys)
+                {
+                    if (m_Jobs[licenseNumber].VehicleStatus == vehicleStatus)
+                    {
+                        filteredList.Add(licenseNumber);
+                    }
                 }
             }
 
@@ -67,26 +100,62 @@ namespace Ex03.GarageLogic
 
         public void InflateWheelsToMaximum(string i_LicensePlate)
         {
-            m_Jobs[i_LicensePlate].Vehicle.InflateWheelsToMax();
+            m_Jobs[i_LicensePlate].Vehicle.InflateTiresToMax();
         }
 
-
-        public void Fuel(string i_LicensePlate, string i_FuelType, string i_AmountToAdd)
+        public void Fuel(string i_LicensePlate, int i_FuelType, string i_AmountToAdd)
         {
-            float fuelAmount;
-
-            Validator.ValidatePossitiveFloat(i_AmountToAdd, out fuelAmount);
-            Validator.ValidateEnum(typeof(PetrolEngine.eFuelType), i_FuelType);
-            PetrolEngine.eFuelType fuelType = (PetrolEngine.eFuelType)Enum.Parse(typeof(PetrolEngine.eFuelType), i_FuelType);
-            Engine vehicleEngine = m_Jobs[i_LicensePlate].Vehicle.Engine;
             Vehicle vehicle = m_Jobs[i_LicensePlate].Vehicle;
+            Engine vehicleEngine = vehicle.Engine;
+
             if (vehicleEngine is PetrolEngine petrolEngine)
             {
+                PetrolEngine.eFuelType fuelType = (PetrolEngine.eFuelType)i_FuelType;
+
                 if (fuelType == petrolEngine.FuelType)
                 {
                     try
                     {
-                        petrolEngine.FuelAmount += fuelAmount;
+                        float fuelAmountFloat;
+
+                        Validator.ValidatePositiveFloat(i_AmountToAdd, out fuelAmountFloat);
+                        petrolEngine.FuelAmount += fuelAmountFloat;
+                        vehicle.RemainingEnergyPercentage = petrolEngine.FuelAmount / petrolEngine.FuelCapacity;
+                    }
+                    catch (ValueOutOfRangeException e)
+                    {
+                        float maxPossibleAmountToAdd = petrolEngine.FuelCapacity - petrolEngine.FuelAmount;
+
+                        throw new ValueOutOfRangeException(0, maxPossibleAmountToAdd);
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid Fuel Type");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Can't Fuel Electric Vehicle");
+            }
+        }
+
+        public void Fuel(string i_LicensePlate, string i_FuelType, string i_AmountToAdd)
+        {
+            Vehicle vehicle = m_Jobs[i_LicensePlate].Vehicle;
+            Engine vehicleEngine = vehicle.Engine;
+
+            if (vehicleEngine is PetrolEngine petrolEngine)
+            {
+                PetrolEngine.eFuelType fuelType = Validator.ValidateEnum<PetrolEngine.eFuelType>(i_FuelType);
+                
+                if (fuelType == petrolEngine.FuelType)
+                {
+                    try
+                    {
+                        float fuelAmountFloat;
+                        Validator.ValidatePositiveFloat(i_AmountToAdd, out fuelAmountFloat);
+                        petrolEngine.FuelAmount += fuelAmountFloat;
                         vehicle.RemainingEnergyPercentage = petrolEngine.FuelAmount / petrolEngine.FuelCapacity;
                     }
                     catch (ValueOutOfRangeException e)
@@ -141,8 +210,8 @@ namespace Ex03.GarageLogic
 
         public void Charge(string i_LicensePlate, float i_NumberOfMinutesToAdd)
         {
-            Engine vehicleEngine = m_Jobs[i_LicensePlate].Vehicle.Engine;
             Vehicle vehicle = m_Jobs[i_LicensePlate].Vehicle;
+            Engine vehicleEngine = vehicle.Engine;
 
             if (vehicleEngine is ElectricEngine electricEngine)
             {
@@ -170,19 +239,19 @@ namespace Ex03.GarageLogic
 
         public void Charge(string i_LicensePlate, string i_NumberOfMinutesToAdd)
         {
-            float numberOfMinutesToAdd;
-            Validator.ValidatePossitiveFloat(i_NumberOfMinutesToAdd, out numberOfMinutesToAdd);
-            Engine vehicleEngine = m_Jobs[i_LicensePlate].Vehicle.Engine;
-            Vehicle vehicle = m_Jobs[i_LicensePlate].Vehicle;
+            Vehicle vehicleToFuel = m_Jobs[i_LicensePlate].Vehicle;
+            Engine vehicleEngine = vehicleToFuel.Engine;
 
             if (vehicleEngine is ElectricEngine electricEngine)
             {
                 try
                 {
-                    float numberOfHoursToAdd = numberOfMinutesToAdd / 60;
+                    float numberOfMinutesToAddFloat;
 
+                    Validator.ValidatePositiveFloat(i_NumberOfMinutesToAdd, out numberOfMinutesToAddFloat);
+                    float numberOfHoursToAdd = numberOfMinutesToAddFloat / 60;
                     electricEngine.RemainingBatteryHours += numberOfHoursToAdd;
-                    vehicle.RemainingEnergyPercentage = electricEngine.RemainingBatteryHours / electricEngine.MaxBatteryCapacity;
+                    vehicleToFuel.RemainingEnergyPercentage = electricEngine.RemainingBatteryHours / electricEngine.MaxBatteryCapacity;
                 }
                 catch (ValueOutOfRangeException e)
                 {
@@ -196,7 +265,6 @@ namespace Ex03.GarageLogic
             {
                 throw new ArgumentException("Can't Charge Petrol Car");
             }
-
         }
 
         public EntryForm GetJob(string i_LicensePlate)
@@ -216,8 +284,7 @@ namespace Ex03.GarageLogic
 
         public void ChangeStatus(string i_LicensePlate, string i_NewStatus)
         {
-            Validator.ValidateEnum(typeof(eVehicleStatus), i_NewStatus);
-            eVehicleStatus newStatus = (eVehicleStatus)Enum.Parse(typeof(eVehicleStatus), i_NewStatus);
+            eVehicleStatus newStatus = Validator.ValidateEnum<eVehicleStatus>(i_NewStatus);
             m_Jobs[i_LicensePlate].VehicleStatus = newStatus;
         }
 

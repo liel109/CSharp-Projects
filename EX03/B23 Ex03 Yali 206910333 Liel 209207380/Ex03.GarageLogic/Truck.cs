@@ -54,7 +54,7 @@ namespace Ex03.GarageLogic
             float userInputCargoVolumeFloat;
 
             Validator.ValidateHazardousMaterialInput(userInputMatrialTypeString, out userInputMatrialTypeBool);
-            Validator.ValidatePossitiveFloat(userInputCargoVolumeString, out userInputCargoVolumeFloat);
+            Validator.ValidatePositiveFloat(userInputCargoVolumeString, out userInputCargoVolumeFloat);
             m_Engine.SetProperties(i_Properties);
             base.SetProperties(i_Properties);
             m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);

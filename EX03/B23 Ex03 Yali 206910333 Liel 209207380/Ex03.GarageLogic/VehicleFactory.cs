@@ -40,12 +40,50 @@ namespace Ex03.GarageLogic
             { eVehicleType.Truck, 135f}
         };
 
+        public static Vehicle CreateNewVehicle(string i_LicensePlate, int i_VehicleType)
+        {
+            eVehicleType vehicleType;
+
+            vehicleType = (eVehicleType)i_VehicleType;
+            Vehicle vehicle;
+            Engine engine = createEngine(vehicleType);
+            Vehicle.Tire[] tires = createTires(vehicleType);
+
+            switch (vehicleType)
+            {
+                case eVehicleType.ElectricCar:
+                    vehicle = new Car(i_LicensePlate, engine as ElectricEngine, tires);
+                    break;
+
+                case eVehicleType.PetrolCar:
+                    vehicle = new Car(i_LicensePlate, engine as PetrolEngine, tires);
+                    break;
+
+                case eVehicleType.ElectricMotorcycle:
+                    vehicle = new Motorcycle(i_LicensePlate, engine as ElectricEngine, tires);
+                    break;
+
+                case eVehicleType.PetrolMotorcycle:
+                    vehicle = new Motorcycle(i_LicensePlate, engine as PetrolEngine, tires);
+                    break;
+
+                case eVehicleType.Truck:
+                    vehicle = new Truck(i_LicensePlate, engine as PetrolEngine, tires);
+                    break;
+
+                default:
+                    vehicle = null;
+                    break;
+            }
+
+            return vehicle;
+        }
+
         public static Vehicle CreateNewVehicle(string i_LicensePlate, string i_VehicleType)
         {
             eVehicleType vehicleType;
 
-            Validator.ValidateEnum(typeof(eVehicleType), i_VehicleType);
-            vehicleType = (eVehicleType)Enum.Parse(typeof(eVehicleType), i_VehicleType);
+            vehicleType = Validator.ValidateEnum<eVehicleType>(i_VehicleType);
             Vehicle vehicle;
             Engine engine = createEngine(vehicleType);
             Vehicle.Tire[] tires = createTires(vehicleType);

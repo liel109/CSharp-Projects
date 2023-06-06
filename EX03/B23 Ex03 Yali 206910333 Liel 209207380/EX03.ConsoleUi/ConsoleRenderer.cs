@@ -20,10 +20,17 @@ namespace EX03.ConsoleUi
 
         public static void PrintAllJobs(List<string> i_LicensePlatesList)
         {
-            Console.WriteLine("List Of Cars License Plate In Garage:");
-            foreach(string licensePlate in i_LicensePlatesList)
+            if (i_LicensePlatesList.Count == 0)
             {
-                Console.WriteLine(string.Format("{0,3}", licensePlate));
+                Console.WriteLine("No Vehicles");
+            }
+            else
+            {
+                Console.WriteLine("List Of Cars License Plate In Garage:");
+                foreach (string licensePlate in i_LicensePlatesList)
+                {
+                    Console.WriteLine(string.Format("   {0}", licensePlate));
+                }
             }
         }
 
@@ -36,13 +43,12 @@ Press Enter To Return To Main Menu...", i_MessageForUser));
 
         public static void PrintJobFullInfo(EntryForm i_Form)
         {
-            Console.WriteLine(string.Format(@"Information:
+            Console.WriteLine(string.Format(@"Job Information:
+=====================================
 Owner Name: {0}
-
 Owner Phone: {1}
-
 Vehicle Info:
-{2}", i_Form.OwnerName, i_Form.OwnerPhoneNumber, i_Form.Vehicle));
+{2}", i_Form.OwnerName, i_Form.OwnerPhoneNumber, parseVehicleInforamtion(i_Form.Vehicle.ToString())));
         }
 
         private static string parseEnumName(string i_EnumValueName)
@@ -51,7 +57,9 @@ Vehicle Info:
 
             for (int i = 0; i < i_EnumValueName.Length; i++)
             {
-                if(char.IsUpper(i_EnumValueName[i]) && i > 0)
+                char currentChar = i_EnumValueName[i];
+
+                if (char.IsUpper(currentChar)  && i > 0)
                 {
                     enumNameBuilder.Append(" ");
                 }
@@ -59,6 +67,15 @@ Vehicle Info:
             }
 
             return enumNameBuilder.ToString();
+        }
+
+        private static string parseVehicleInforamtion(string i_VehicleInformation)
+        {
+            StringBuilder stringBuilder = new StringBuilder(i_VehicleInformation);
+
+            stringBuilder.Replace("\n", "\n   ");
+            stringBuilder.Insert(0, "   ");
+            return stringBuilder.ToString();
         }
     }
 }
