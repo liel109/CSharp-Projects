@@ -1,5 +1,4 @@
 ﻿using System;
-using Ex03.GarageLogic;
 
 namespace EX03.ConsoleUi
 {

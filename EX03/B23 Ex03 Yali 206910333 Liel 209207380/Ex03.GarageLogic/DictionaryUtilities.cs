@@ -16,10 +16,12 @@ namespace Ex03.GarageLogic
             {
                 combinedDict[item.Key] = item.Value;
             }
+
             foreach (KeyValuePair<string, string[]> item in i_Dictionary2)
             {
                 combinedDict[item.Key] = item.Value;
             }
+
             foreach (KeyValuePair<string, string[]> item in i_Dictionary3)
             {
                 combinedDict[item.Key] = item.Value;

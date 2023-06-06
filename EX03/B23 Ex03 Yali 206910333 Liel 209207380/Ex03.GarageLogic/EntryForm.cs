@@ -9,8 +9,8 @@
 
         public EntryForm(string i_OwnerName, string i_OwnerPhoneNumber, Vehicle i_Vehicle)
         {
-            r_OwnerName= i_OwnerName;
-            r_OwnerPhoneNumber= i_OwnerPhoneNumber;
+            r_OwnerName = i_OwnerName;
+            r_OwnerPhoneNumber = i_OwnerPhoneNumber;
             r_Vehicle = i_Vehicle;
             m_VehicleStatus = Garage.eVehicleStatus.InProgress;
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static Ex03.GarageLogic.Motorcycle;
 
 namespace Ex03.GarageLogic
 {
@@ -35,7 +34,6 @@ namespace Ex03.GarageLogic
 
         public override Dictionary<string, string[]> GetProperties()
         {
-
             return DictionaryUtilities.createFullDictionary(r_VehiclePropertiesDictionary, sr_CarPropertiesDictionary, m_Engine.GetProperties());
         }
 
@@ -65,10 +63,11 @@ namespace Ex03.GarageLogic
             {
                 stringBuilder.AppendLine(string.Format("Vehicle Type: Electric Car"));
             }
+
             stringBuilder.Append(base.ToString());
             stringBuilder.Append(m_Engine.ToString());
             stringBuilder.AppendLine(string.Format(@"Vehicle Color: {0}
-Vehicle number of doors: {1}",m_Color.ToString(), m_DoorsNumber.ToString()));
+Vehicle number of doors: {1}", m_Color.ToString(), m_DoorsNumber.ToString()));
 
             return stringBuilder.ToString();
         }

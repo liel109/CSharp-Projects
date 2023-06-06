@@ -21,9 +21,9 @@ namespace Ex03.GarageLogic
             m_Tires = i_Tires;
             r_VehiclePropertiesDictionary = new Dictionary<string, string[]>()
             {
-                {"Model",null},
-                {"Tires Manufacturer",null},
-                {"Tires Air Pressure",new string[1] { m_Tires[0].GetPressureInterval() }}
+                { "Model", null },
+                { "Tires Manufacturer", null },
+                { "Tires Air Pressure", new string[1] { m_Tires[0].GetPressureInterval() } }
             };
     }
 
@@ -51,27 +51,7 @@ namespace Ex03.GarageLogic
 
         public override int GetHashCode()
         {
-
             return m_LicensePlate.GetHashCode();
-        }
-
-        private void setTiresInfo(string i_Manufacturer, float i_AirPressure)
-        {
-            for (int i = 0; i < m_Tires.Length; i++)
-            {
-                setTireManufacturer(i, i_Manufacturer);
-                inflateTire(i, i_AirPressure);
-            }
-        }
-
-        private void setTireManufacturer(int i_WheelIndex, string i_Manufacturer)
-        {
-            m_Tires[i_WheelIndex].Manufacturer = i_Manufacturer;
-        }
-
-        private void inflateTire(int i_WheelIndex, float i_NewAirPressureAmount)
-        {
-            m_Tires[i_WheelIndex].Inflate(i_NewAirPressureAmount);
         }
 
         public void InflateTiresToMax()
@@ -96,6 +76,18 @@ namespace Ex03.GarageLogic
 
         public abstract Dictionary<string, string[]> GetProperties();
 
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine(string.Format(@"License Plate Number: {0}
+Model: {1}
+Remaining Energy Precentage: {2}", m_LicensePlate, m_Model, m_RemainingEnergyPercentage));
+            stringBuilder.Append(m_Tires[0].ToString());
+
+            return stringBuilder.ToString();
+        }
+
         protected float calculateEnergyPrecentage(Dictionary<string, string> i_properties)
         {
             float energyPrecentage = 0;
@@ -112,23 +104,30 @@ namespace Ex03.GarageLogic
             return energyPrecentage;
         }
 
-        public override string ToString()
+        private void setTiresInfo(string i_Manufacturer, float i_AirPressure)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < m_Tires.Length; i++)
+            {
+                setTireManufacturer(i, i_Manufacturer);
+                inflateTire(i, i_AirPressure);
+            }
+        }
 
-            stringBuilder.AppendLine(string.Format(@"License Plate Number: {0}
-Model: {1}
-Remaining Energy Precentage: {2}",m_LicensePlate, m_Model, m_RemainingEnergyPercentage));
-            stringBuilder.Append(m_Tires[0].ToString());
+        private void setTireManufacturer(int i_WheelIndex, string i_Manufacturer)
+        {
+            m_Tires[i_WheelIndex].Manufacturer = i_Manufacturer;
+        }
 
-            return stringBuilder.ToString();
+        private void inflateTire(int i_WheelIndex, float i_NewAirPressureAmount)
+        {
+            m_Tires[i_WheelIndex].Inflate(i_NewAirPressureAmount);
         }
 
         public class Tire
         {
+            private readonly float r_MaxAirPressure;
             private string m_Manufacturer;
             private float m_AirPressure;
-            private readonly float r_MaxAirPressure;
 
             public Tire(float maxAirPressure)
             {
@@ -148,13 +147,12 @@ Remaining Energy Precentage: {2}",m_LicensePlate, m_Model, m_RemainingEnergyPerc
 
             public string GetPressureInterval()
             {
-
                 return string.Format("0 - {0}", r_MaxAirPressure);
             }
 
             public void Inflate(float i_NewAirPressureAmount)
             {
-                if(isValidAirPressureAmount(i_NewAirPressureAmount))
+                if (isValidAirPressureAmount(i_NewAirPressureAmount))
                 {
                     m_AirPressure = i_NewAirPressureAmount;
                 }
@@ -171,7 +169,6 @@ Remaining Energy Precentage: {2}",m_LicensePlate, m_Model, m_RemainingEnergyPerc
 
             private bool isValidAirPressureAmount(float i_AirPressureAmount)
             {
-
                 return i_AirPressureAmount >= 0 && i_AirPressureAmount <= r_MaxAirPressure;
             }
 

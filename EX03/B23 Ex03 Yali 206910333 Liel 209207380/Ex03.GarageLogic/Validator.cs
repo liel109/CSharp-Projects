@@ -22,6 +22,7 @@ namespace Ex03.GarageLogic
             {
                 throw new FormatException("Needs To Recieve A Float!");
             }
+
             if (o_UserInputFloat < 0)
             {
                 throw new ArgumentException("The Number Needs To Be Greater Then 0!");
@@ -34,6 +35,7 @@ namespace Ex03.GarageLogic
             {
                 throw new FormatException("Needs To Recieve An Int!");
             }
+
             if (o_UserInputFloat < 0)
             {
                 throw new ArgumentException("The Number Needs To Be Greater Then 0!");
@@ -44,11 +46,12 @@ namespace Ex03.GarageLogic
         {
             int userInputInt;
 
-            if(!int.TryParse(i_UserInputString, out userInputInt) || (userInputInt < 1 || userInputInt > 2))
+            if (!int.TryParse(i_UserInputString, out userInputInt) || (userInputInt < 1 || userInputInt > 2))
             {
                 throw new ArgumentException("Invalid Argument (1 or 2 is needed)");
             }
-            if(userInputInt == 1)
+
+            if (userInputInt == 1)
             {
                 o_UserInputBool = true;
             }

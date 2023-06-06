@@ -8,36 +8,36 @@ namespace Ex03.GarageLogic
     {
         private static readonly Dictionary<eVehicleType, int> sr_NumOfWheelsDict = new Dictionary<eVehicleType, int>()
         {
-            { eVehicleType.ElectricCar, 4},
-            { eVehicleType.PetrolCar, 4},
-            { eVehicleType.ElectricMotorcycle, 2},
-            { eVehicleType.PetrolMotorcycle, 2},
-            { eVehicleType.Truck, 12}
+            { eVehicleType.ElectricCar, 4 },
+            { eVehicleType.PetrolCar, 4 },
+            { eVehicleType.ElectricMotorcycle, 2 },
+            { eVehicleType.PetrolMotorcycle, 2 },
+            { eVehicleType.Truck, 12 }
         };
 
         private static readonly Dictionary<eVehicleType, float> sr_MaxWheelAirPressureDict = new Dictionary<eVehicleType, float>()
         {
-            { eVehicleType.ElectricCar, 31},
-            { eVehicleType.PetrolCar, 31},
-            { eVehicleType.ElectricMotorcycle, 33},
-            { eVehicleType.PetrolMotorcycle, 33},
-            { eVehicleType.Truck, 26}
+            { eVehicleType.ElectricCar, 31 },
+            { eVehicleType.PetrolCar, 31 },
+            { eVehicleType.ElectricMotorcycle, 33 },
+            { eVehicleType.PetrolMotorcycle, 33 },
+            { eVehicleType.Truck, 26 }
         };
 
         private static readonly Dictionary<eVehicleType, PetrolEngine.eFuelType> sr_FuelTypeDict = new Dictionary<eVehicleType, PetrolEngine.eFuelType>()
         {
-            { eVehicleType.PetrolCar, PetrolEngine.eFuelType.Octan95},
-            { eVehicleType.PetrolMotorcycle, PetrolEngine.eFuelType.Octan98},
-            { eVehicleType.Truck, PetrolEngine.eFuelType.Soler}
+            { eVehicleType.PetrolCar, PetrolEngine.eFuelType.Octan95 },
+            { eVehicleType.PetrolMotorcycle, PetrolEngine.eFuelType.Octan98 },
+            { eVehicleType.Truck, PetrolEngine.eFuelType.Soler }
         };
 
         private static readonly Dictionary<eVehicleType, float> sr_MaxEngineCapacity = new Dictionary<eVehicleType, float>()
         {
-            { eVehicleType.ElectricCar, 5.2f},
-            { eVehicleType.PetrolCar, 46f},
-            { eVehicleType.ElectricMotorcycle, 2.6f},
-            { eVehicleType.PetrolMotorcycle, 6.4f},
-            { eVehicleType.Truck, 135f}
+            { eVehicleType.ElectricCar, 5.2f },
+            { eVehicleType.PetrolCar, 46f },
+            { eVehicleType.ElectricMotorcycle, 2.6f },
+            { eVehicleType.PetrolMotorcycle, 6.4f },
+            { eVehicleType.Truck, 135f }
         };
 
         public static Vehicle CreateNewVehicle(string i_LicensePlate, int i_VehicleType)
@@ -78,47 +78,8 @@ namespace Ex03.GarageLogic
             return vehicle;
         }
 
-        public static Vehicle CreateNewVehicle(string i_LicensePlate, string i_VehicleType)
-        {
-            eVehicleType vehicleType;
-            vehicleType = Validator.ValidateEnum<eVehicleType>(i_VehicleType);
-            Vehicle vehicle;
-            Engine engine = createEngine(vehicleType);
-            Vehicle.Tire[] tires = createTires(vehicleType);
-
-            switch (vehicleType)
-            {
-                case eVehicleType.ElectricCar:
-                    vehicle = new Car(i_LicensePlate, engine as ElectricEngine, tires);
-                    break;
-
-                case eVehicleType.PetrolCar:
-                    vehicle = new Car(i_LicensePlate, engine as PetrolEngine, tires);
-                    break;
-
-                case eVehicleType.ElectricMotorcycle:
-                    vehicle = new Motorcycle(i_LicensePlate, engine as ElectricEngine, tires);
-                    break;
-
-                case eVehicleType.PetrolMotorcycle:
-                    vehicle = new Motorcycle(i_LicensePlate, engine as PetrolEngine, tires);
-                    break;
-
-                case eVehicleType.Truck:
-                    vehicle = new Truck(i_LicensePlate, engine as PetrolEngine, tires);
-                    break;
-
-                default:
-                    vehicle = null;
-                    break;
-            }
-
-            return vehicle;
-        }
-
         public static string[] GetVehicleTypes()
         {
-
             return Enum.GetNames(typeof(eVehicleType));
         }
 
@@ -139,7 +100,7 @@ namespace Ex03.GarageLogic
             {
                 engine = new PetrolEngine(sr_FuelTypeDict[i_VehicleType], sr_MaxEngineCapacity[i_VehicleType]);
             }
-            else if(i_VehicleType == eVehicleType.ElectricCar || i_VehicleType == eVehicleType.ElectricMotorcycle)
+            else if (i_VehicleType == eVehicleType.ElectricCar || i_VehicleType == eVehicleType.ElectricMotorcycle)
             {
                 engine = new ElectricEngine(sr_MaxEngineCapacity[i_VehicleType]);
             }
@@ -150,14 +111,13 @@ namespace Ex03.GarageLogic
         private static Vehicle.Tire[] createTires(eVehicleType i_VehicleType)
         {
             Vehicle.Tire[] wheels = new Vehicle.Tire[sr_NumOfWheelsDict[i_VehicleType]];
-            
-            for(int i=0; i<wheels.Length; i++)
+
+            for (int i = 0; i < wheels.Length; i++)
             {
                 wheels[i] = new Vehicle.Tire(sr_MaxWheelAirPressureDict[i_VehicleType]);
             }
 
             return wheels;
         }
-
     }
 }

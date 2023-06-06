@@ -10,7 +10,7 @@ namespace EX03.ConsoleUi
         public static void PrintSelectionMenu(string i_Attribute, string[] i_OptionsList)
         {
             Console.WriteLine(string.Format("Select {0}:", i_Attribute));
-            for(int i = 0; i < i_OptionsList.Length; i++) 
+            for (int i = 0; i < i_OptionsList.Length; i++)
             {
                 string parsedName = parseEnumName(i_OptionsList[i]);
 
@@ -20,13 +20,14 @@ namespace EX03.ConsoleUi
 
         public static void PrintAllJobs(List<string> i_LicensePlatesList)
         {
+            Console.Clear();
             if (i_LicensePlatesList.Count == 0)
             {
                 Console.WriteLine("No Vehicles");
             }
             else
             {
-                Console.WriteLine("List Of Cars License Plate In Garage:");
+                Console.WriteLine("Jobs List:");
                 foreach (string licensePlate in i_LicensePlatesList)
                 {
                     Console.WriteLine(string.Format("   {0}", licensePlate));
@@ -55,14 +56,17 @@ Vehicle Info:
         {
             StringBuilder enumNameBuilder = new StringBuilder();
 
-            for (int i = 0; i < i_EnumValueName.Length; i++)
+            enumNameBuilder.Append(i_EnumValueName[0]);
+            for (int i = 1; i < i_EnumValueName.Length; i++)
             {
+                char prevChar = i_EnumValueName[i - 1];
                 char currentChar = i_EnumValueName[i];
 
-                if (char.IsUpper(currentChar)  && i > 0)
+                if (char.IsUpper(currentChar) && !char.IsUpper(prevChar) && !char.IsWhiteSpace(prevChar))
                 {
                     enumNameBuilder.Append(" ");
                 }
+
                 enumNameBuilder.Append(i_EnumValueName[i]);
             }
 

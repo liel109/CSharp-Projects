@@ -12,7 +12,7 @@ namespace Ex03.GarageLogic
         {
             r_ElectricEnginePropertiesDictionary = new Dictionary<string, string[]>()
             {
-                {"Remaining Battery Hours", new string[1] { string.Format("0-{0}", i_MaxBatteryCapacity) }},
+                { "Remaining Battery Hours", new string[1] { string.Format("0-{0}", i_MaxBatteryCapacity) } },
             };
         }
 
@@ -39,7 +39,6 @@ namespace Ex03.GarageLogic
 
         private bool isValidAmountToCharge(float i_RemainingHours)
         {
-
             return i_RemainingHours >= 0 && i_RemainingHours <= r_MaxCapacity;
         }
 
@@ -54,7 +53,7 @@ namespace Ex03.GarageLogic
             }
             else if (!isValidAmountToCharge(userInputRemainingHoursFloat))
             {
-                throw new ValueOutOfRangeException(0,r_MaxCapacity);
+                throw new ValueOutOfRangeException(0, r_MaxCapacity);
             }
 
             m_EnergyAmount = userInputRemainingHoursFloat;
@@ -62,10 +61,8 @@ namespace Ex03.GarageLogic
 
         public override Dictionary<string, string[]> GetProperties()
         {
-
             return r_ElectricEnginePropertiesDictionary;
         }
-
 
         public override string ToString()
         {

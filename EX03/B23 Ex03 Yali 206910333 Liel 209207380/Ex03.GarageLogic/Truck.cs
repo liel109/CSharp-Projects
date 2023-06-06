@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
         private const bool v_PetrolEngine = true;
         private static readonly Dictionary<string, string[]> sr_TruckPropertiesDictionary = new Dictionary<string, string[]>()
         {
-            { "Is Carrying Hazardous Material", new string[2]{ "True" , "False" } },
+            { "Is Carrying Hazardous Material", new string[2] { "True", "False" } },
             { "Cargo Volume", null }
         };
 
@@ -32,7 +32,6 @@ namespace Ex03.GarageLogic
 
         public override Dictionary<string, string[]> GetProperties()
         {
-
             return DictionaryUtilities.createFullDictionary(r_VehiclePropertiesDictionary, sr_TruckPropertiesDictionary, m_Engine.GetProperties());
         }
 
@@ -48,8 +47,8 @@ namespace Ex03.GarageLogic
             m_Engine.SetProperties(i_Properties);
             base.SetProperties(i_Properties);
             m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);
-            m_IsCarryingHazardousMaterial= userInputMatrialTypeBool;
-            m_CargoVolume= userInputCargoVolumeFloat;
+            m_IsCarryingHazardousMaterial = userInputMatrialTypeBool;
+            m_CargoVolume = userInputCargoVolumeFloat;
         }
 
         public override string ToString()
@@ -64,6 +63,7 @@ namespace Ex03.GarageLogic
             {
                 stringBuilder.AppendLine(string.Format("Vehicle Type: Electric Truck"));
             }
+
             stringBuilder.Append(base.ToString());
             stringBuilder.Append(m_Engine.ToString());
             stringBuilder.AppendLine(string.Format(@"Is Carrying Hazardous Material: {0}

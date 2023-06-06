@@ -10,16 +10,15 @@ namespace Ex03.GarageLogic
         private const bool v_PetrolEngine = true;
         private static readonly Dictionary<string, string[]> sr_MotorcyclePropertiesDictionary = new Dictionary<string, string[]>()
         {
-            {"License Type", Enum.GetNames(typeof(eLicenseType))},
-            {"Engine Volume", null}
+            { "License Type", Enum.GetNames(typeof(eLicenseType)) },
+            { "Engine Volume", null }
         };
 
         private eLicenseType m_LicenseType;
         private int m_EngineVolume;
 
-        public Motorcycle(string i_LicensePlate, Engine i_Engine, Tire[] i_Tires) : base(i_LicensePlate, i_Engine, i_Tires)
+        public Motorcycle(string i_LicensePlate, Engine i_Engine, Tire[] i_Tires) : base(i_LicensePlate, i_Engine, i_Tires) 
         {
-
         }
 
         public eLicenseType LicenseType
@@ -34,7 +33,6 @@ namespace Ex03.GarageLogic
 
         public override Dictionary<string, string[]> GetProperties()
         {
-
             return DictionaryUtilities.createFullDictionary(r_VehiclePropertiesDictionary, sr_MotorcyclePropertiesDictionary, m_Engine.GetProperties());
         }
 
@@ -74,10 +72,11 @@ namespace Ex03.GarageLogic
             {
                 stringBuilder.AppendLine(string.Format("Vehicle Type: Electric Motorcycle"));
             }
+
             stringBuilder.Append(base.ToString());
             stringBuilder.Append(m_Engine.ToString());
             stringBuilder.Append(string.Format(@"License Type: {0}
-Engine Volume: {1}",m_LicenseType.ToString(), m_EngineVolume));
+Engine Volume: {1}", m_LicenseType.ToString(), m_EngineVolume));
 
             return stringBuilder.ToString();
         }
