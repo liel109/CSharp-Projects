@@ -32,18 +32,8 @@ namespace Ex03.GarageLogic
 
         public override Dictionary<string, string[]> GetProperties()
         {
-            Dictionary<string, string[]> fullDictionary;
 
-            if (m_Engine is PetrolEngine)
-            {
-                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_TruckPropertiesDictionary, v_PetrolEngine);
-            }
-            else
-            {
-                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_TruckPropertiesDictionary, !v_PetrolEngine);
-            }
-
-            return fullDictionary;
+            return DictionaryUtilities.createFullDictionary(r_VehiclePropertiesDictionary, sr_TruckPropertiesDictionary, m_Engine.GetProperties());
         }
 
         public override void SetProperties(Dictionary<string, string> i_Properties)
@@ -65,6 +55,7 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
+
             if (m_Engine is PetrolEngine)
             {
                 stringBuilder.AppendLine(string.Format("Vehicle Type: Petrol Truck"));

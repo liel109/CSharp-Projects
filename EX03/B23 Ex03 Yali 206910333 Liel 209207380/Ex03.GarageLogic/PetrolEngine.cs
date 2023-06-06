@@ -9,10 +9,15 @@ namespace Ex03.GarageLogic
     {
 
         private readonly eFuelType r_FuelType;
+        protected readonly Dictionary<string, string[]> r_PetrolEnginePropertiesDictionary;
 
         public PetrolEngine(eFuelType i_FuelType, float i_FuelCapacity) : base(i_FuelCapacity)
         {
             r_FuelType = i_FuelType;
+            r_PetrolEnginePropertiesDictionary = new Dictionary<string, string[]>()
+            {
+                {"Fuel Amount",new string[1] { string.Format("0-{0}", i_FuelCapacity) }},
+            };
         }
 
         public eFuelType FuelType
@@ -40,9 +45,15 @@ namespace Ex03.GarageLogic
                 }
             }
         }
+        public override Dictionary<string, string[]> GetProperties()
+        {
+
+            return r_PetrolEnginePropertiesDictionary;
+        }
 
         private bool isValidFuelAmount(float i_FuelAmount)
         {
+
             return i_FuelAmount >= 0 && i_FuelAmount <= r_MaxCapacity;
         }
 
@@ -59,13 +70,13 @@ namespace Ex03.GarageLogic
             {
                 throw new ValueOutOfRangeException(0, r_MaxCapacity);
             }
-
             m_EnergyAmount = userInputFuelAmountFloat;
         }
 
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
+
             stringBuilder.AppendLine(string.Format(@"Max Fuel Capacity: {0}
 Current Fuel Amount: {1}", r_MaxCapacity, m_EnergyAmount));
 

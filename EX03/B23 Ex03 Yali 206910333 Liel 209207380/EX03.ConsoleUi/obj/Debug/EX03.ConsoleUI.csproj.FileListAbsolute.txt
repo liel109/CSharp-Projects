@@ -33,3 +33,15 @@ C:\Users\ofer\Desktop\IDC\semester 4\C#\Proj\EX03\B23 Ex03 Yali 206910333 Liel 2
 C:\Users\ofer\Desktop\IDC\semester 4\C#\Proj\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\obj\Debug\EX03.ConsoleUI.csproj.CopyComplete
 C:\Users\ofer\Desktop\IDC\semester 4\C#\Proj\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\obj\Debug\EX03.ConsoleUi.exe
 C:\Users\ofer\Desktop\IDC\semester 4\C#\Proj\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\obj\Debug\EX03.ConsoleUi.pdb
+C:\Users\ofer\Desktop\IDC\semester 4\C#\Project1\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\bin\Debug\EX03.ConsoleUi.exe.config
+C:\Users\ofer\Desktop\IDC\semester 4\C#\Project1\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\bin\Debug\EX03.ConsoleUi.exe
+C:\Users\ofer\Desktop\IDC\semester 4\C#\Project1\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\bin\Debug\EX03.ConsoleUi.pdb
+C:\Users\ofer\Desktop\IDC\semester 4\C#\Project1\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\bin\Debug\Ex03.GarageLogic.dll
+C:\Users\ofer\Desktop\IDC\semester 4\C#\Project1\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\bin\Debug\Ex03.GarageLogic.pdb
+C:\Users\ofer\Desktop\IDC\semester 4\C#\Project1\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\bin\Debug\Ex03.GarageLogic.dll.config
+C:\Users\ofer\Desktop\IDC\semester 4\C#\Project1\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\obj\Debug\EX03.ConsoleUI.csproj.AssemblyReference.cache
+C:\Users\ofer\Desktop\IDC\semester 4\C#\Project1\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\obj\Debug\EX03.ConsoleUI.csproj.SuggestedBindingRedirects.cache
+C:\Users\ofer\Desktop\IDC\semester 4\C#\Project1\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\obj\Debug\EX03.ConsoleUI.csproj.CoreCompileInputs.cache
+C:\Users\ofer\Desktop\IDC\semester 4\C#\Project1\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\obj\Debug\EX03.ConsoleUI.csproj.CopyComplete
+C:\Users\ofer\Desktop\IDC\semester 4\C#\Project1\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\obj\Debug\EX03.ConsoleUi.exe
+C:\Users\ofer\Desktop\IDC\semester 4\C#\Project1\EX03\B23 Ex03 Yali 206910333 Liel 209207380\EX03.ConsoleUi\obj\Debug\EX03.ConsoleUi.pdb

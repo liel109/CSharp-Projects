@@ -43,7 +43,6 @@ namespace Ex03.GarageLogic
         public static Vehicle CreateNewVehicle(string i_LicensePlate, int i_VehicleType)
         {
             eVehicleType vehicleType;
-
             vehicleType = (eVehicleType)i_VehicleType;
             Vehicle vehicle;
             Engine engine = createEngine(vehicleType);
@@ -82,7 +81,6 @@ namespace Ex03.GarageLogic
         public static Vehicle CreateNewVehicle(string i_LicensePlate, string i_VehicleType)
         {
             eVehicleType vehicleType;
-
             vehicleType = Validator.ValidateEnum<eVehicleType>(i_VehicleType);
             Vehicle vehicle;
             Engine engine = createEngine(vehicleType);
@@ -120,6 +118,7 @@ namespace Ex03.GarageLogic
 
         public static string[] GetVehicleTypes()
         {
+
             return Enum.GetNames(typeof(eVehicleType));
         }
 
