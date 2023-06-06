@@ -19,6 +19,7 @@ namespace Ex03.GarageLogic
 
         public Motorcycle(string i_LicensePlate, Engine i_Engine, Tire[] i_Tires) : base(i_LicensePlate, i_Engine, i_Tires)
         {
+
         }
 
         public eLicenseType LicenseType
@@ -33,54 +34,9 @@ namespace Ex03.GarageLogic
 
         public override Dictionary<string, string[]> GetProperties()
         {
-            Dictionary<string, string[]> fullDictionary;
 
-            if (m_Engine is PetrolEngine)
-            {
-                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_MotorcyclePropertiesDictionary, v_PetrolEngine);
-            }
-            else
-            {
-                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_MotorcyclePropertiesDictionary, !v_PetrolEngine);
-            }
-
-            return fullDictionary;
+            return DictionaryUtilities.createFullDictionary(r_VehiclePropertiesDictionary, sr_MotorcyclePropertiesDictionary, m_Engine.GetProperties());
         }
-
-        //public override void SetProperties(Dictionary<string, string> i_Properties)
-        //{
-        //    string userInputLicenseTypeString = i_Properties["License Type"];
-        //    string userInputEngineVolumeString = i_Properties["Engine Volume"];
-        //    int userInputLicenseTypeInt;
-        //    int userInputEngineVolumeInt;
-
-        //    base.SetProperties(i_Properties);
-        //    m_Engine.SetProperties(i_Properties);
-        //    m_RemainingEnergyPercentage = calculateEnergyPrecentage(i_Properties);
-
-        //    if (!isValidEnumInput(typeof(eLicenseType), userInputLicenseTypeString, out userInputLicenseTypeInt))
-        //    {
-        //        if (!int.TryParse(userInputLicenseTypeString, out _))
-        //        {
-        //            throw new FormatException();
-        //        }
-        //        else
-        //        {
-        //            throw new ArgumentException();
-        //        }
-        //    }
-        //    else if (!int.TryParse(userInputEngineVolumeString, out userInputEngineVolumeInt))
-        //    {
-        //        throw new FormatException("Engine Volume Problem");
-        //    }
-        //    else if (userInputEngineVolumeInt < 0)
-        //    {
-        //        throw new ArgumentException("Engine Volume Is Smaller Than 0");
-        //    }
-
-        //    m_LicenseType = (eLicenseType)userInputLicenseTypeInt;
-        //    m_EngineVolume = userInputEngineVolumeInt;
-        //}
 
         public override void SetProperties(Dictionary<string, string> i_Properties)
         {
@@ -109,6 +65,7 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
+
             if (m_Engine is PetrolEngine)
             {
                 stringBuilder.AppendLine(string.Format("Vehicle Type: Petrol Motorcycle"));

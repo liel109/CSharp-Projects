@@ -11,11 +11,11 @@ namespace Ex03.GarageLogic
         private static readonly Dictionary<string, string[]> sr_CarPropertiesDictionary = new Dictionary<string, string[]>()
         {
             { "Color", Enum.GetNames(typeof(eColor)) },
-            { "Doors Number", Enum.GetNames(typeof(eDoorsNumber)) }
+            { "Doors Number", new string[1] { "2-5" } }
         };
 
-        protected eDoorsNumber m_DoorsNumber;
-        protected eColor m_Color;
+        private eDoorsNumber m_DoorsNumber;
+        private eColor m_Color;
 
         public Car(string i_LicensePlate, Engine i_Engine, Tire[] i_Tires) : base(i_LicensePlate, i_Engine, i_Tires)
         {
@@ -35,18 +35,8 @@ namespace Ex03.GarageLogic
 
         public override Dictionary<string, string[]> GetProperties()
         {
-            Dictionary<string, string[]> fullDictionary;
 
-            if (m_Engine is PetrolEngine)
-            {
-                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_CarPropertiesDictionary, v_PetrolEngine);
-            }
-            else
-            {
-                fullDictionary = DictionaryUtilities.createFullDictionary(sr_VehiclePropertiesDictionary, sr_CarPropertiesDictionary, !v_PetrolEngine);
-            }
-
-            return fullDictionary;
+            return DictionaryUtilities.createFullDictionary(r_VehiclePropertiesDictionary, sr_CarPropertiesDictionary, m_Engine.GetProperties());
         }
 
         public override void SetProperties(Dictionary<string, string> i_Properties)
@@ -66,6 +56,7 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
+
             if (m_Engine is PetrolEngine)
             {
                 stringBuilder.AppendLine(string.Format("Vehicle Type: Petrol Car"));

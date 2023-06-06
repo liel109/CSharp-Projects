@@ -7,7 +7,7 @@ namespace Ex03.GarageLogic
 {
     public class Garage
     {
-        public readonly Dictionary<string, EntryForm> m_Jobs;
+        private readonly Dictionary<string, EntryForm> m_Jobs;
 
         public Garage()
         {
@@ -20,28 +20,6 @@ namespace Ex03.GarageLogic
             string licensePlate = i_Vehicle.LicensePlate;
             m_Jobs[licensePlate] = vehicleForm;
         }
-
-        //public List<string> GetJobs(string i_FilterByStatus)
-        //{
-        //    int status;
-        //    bool isFormatValid = int.TryParse(i_FilterByStatus, out status);
-        //    List<string> jobs = null;
-
-        //    if (!isFormatValid)
-        //    {
-        //        throw new FormatException("Incorrect Format");
-        //    }
-        //    else if (!Enum.IsDefined(typeof(eVehicleStatus), status))
-        //    {
-        //        throw new ArgumentException("Incorrect Argument");
-        //    }
-        //    else
-        //    {
-        //        jobs = GetJobs((eVehicleStatus)status);
-        //    }
-
-        //    return jobs;
-        //}
 
         public List<string> GetJobs(string i_FilterByStatus)
         {
@@ -95,6 +73,7 @@ namespace Ex03.GarageLogic
 
         public List<string> GetJobs()
         {
+
             return m_Jobs.Keys.ToList<string>();
         }
 
@@ -269,11 +248,13 @@ namespace Ex03.GarageLogic
 
         public EntryForm GetJob(string i_LicensePlate)
         {
+
             return m_Jobs[i_LicensePlate];
         }
 
         public bool Contains(string i_LiscensePlate)
         {
+
             return m_Jobs.ContainsKey(i_LiscensePlate);
         }
 
@@ -285,16 +266,19 @@ namespace Ex03.GarageLogic
         public void ChangeStatus(string i_LicensePlate, string i_NewStatus)
         {
             eVehicleStatus newStatus = Validator.ValidateEnum<eVehicleStatus>(i_NewStatus);
+
             m_Jobs[i_LicensePlate].VehicleStatus = newStatus;
         }
 
         public string[] GetStatusOptions()
         {
+
             return Enum.GetNames(typeof(eVehicleStatus));
         }
 
         public string[] GetFuelTypes()
         {
+
             return Enum.GetNames(typeof(PetrolEngine.eFuelType));
         }
 
