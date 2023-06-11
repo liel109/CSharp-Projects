@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{68562913-ECAF-4393-9E8F-0AA70C5AD609}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>EX03.ConsoleUi</RootNamespace>
-    <AssemblyName>EX03.ConsoleUi</AssemblyName>
+    <ProjectGuid>{0CC0E21F-7E5B-4473-AE19-0D31541805F3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Ex04.Menus.Interfaces</RootNamespace>
+    <AssemblyName>Ex04.Menus.Interfaces</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,21 +32,19 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleRenderer.cs" />
-    <Compile Include="eMainMenuAction.cs" />
-    <Compile Include="GarageManagmentApp.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Validator.cs" />
+    <Compile Include="ISelectedListener.cs" />
+    <Compile Include="MainMenu.cs" />
+    <Compile Include="MenuItem.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ex03.GarageLogic\Ex03.GarageLogic.csproj">
-      <Project>{a05e5d43-8bff-4ea8-81c1-be56f2fc778a}</Project>
-      <Name>Ex03.GarageLogic</Name>
-    </ProjectReference>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

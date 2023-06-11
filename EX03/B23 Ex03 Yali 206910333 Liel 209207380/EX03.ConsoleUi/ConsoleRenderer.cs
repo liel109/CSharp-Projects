@@ -44,10 +44,11 @@ Press Enter To Return To Main Menu...", i_MessageForUser));
 
         public static void PrintJobFullInfo(EntryForm i_Form)
         {
+            Console.Clear();
             Console.WriteLine(string.Format(@"Job Information:
 =====================================
-Owner Name: {0}
-Owner Phone: {1}
+Owner's Name: {0}
+Owner's Phone Number: {1}
 Vehicle Info:
 {2}", i_Form.OwnerName, i_Form.OwnerPhoneNumber, parseVehicleInforamtion(i_Form.Vehicle.ToString())));
         }

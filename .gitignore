@@ -1,11 +1,5 @@
-*.json#
-*.zip#
-*.docx#
-*.exe#
-*.pdf#
-*.txt#
-*.cache#
-*/bin/*
-*/obj/*
+*.zip
+*bin
+*obj
 */* - report/*
 
