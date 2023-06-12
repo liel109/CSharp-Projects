@@ -44,6 +44,7 @@ namespace Ex04.Menus.Events
             {
                 m_SubMenuItems = new List<MenuItem>();
             }
+
             m_SubMenuItems.Add(i_MenuItemToAdd);
         }
 
@@ -99,10 +100,7 @@ namespace Ex04.Menus.Events
 
         protected virtual void OnSelected()
         {
-            if(Selected != null)
-            {
-                Selected.Invoke(this);
-            }
+            Selected?.Invoke(this);
         }
     }
 }
