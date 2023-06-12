@@ -9,7 +9,9 @@ namespace Ex04.Menus.Test
         public static void Main(string[] args)
         {
             MainMenu main = new MainMenu();
-            main.TestMainMenu();
+            Console.WriteLine(string.Format("Today Is {0}", DateTime.Now.ToString("dddd, dd/MM/yy")));
+
+            //main.TestMainMenu();
             Console.ReadLine();
         }
     }
