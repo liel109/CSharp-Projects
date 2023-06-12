@@ -1,10 +1,25 @@
-﻿using System;
+﻿using Ex04.Menus.Interfaces;
+using System;
 
 namespace Ex04.Menus.Test
 {
-    class MenuTest
+    class MenuTest : ISelectedListener
     {
         public void RunTest()
+        {
+            MainMenu interfaceMenu = new MainMenu();
+            Ex04.Menus.Events.MainMenu eventsMenu = new Ex04.Menus.Events.MainMenu();
+
+            interfaceMenu.ShowMenu();
+            eventsMenu.ShowMenu();
+        }
+
+        private void createInterfaceMenu()
+        {
+            
+        }
+
+        private void createDelegateMenu()
         {
         }
 
@@ -45,6 +60,11 @@ namespace Ex04.Menus.Test
             }
 
             return capitalsCounter;
+        }
+
+        public void NotifySelected(MenuItem i_SelectedMenuItem)
+        {
+            throw new NotImplementedException();
         }
     }
 }
