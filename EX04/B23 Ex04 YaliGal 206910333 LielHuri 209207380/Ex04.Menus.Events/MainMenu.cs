@@ -45,6 +45,10 @@ namespace Ex04.Menus.Events
                     {
                         r_MenuNavigationStack.Push(selectedItem);
                     }
+                    else
+                    {
+                        Console.ReadLine();
+                    }
                 }
             }
         }

@@ -54,6 +54,7 @@ namespace Ex04.Menus.Interfaces
             {
                 m_SubMenuItems = new List<MenuItem>();
             }
+
             m_SubMenuItems.Add(i_MenuItemToAdd);
         }
 
