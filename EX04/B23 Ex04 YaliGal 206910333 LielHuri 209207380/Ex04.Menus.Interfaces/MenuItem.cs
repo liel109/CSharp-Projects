@@ -65,15 +65,21 @@ namespace Ex04.Menus.Interfaces
             AddSubMenuItem(itemToAdd);
         }
 
-        public void RemoveSubMenuItem(MenuItem i_MenuItemToAdd)
+        public bool RemoveSubMenuItem(MenuItem i_MenuItemToAdd)
         {
-            m_SubMenuItems.Remove(i_MenuItemToAdd);
+            return m_SubMenuItems.Remove(i_MenuItemToAdd);
         }
 
-        public void RemoveSubMenuItem(string i_NewSubMenuItemTitle)
+        public bool RemoveSubMenuItem(string i_NewSubMenuItemTitle)
         {
             MenuItem itemToAdd = new MenuItem(i_NewSubMenuItemTitle);
-            RemoveSubMenuItem(itemToAdd);
+
+            return RemoveSubMenuItem(itemToAdd);
+        }
+
+        public MenuItem[] GetSubMenuItems()
+        {
+            return m_SubMenuItems.ToArray();
         }
 
         public MenuItem GetMenuItemByTitle(string i_RequestedMenuItemTitle)
@@ -99,10 +105,10 @@ namespace Ex04.Menus.Interfaces
 
         internal void SelectedByUser()
         {
-            OnSelected();
+            onSelected();
         }
 
-        private void OnSelected()
+        private void onSelected()
         {
             foreach (ISelectedListener listener in r_SelectedListeners)
             {

@@ -47,6 +47,8 @@ namespace Ex04.Menus.Interfaces
                     }
                 }
             }
+
+            Console.WriteLine("Goodbye...");
         }
 
         private int getUserSelection()
@@ -84,8 +86,8 @@ namespace Ex04.Menus.Interfaces
 
         private void printSelectionOptions(MenuItem i_MenuItem, int i_MenuItemNavigationDepth)
         {
-            bool isRootMenu = i_MenuItemNavigationDepth == 1;
             string backOptionText;
+            bool isRootMenu = i_MenuItemNavigationDepth == 1;
             StringBuilder optionsMenuBuilder = new StringBuilder();
 
             optionsMenuBuilder.AppendLine(string.Format(@"{0}. {1}:

@@ -2,7 +2,7 @@
 {
     public class MenuTest
     {
-        public void RunTest()
+        public static void RunTest()
         {
             Events.MainMenu eventsMenu = createDelegateMenu();
             Interfaces.MainMenu interfaceMenu = createInterfaceMenu();
