@@ -1,10 +1,6 @@
-﻿using Ex04.Menus;
-using Ex04.Menus.Interfaces;
-using System;
-
-namespace Ex04.Menus.Test
+﻿namespace Ex04.Menus.Test
 {
-    class MenuTest : Interfaces.ISelectedListener
+    public class MenuTest
     {
         public void RunTest()
         {
@@ -15,7 +11,7 @@ namespace Ex04.Menus.Test
             interfaceMenu.ShowMenu();
         }
 
-        private Interfaces.MainMenu createInterfaceMenu()
+        private static Interfaces.MainMenu createInterfaceMenu()
         {
             Interfaces.MainMenu interfaceMainMenu = new Interfaces.MainMenu();
             Interfaces.MenuItem dateAndTimeMenuItem = new Interfaces.MenuItem("Show Date/Time");
@@ -31,18 +27,17 @@ namespace Ex04.Menus.Test
             dateAndTimeMenuItem.AddSubMenuItem(timeMenuItem);
             versionAndCapitalsMenuItem.AddSubMenuItem(versionMenuItem);
             versionAndCapitalsMenuItem.AddSubMenuItem(countCapitalsMenuItem);
-            dateMenuItem.AddSelectedListener(this as ISelectedListener);
-            timeMenuItem.AddSelectedListener(this as ISelectedListener);
-            versionMenuItem.AddSelectedListener(this as ISelectedListener);
-            countCapitalsMenuItem.AddSelectedListener(this as ISelectedListener);
+            dateMenuItem.AddSelectedListener(new ShowDateItemListener());
+            timeMenuItem.AddSelectedListener(new ShowTimeItemListener());
+            versionMenuItem.AddSelectedListener(new VersionInfoItemListener());
+            countCapitalsMenuItem.AddSelectedListener(new CountCapitalsItemListener());
 
             return interfaceMainMenu;
         }
 
-        private Events.MainMenu createDelegateMenu()
+        private static Events.MainMenu createDelegateMenu()
         {
             Events.MainMenu eventsMainMenu = new Events.MainMenu();
-
             Events.MenuItem dateAndTimeMenuItem = new Events.MenuItem("Show Date/Time");
             Events.MenuItem versionAndCapitalsMenuItem = new Events.MenuItem("Version and Capitals");
             Events.MenuItem dateMenuItem = new Events.MenuItem("Show Date");
@@ -56,114 +51,32 @@ namespace Ex04.Menus.Test
             dateAndTimeMenuItem.AddSubMenuItem(timeMenuItem);
             versionAndCapitalsMenuItem.AddSubMenuItem(versionMenuItem);
             versionAndCapitalsMenuItem.AddSubMenuItem(countCapitalsMenuItem);
-            dateMenuItem.Selected += this.printDate;
-            timeMenuItem.Selected += this.printTime;
-            versionMenuItem.Selected += this.printVersionInfo;
-            countCapitalsMenuItem.Selected += this.countCapitals;
+            dateMenuItem.Selected += printDate;
+            timeMenuItem.Selected += printTime;
+            versionMenuItem.Selected += printVersionInfo;
+            countCapitalsMenuItem.Selected += countCapitals;
 
             return eventsMainMenu;
         }
 
-        private void printDate()
+        private static void printDate(Events.MenuItem i_Invoker)
         {
-            Console.WriteLine(string.Format("Today Is: {0}", DateTime.Now.ToString("ddd dd/MM/yy")));
+            TestOperations.PrintCurrentDate();
         }
 
-        private void printDate(Interfaces.MenuItem i_Invoker)
+        private static void printTime(Events.MenuItem i_Invoker)
         {
-            printDate();
+            TestOperations.PrintCurrentTime();
         }
 
-        private void printDate(Events.MenuItem i_Invoker)
+        private static void printVersionInfo(Events.MenuItem i_Invoker)
         {
-            printDate();
+            TestOperations.PrintVersionInfo();
         }
 
-        private void printTime()
+        private static void countCapitals(Events.MenuItem i_Invoker)
         {
-            Console.WriteLine(string.Format("The Time Is: {0}", DateTime.Now.ToString("HH:mm:ss")));
+            TestOperations.CountCapitals();
         }
-
-        private void printTime(Interfaces.MenuItem i_Invoker)
-        {
-            printTime();
-        }
-
-        private void printTime(Events.MenuItem i_Invoker)
-        {
-            printTime();
-        }
-
-        private void printVersionInfo()
-        {
-            Console.WriteLine("App Version: 23.2.4.9805");
-        }
-
-        private void printVersionInfo(Interfaces.MenuItem i_Invoker)
-        {
-            printVersionInfo();
-        }
-
-        private void printVersionInfo(Events.MenuItem i_Invoker)
-        {
-            printVersionInfo();
-        }
-
-        private void countCapitals() 
-        {
-            string userInput;
-
-            Console.Write("Please Enter A String: ");
-            userInput = Console.ReadLine();
-            Console.WriteLine(string.Format("Your String Has {0} Capital Letters", countCapitalsInString(userInput)));
-        }
-
-        private void countCapitals(Interfaces.MenuItem i_Invoker)
-        {
-            countCapitals();
-        }
-
-        private void countCapitals(Events.MenuItem i_Invoker)
-        {
-            countCapitals();
-        }
-
-        private int countCapitalsInString(string i_StringToCount)
-        {
-            int capitalsCounter = 0;
-
-            foreach(char character in i_StringToCount)
-            {
-                if (char.IsUpper(character))
-                {
-                    capitalsCounter++;
-                }
-            }
-
-            return capitalsCounter;
-        }
-
-        public void NotifySelected(MenuItem i_SelectedMenuItem)
-        {
-            switch (i_SelectedMenuItem.Title)
-            {
-                case "Show Date":
-                    printDate();
-                    break;
-
-                case "Show Time":
-                    printTime();
-                    break;
-
-                case "Show Version":
-                    printVersionInfo();
-                    break;
-
-                case "Count Capitals":
-                    countCapitals();
-                    break;
-            }
-        }
-
     }
 }

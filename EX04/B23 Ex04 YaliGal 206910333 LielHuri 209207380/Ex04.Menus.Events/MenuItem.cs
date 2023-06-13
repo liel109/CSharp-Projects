@@ -7,11 +7,13 @@ namespace Ex04.Menus.Events
     {
         private string m_Title;
         private List<MenuItem> m_SubMenuItems;
+
         public event Action<MenuItem> Selected;
 
         public string Title
         {
             get { return m_Title; }
+            set { m_Title = value; }
         }
 
         public int SubMenuItemsCount
@@ -76,7 +78,7 @@ namespace Ex04.Menus.Events
         {
             MenuItem itemToReturn = null;
 
-            foreach(MenuItem menuItem in m_SubMenuItems)
+            foreach (MenuItem menuItem in m_SubMenuItems)
             {
                 if (menuItem.Title == i_RequestedMenuItemTitle)
                 {

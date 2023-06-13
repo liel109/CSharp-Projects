@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using Ex04.Menus.Events;
 
 namespace Ex04.Menus.Test
 {
-    class Program
+    public class Program
     {
         public static void Main(string[] args)
         {

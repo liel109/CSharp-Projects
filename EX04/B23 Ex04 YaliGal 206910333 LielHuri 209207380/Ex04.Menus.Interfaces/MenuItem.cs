@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Ex04.Menus.Interfaces
 {
     public class MenuItem
     {
+        private readonly List<ISelectedListener> r_SelectedListeners = new List<ISelectedListener>();
         private string m_Title;
         private List<MenuItem> m_SubMenuItems;
-        private readonly List<ISelectedListener> r_SelectedListeners = new List<ISelectedListener>();
 
         public string Title
         {
             get { return m_Title; }
+            set { m_Title = value; }
         }
 
         public int SubMenuItemsCount
@@ -35,7 +35,7 @@ namespace Ex04.Menus.Interfaces
 
         public MenuItem(string i_Title)
         {
-            m_Title= i_Title;
+            m_Title = i_Title;
         }
 
         public void AddSelectedListener(ISelectedListener i_ListenerToAdd)
@@ -104,10 +104,10 @@ namespace Ex04.Menus.Interfaces
 
         private void OnSelected()
         {
-            foreach(ISelectedListener listener in r_SelectedListeners)
+            foreach (ISelectedListener listener in r_SelectedListeners)
             {
                 listener.NotifySelected(this);
-            } 
+            }
         }
     }
 }
