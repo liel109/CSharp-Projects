@@ -47,8 +47,6 @@ namespace Ex04.Menus.Interfaces
                     }
                 }
             }
-
-            Console.WriteLine("Goodbye...");
         }
 
         private int getUserSelection()

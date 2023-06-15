@@ -147,11 +147,14 @@
       </violation>
     </violations>
   </sourcecode>
+  <project key="-1900876872">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
   <sourcecode name="MenuTest.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2023/04/04 17:43:27.085</styleCop>
       <settingsFile>2023/04/04 17:43:27.070</settingsFile>
-      <sourceFile>2023/06/13 14:55:24.189</sourceFile>
+      <sourceFile>2023/06/13 16:53:26.229</sourceFile>
       <parser>2023/04/04 17:43:27.085</parser>
       <StyleCop.CSharp.DocumentationRules>2023/04/04 17:43:27.085</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1933295197</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -270,7 +273,7 @@
     <timestamps>
       <styleCop>2023/04/04 17:43:27.085</styleCop>
       <settingsFile>2023/04/04 17:43:27.070</settingsFile>
-      <sourceFile>2023/06/13 14:55:35.358</sourceFile>
+      <sourceFile>2023/06/13 16:55:18.194</sourceFile>
       <parser>2023/04/04 17:43:27.085</parser>
       <StyleCop.CSharp.DocumentationRules>2023/04/04 17:43:27.085</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1933295197</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -293,19 +296,14 @@
         <line>1</line>
         <warning>False</warning>
       </violation>
-      <violation namespace="StyleCop.CSharp.OrderingRules" rule="UsingDirectivesMustBePlacedWithinNamespace" ruleCheckId="SA1200">
-        <context>All using directives must be placed inside of the namespace.</context>
-        <line>1</line>
-        <warning>False</warning>
-      </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The class must have a documentation header.</context>
-        <line>5</line>
+        <line>3</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The method must have a documentation header.</context>
-        <line>7</line>
+        <line>5</line>
         <warning>False</warning>
       </violation>
     </violations>
@@ -314,7 +312,7 @@
     <timestamps>
       <styleCop>2023/04/04 17:43:27.085</styleCop>
       <settingsFile>2023/04/04 17:43:27.070</settingsFile>
-      <sourceFile>2023/06/13 14:53:01.111</sourceFile>
+      <sourceFile>2023/06/13 16:57:07.962</sourceFile>
       <parser>2023/04/04 17:43:27.085</parser>
       <StyleCop.CSharp.DocumentationRules>2023/04/04 17:43:27.085</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1933295197</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -403,7 +401,7 @@
     <timestamps>
       <styleCop>2023/04/04 17:43:27.085</styleCop>
       <settingsFile>2023/04/04 17:43:27.070</settingsFile>
-      <sourceFile>2023/06/13 14:55:47.330</sourceFile>
+      <sourceFile>2023/06/13 16:57:12.942</sourceFile>
       <parser>2023/04/04 17:43:27.085</parser>
       <StyleCop.CSharp.DocumentationRules>2023/04/04 17:43:27.085</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1933295197</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -448,7 +446,4 @@
       </violation>
     </violations>
   </sourcecode>
-  <project key="-1900876872">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
 </stylecopresultscache>

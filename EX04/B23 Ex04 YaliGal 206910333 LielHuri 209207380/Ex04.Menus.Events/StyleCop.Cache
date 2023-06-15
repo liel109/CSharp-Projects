@@ -1,10 +1,13 @@
 <stylecopresultscache>
   <version>12</version>
+  <project key="-943230382">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
   <sourcecode name="MainMenu.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2023/04/04 17:43:27.085</styleCop>
       <settingsFile>2023/04/04 17:43:27.070</settingsFile>
-      <sourceFile>2023/06/13 14:45:15.067</sourceFile>
+      <sourceFile>2023/06/15 20:14:17.832</sourceFile>
       <parser>2023/04/04 17:43:27.085</parser>
       <StyleCop.CSharp.DocumentationRules>2023/04/04 17:43:27.085</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1933295197</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -347,7 +350,7 @@
     <timestamps>
       <styleCop>2023/04/04 17:43:27.085</styleCop>
       <settingsFile>2023/04/04 17:43:27.070</settingsFile>
-      <sourceFile>2023/06/13 14:56:15.161</sourceFile>
+      <sourceFile>2023/06/13 16:41:27.739</sourceFile>
       <parser>2023/04/04 17:43:27.085</parser>
       <StyleCop.CSharp.DocumentationRules>2023/04/04 17:43:27.085</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1933295197</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -422,7 +425,7 @@
       </violation>
       <violation namespace="StyleCop.CSharp.OrderingRules" rule="ElementsMustAppearInTheCorrectOrder" ruleCheckId="SA1201">
         <context>All events must be placed after all constructors.</context>
-        <line>37</line>
+        <line>38</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
@@ -441,253 +444,261 @@
         <endColumn>32</endColumn>
         <warning>False</warning>
       </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
+        <context>The call to m_Title must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
+        <line>16</line>
+        <index>347</index>
+        <endIndex>353</endIndex>
+        <startLine>16</startLine>
+        <startColumn>19</startColumn>
+        <endLine>16</endLine>
+        <endColumn>25</endColumn>
+        <warning>False</warning>
+      </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The property must have a documentation header.</context>
-        <line>18</line>
+        <line>19</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to m_SubMenuItems must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>24</line>
-        <index>481</index>
-        <endIndex>494</endIndex>
-        <startLine>24</startLine>
+        <line>25</line>
+        <index>519</index>
+        <endIndex>532</endIndex>
+        <startLine>25</startLine>
         <startColumn>21</startColumn>
-        <endLine>24</endLine>
+        <endLine>25</endLine>
         <endColumn>34</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to m_SubMenuItems must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>30</line>
-        <index>661</index>
-        <endIndex>674</endIndex>
-        <startLine>30</startLine>
+        <line>31</line>
+        <index>699</index>
+        <endIndex>712</endIndex>
+        <startLine>31</startLine>
         <startColumn>37</startColumn>
-        <endLine>30</endLine>
+        <endLine>31</endLine>
         <endColumn>50</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The constructor must have a documentation header.</context>
-        <line>37</line>
+        <line>38</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.NamingRules" rule="FieldNamesMustNotUseHungarianNotation" ruleCheckId="SA1305">
         <context>The variable name 'i_Title' begins with a prefix that looks like Hungarian notation. Remove the prefix or add it to the list of allowed prefixes.</context>
-        <line>37</line>
+        <line>38</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to m_Title must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>39</line>
-        <index>836</index>
-        <endIndex>842</endIndex>
-        <startLine>39</startLine>
+        <line>40</line>
+        <index>874</index>
+        <endIndex>880</endIndex>
+        <startLine>40</startLine>
         <startColumn>13</startColumn>
-        <endLine>39</endLine>
+        <endLine>40</endLine>
         <endColumn>19</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The method must have a documentation header.</context>
-        <line>42</line>
+        <line>43</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.NamingRules" rule="FieldNamesMustNotUseHungarianNotation" ruleCheckId="SA1305">
         <context>The variable name 'i_MenuItemToAdd' begins with a prefix that looks like Hungarian notation. Remove the prefix or add it to the list of allowed prefixes.</context>
-        <line>42</line>
+        <line>43</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to m_SubMenuItems must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>46</line>
-        <index>1014</index>
-        <endIndex>1027</endIndex>
-        <startLine>46</startLine>
+        <line>47</line>
+        <index>1052</index>
+        <endIndex>1065</endIndex>
+        <startLine>47</startLine>
         <startColumn>17</startColumn>
-        <endLine>46</endLine>
+        <endLine>47</endLine>
         <endColumn>30</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to m_SubMenuItems must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>44</line>
-        <index>958</index>
-        <endIndex>971</endIndex>
-        <startLine>44</startLine>
+        <line>45</line>
+        <index>996</index>
+        <endIndex>1009</endIndex>
+        <startLine>45</startLine>
         <startColumn>17</startColumn>
-        <endLine>44</endLine>
+        <endLine>45</endLine>
         <endColumn>30</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to m_SubMenuItems must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>49</line>
-        <index>1083</index>
-        <endIndex>1096</endIndex>
-        <startLine>49</startLine>
+        <line>50</line>
+        <index>1121</index>
+        <endIndex>1134</endIndex>
+        <startLine>50</startLine>
         <startColumn>13</startColumn>
-        <endLine>49</endLine>
+        <endLine>50</endLine>
         <endColumn>26</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The method must have a documentation header.</context>
-        <line>52</line>
+        <line>53</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.NamingRules" rule="FieldNamesMustNotUseHungarianNotation" ruleCheckId="SA1305">
         <context>The variable name 'i_NewSubMenuItemTitle' begins with a prefix that looks like Hungarian notation. Remove the prefix or add it to the list of allowed prefixes.</context>
-        <line>52</line>
+        <line>53</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to AddSubMenuItem must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>56</line>
-        <index>1296</index>
-        <endIndex>1309</endIndex>
-        <startLine>56</startLine>
+        <line>57</line>
+        <index>1334</index>
+        <endIndex>1347</endIndex>
+        <startLine>57</startLine>
         <startColumn>13</startColumn>
-        <endLine>56</endLine>
+        <endLine>57</endLine>
         <endColumn>26</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The method must have a documentation header.</context>
-        <line>59</line>
+        <line>60</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.NamingRules" rule="FieldNamesMustNotUseHungarianNotation" ruleCheckId="SA1305">
         <context>The variable name 'i_MenuItemToAdd' begins with a prefix that looks like Hungarian notation. Remove the prefix or add it to the list of allowed prefixes.</context>
-        <line>59</line>
+        <line>60</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to m_SubMenuItems must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>61</line>
-        <index>1425</index>
-        <endIndex>1438</endIndex>
-        <startLine>61</startLine>
+        <line>62</line>
+        <index>1463</index>
+        <endIndex>1476</endIndex>
+        <startLine>62</startLine>
         <startColumn>13</startColumn>
-        <endLine>61</endLine>
+        <endLine>62</endLine>
         <endColumn>26</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The method must have a documentation header.</context>
-        <line>64</line>
+        <line>65</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.NamingRules" rule="FieldNamesMustNotUseHungarianNotation" ruleCheckId="SA1305">
         <context>The variable name 'i_NewSubMenuItemTitle' begins with a prefix that looks like Hungarian notation. Remove the prefix or add it to the list of allowed prefixes.</context>
-        <line>64</line>
+        <line>65</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to RemoveSubMenuItem must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>68</line>
-        <index>1644</index>
-        <endIndex>1660</endIndex>
-        <startLine>68</startLine>
+        <line>69</line>
+        <index>1682</index>
+        <endIndex>1698</endIndex>
+        <startLine>69</startLine>
         <startColumn>13</startColumn>
-        <endLine>68</endLine>
+        <endLine>69</endLine>
         <endColumn>29</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The method must have a documentation header.</context>
-        <line>71</line>
+        <line>72</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to m_SubMenuItems must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>73</line>
-        <index>1763</index>
-        <endIndex>1776</endIndex>
-        <startLine>73</startLine>
+        <line>74</line>
+        <index>1801</index>
+        <endIndex>1814</endIndex>
+        <startLine>74</startLine>
         <startColumn>20</startColumn>
-        <endLine>73</endLine>
+        <endLine>74</endLine>
         <endColumn>33</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The method must have a documentation header.</context>
-        <line>76</line>
+        <line>77</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.NamingRules" rule="FieldNamesMustNotUseHungarianNotation" ruleCheckId="SA1305">
         <context>The variable name 'i_RequestedMenuItemTitle' begins with a prefix that looks like Hungarian notation. Remove the prefix or add it to the list of allowed prefixes.</context>
-        <line>76</line>
+        <line>77</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to m_SubMenuItems must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>80</line>
-        <index>1978</index>
-        <endIndex>1991</endIndex>
-        <startLine>80</startLine>
+        <line>81</line>
+        <index>2016</index>
+        <endIndex>2029</endIndex>
+        <startLine>81</startLine>
         <startColumn>43</startColumn>
-        <endLine>80</endLine>
+        <endLine>81</endLine>
         <endColumn>56</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The method must have a documentation header.</context>
-        <line>92</line>
+        <line>93</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.NamingRules" rule="FieldNamesMustNotUseHungarianNotation" ruleCheckId="SA1305">
         <context>The variable name 'i_IndexOfSubMenuItem' begins with a prefix that looks like Hungarian notation. Remove the prefix or add it to the list of allowed prefixes.</context>
-        <line>92</line>
+        <line>93</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to m_SubMenuItems must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>94</line>
-        <index>2354</index>
-        <endIndex>2367</endIndex>
-        <startLine>94</startLine>
+        <line>95</line>
+        <index>2392</index>
+        <endIndex>2405</endIndex>
+        <startLine>95</startLine>
         <startColumn>20</startColumn>
-        <endLine>94</endLine>
+        <endLine>95</endLine>
         <endColumn>33</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The method must have a documentation header.</context>
-        <line>97</line>
+        <line>98</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to OnSelected must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>99</line>
-        <index>2469</index>
-        <endIndex>2478</endIndex>
-        <startLine>99</startLine>
+        <line>100</line>
+        <index>2507</index>
+        <endIndex>2516</endIndex>
+        <startLine>100</startLine>
         <startColumn>13</startColumn>
-        <endLine>99</endLine>
+        <endLine>100</endLine>
         <endColumn>22</endColumn>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
         <context>The method must have a documentation header.</context>
-        <line>102</line>
+        <line>103</line>
         <warning>False</warning>
       </violation>
       <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
         <context>The call to Selected must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
-        <line>104</line>
-        <index>2565</index>
-        <endIndex>2572</endIndex>
-        <startLine>104</startLine>
+        <line>105</line>
+        <index>2603</index>
+        <endIndex>2610</endIndex>
+        <startLine>105</startLine>
         <startColumn>13</startColumn>
-        <endLine>104</endLine>
+        <endLine>105</endLine>
         <endColumn>20</endColumn>
         <warning>False</warning>
       </violation>
     </violations>
   </sourcecode>
-  <project key="-943230382">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
 </stylecopresultscache>

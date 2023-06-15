@@ -47,8 +47,6 @@ namespace Ex04.Menus.Events
                     }
                 }
             }
-
-            Console.WriteLine("Goodbye...");
         }
 
         private int getUserSelection()
