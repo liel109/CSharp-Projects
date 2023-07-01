@@ -8,10 +8,10 @@ namespace ReversedTicTacToe
         public static void RunGame()
         {
             SettingsForm gameSettingsForm = new SettingsForm();
-            MainGameForm mainGameForm = new MainGameForm();
+            MainGameForm mainGameForm;
 
             gameSettingsForm.ShowDialog();
-            setGameFormAttributes(mainGameForm, gameSettingsForm.Settings);
+            mainGameForm = new MainGameForm(gameSettingsForm.GameSettings);
             mainGameForm.ShowDialog();
         }
 

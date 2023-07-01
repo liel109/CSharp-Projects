@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.4.33205.214
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33529.622
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversedTicTacToe", "ReversedTicTacToe\ReversedTicTacToe.csproj", "{22C683F9-5907-4843-8953-4AF1E4D9CDE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex02", "..\..\EX02\B23 Ex02 YaliGal 206910333 LielHuri 209207380\Ex02\Ex02.csproj", "{747BB328-AFFC-4966-AF9B-AA3926E29376}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversedTicTacToeLogic", "ReversedTicTacToeLogic\ReversedTicTacToeLogic.csproj", "{E1A86999-FA1B-4C8B-B8DF-1D655FC9A59B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{22C683F9-5907-4843-8953-4AF1E4D9CDE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22C683F9-5907-4843-8953-4AF1E4D9CDE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22C683F9-5907-4843-8953-4AF1E4D9CDE9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{747BB328-AFFC-4966-AF9B-AA3926E29376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{747BB328-AFFC-4966-AF9B-AA3926E29376}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{747BB328-AFFC-4966-AF9B-AA3926E29376}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{747BB328-AFFC-4966-AF9B-AA3926E29376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1A86999-FA1B-4C8B-B8DF-1D655FC9A59B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1A86999-FA1B-4C8B-B8DF-1D655FC9A59B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1A86999-FA1B-4C8B-B8DF-1D655FC9A59B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1A86999-FA1B-4C8B-B8DF-1D655FC9A59B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

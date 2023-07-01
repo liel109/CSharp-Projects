@@ -11,11 +11,7 @@ namespace ReversedTicTacToe
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            SettingsForm form = new SettingsForm();
-            form.ShowDialog();
-            form.GameSettings.printSettings();
-
-            Console.ReadLine();
+            GameRunner.RunGame();
 
             //Application.Run(new GameSettings());
         }

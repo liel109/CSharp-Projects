@@ -7,9 +7,9 @@ namespace ReversedTicTacToe
     {
         public string[] PlayersNames { get; }
 
-        private ePlayerType[] PlayerTypes { get; }
+        public ePlayerType[] PlayerTypes { get; }
 
-        private int BoardSize { get; }
+        public int BoardSize { get; }
 
         public GameSettings(string[] i_PlayersNames, ePlayerType[] i_PlayerTypes, int i_BoardSize)
         {
