@@ -69,6 +69,7 @@ namespace ReversedTicTacToe
             this.player1Name.Name = "player1Name";
             this.player1Name.Size = new System.Drawing.Size(100, 20);
             this.player1Name.TabIndex = 100;
+            this.player1Name.Enter += new System.EventHandler(this.playerName_Enter);
             // 
             // isComputer
             // 
@@ -99,6 +100,7 @@ namespace ReversedTicTacToe
             this.player2Name.TabIndex = 300;
             this.player2Name.TabStop = false;
             this.player2Name.Text = "[Computer]";
+            this.player2Name.Enter += new System.EventHandler(this.playerName_Enter);
             // 
             // label4
             // 
@@ -140,7 +142,7 @@ namespace ReversedTicTacToe
             0,
             0,
             0});
-            this.numberOfRows.ValueChanged += new System.EventHandler(this.numberOfRows_ValueChanged);
+            this.numberOfRows.ValueChanged += new System.EventHandler(this.columnsOrRows_ValueChanged);
             // 
             // numberOfColumns
             // 
@@ -164,7 +166,7 @@ namespace ReversedTicTacToe
             0,
             0,
             0});
-            this.numberOfColumns.ValueChanged += new System.EventHandler(this.numberOfColumns_ValueChanged);
+            this.numberOfColumns.ValueChanged += new System.EventHandler(this.columnsOrRows_ValueChanged);
             // 
             // label6
             // 
@@ -209,7 +211,6 @@ namespace ReversedTicTacToe
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game Settings";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numberOfRows)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfColumns)).EndInit();
             this.ResumeLayout(false);
