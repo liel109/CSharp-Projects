@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace ReversedTicTacToe
 {
@@ -7,8 +8,15 @@ namespace ReversedTicTacToe
         [STAThread]
         static void Main()
         {
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            SettingsForm form = new SettingsForm();
+            form.ShowDialog();
+            form.GameSettings.printSettings();
+
+            Console.ReadLine();
+
             //Application.Run(new GameSettings());
         }
     }

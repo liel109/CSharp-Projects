@@ -1,4 +1,5 @@
-﻿using Ex02;
+﻿using System;
+using Ex02;
 
 namespace ReversedTicTacToe
 {
@@ -15,6 +16,15 @@ namespace ReversedTicTacToe
             PlayersNames = i_PlayersNames;
             PlayerTypes = i_PlayerTypes;
             BoardSize = i_BoardSize;
+        }
+
+        public void printSettings()
+        {
+            Console.WriteLine(PlayersNames[0]);
+            Console.WriteLine(PlayersNames[1]);
+            Console.WriteLine(PlayerTypes[0]);
+            Console.WriteLine(PlayerTypes[1]);
+            Console.WriteLine(BoardSize);
         }
     }
 }
