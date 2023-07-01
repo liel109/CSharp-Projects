@@ -59,7 +59,7 @@
             return eventsMainMenu;
         }
 
-        private static void printDate(Events.MenuItem i_Invoker)
+        private static void MenuItem_printDate(Events.MenuItem i_Invoker)
         {
             TestOperations.PrintCurrentDate();
         }

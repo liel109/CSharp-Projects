@@ -147,7 +147,14 @@
                 m_NumberOfMovesCounter++;
             }
 
+            onBoardUpdated();
+
             return isCordinateLegal;
+        }
+
+        private void onBoardUpdated()
+        {
+
         }
 
         internal void UndoMove((int, int) i_Coordinate)
