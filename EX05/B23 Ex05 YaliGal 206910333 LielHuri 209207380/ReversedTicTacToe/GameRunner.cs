@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Ex02;
 
 namespace ReversedTicTacToe
 {
@@ -10,13 +11,13 @@ namespace ReversedTicTacToe
             SettingsForm gameSettingsForm = new SettingsForm();
             MainGameForm mainGameForm;
 
-            gameSettingsForm.ShowDialog();
-            mainGameForm = new MainGameForm(gameSettingsForm.GameSettings);
-            mainGameForm.ShowDialog();
-        }
+            if (gameSettingsForm.ShowDialog() == DialogResult.OK)
+            {
+                GameSettings settings = gameSettingsForm.GameSettings;
 
-        private static void setGameFormAttributes(MainGameForm i_MainForm, GameSettings i_Settings) 
-        {
+                mainGameForm = new MainGameForm(settings);
+                mainGameForm.ShowDialog();
+            }
         }
     }
 }

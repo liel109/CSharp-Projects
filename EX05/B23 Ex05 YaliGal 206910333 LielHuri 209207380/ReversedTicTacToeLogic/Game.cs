@@ -1,4 +1,6 @@
-﻿namespace Ex02
+﻿using System;
+
+namespace Ex02
 {
     public class Game
     {
@@ -11,6 +13,10 @@
         private int m_NumberOfMovesCounter;
         private int m_NumberOfEmptySpace;
         private (int, int) m_LastUpdatedCoordinate;
+
+        public event Action<ePlayerMark> GameFinished;
+
+        public event Action<(int, int)> BoardChanged;
 
         public static bool IsBoardSizeLegal(int i_BoardSize)
         {
@@ -55,6 +61,11 @@
             }
         }
 
+        public int MovesCounter
+        {
+            get { return m_NumberOfMovesCounter; }
+        }
+
         public Game Clone()
         {
             ePlayerType secondPlayerType = Players[1].Type;
@@ -64,28 +75,20 @@
             return gameClone;
         }
 
-        public bool DoNextGameMove((int, int) i_Coordinate, out bool o_IsGameFinished)
+        public void DoNextGameMove((int, int) i_Coordinate)
         {
-            (int, int) convertedCoordinate = convertCoordinate(i_Coordinate);
+            bool isGameFinished;
             Player currentPlayer = getCurrentPlayer();
-            bool isLegalCoordinate = UpdateBoard(convertedCoordinate, currentPlayer.Mark);
 
-            if (!isLegalCoordinate)
+            UpdateBoard(i_Coordinate, currentPlayer.Mark);
+            isGameFinished = IsGameFinished();
+            currentPlayer = getCurrentPlayer();
+            if (!isGameFinished && currentPlayer.Type == ePlayerType.CPU)
             {
-                o_IsGameFinished = false;
+                (int, int) computerCoordinate = AIPlayerLogic.GetBestMove(Clone());
+                UpdateBoard(computerCoordinate, currentPlayer.Mark);
+                IsGameFinished();
             }
-            else
-            {
-                o_IsGameFinished = IsGameFinished();
-                currentPlayer = getCurrentPlayer();
-                if (!o_IsGameFinished && currentPlayer.Type == ePlayerType.CPU)
-                {
-                    UpdateBoard(AIPlayerLogic.GetBestMove(Clone()), currentPlayer.Mark);
-                    o_IsGameFinished = IsGameFinished();
-                }
-            }
-
-            return isLegalCoordinate;
         }
 
         public Board GetBoardState()
@@ -145,16 +148,10 @@
                 m_LastUpdatedCoordinate = i_Coordinate;
                 m_NumberOfEmptySpace--;
                 m_NumberOfMovesCounter++;
+                OnBoardChanged(i_Coordinate);
             }
 
-            onBoardUpdated();
-
             return isCordinateLegal;
-        }
-
-        private void onBoardUpdated()
-        {
-
         }
 
         internal void UndoMove((int, int) i_Coordinate)
@@ -191,7 +188,7 @@
 
                 if (isOnSecondaryDiagonal(m_LastUpdatedCoordinate))
                 {
-                    isPlayerWon = isPlayerWon | isSecondaryDiagonalFull(previousPlayerMark);
+                    isPlayerWon |= isSecondaryDiagonalFull(previousPlayerMark);
                 }
 
                 isPlayerWon = isPlayerWon | isRowFull(rowIndex, previousPlayerMark) | isColumnFull(columnIndex, previousPlayerMark);
@@ -202,7 +199,19 @@
 
         internal bool IsGameFinished()
         {
-            return CheckIfBoardIsFull() | IsPlayerWon(getPreviousPlayer().Mark);
+            bool isFinished;
+
+            if (CheckIfBoardIsFull() | IsPlayerWon(getPreviousPlayer().Mark))
+            {
+                isFinished = true;
+                OnGameFinished();
+            }
+            else
+            {
+                isFinished = false;
+            }
+
+            return isFinished;
         }
 
         private bool isPrimaryDiagonalFull(ePlayerMark i_player)
@@ -288,7 +297,7 @@
             return (rowIndex + columnIndex) == (m_GameBoard.GetSize() - 1);
         }
 
-        private ref Player getCurrentPlayer()
+        public ref Player getCurrentPlayer()
         {
             return ref m_Players[m_NumberOfMovesCounter % 2];
         }
@@ -304,6 +313,16 @@
             int columnIndex = i_Coordinate.Item2 - 1;
 
             return (rowIndex, columnIndex);
+        }
+
+        protected virtual void OnGameFinished()
+        {
+            GameFinished?.Invoke(GetWinner());
+        }
+
+        protected virtual void OnBoardChanged((int, int) i_UpdatedCoordinate)
+        {
+            BoardChanged?.Invoke(i_UpdatedCoordinate);
         }
     }
 }

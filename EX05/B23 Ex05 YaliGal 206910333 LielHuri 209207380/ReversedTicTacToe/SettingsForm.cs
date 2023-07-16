@@ -42,19 +42,20 @@ namespace ReversedTicTacToe
                 int boardSize = (int)this.numberOfRows.Value;
                 m_Settings = new GameSettings(playersNames, playersType, boardSize);
                 m_startGame = true;
-                this.Close();
+                DialogResult = DialogResult.OK;
             }
         }
 
         private bool validateNamesLegal()
         {
             bool returnedValue = true;
-            if (String.IsNullOrWhiteSpace(this.player1Name.Text))
+            if (string.IsNullOrWhiteSpace(this.player1Name.Text))
             {
                 returnedValue = false;
                 this.player1Name.BackColor = Color.Yellow;
             }
-            if (String.IsNullOrWhiteSpace(this.player2Name.Text))
+
+            if (string.IsNullOrWhiteSpace(this.player2Name.Text))
             {
                 returnedValue = false;
                 this.player2Name.BackColor = Color.Yellow;
